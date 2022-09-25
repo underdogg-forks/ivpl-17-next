@@ -41,7 +41,7 @@ class Mdl_Quote_Tax_Rates extends Response_Model
 
         $this->load->model('quotes/mdl_quote_amounts');
 
-        $quote_id = $this->input->post('quote_id');
+        $quote_id = $this->input->post('quote_id', TRUE);
 
         if ($quote_id) {
             $this->mdl_quote_amounts->calculate($quote_id);

@@ -85,8 +85,8 @@ class Mdl_Payments extends Response_Model
     public function validate_payment_amount($amount)
     {
         $amount = (float)standardize_amount($amount);
-        $invoice_id = $this->input->post('invoice_id');
-        $payment_id = $this->input->post('payment_id');
+        $invoice_id = $this->input->post('invoice_id', TRUE);
+        $payment_id = $this->input->post('payment_id', TRUE);
 
         $invoice = $this->db->where('invoice_id', $invoice_id)->get('ip_invoice_amounts')->row();
 

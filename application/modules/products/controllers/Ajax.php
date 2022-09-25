@@ -19,9 +19,9 @@ class Ajax extends Admin_Controller
 
     public function modal_product_lookups()
     {
-        $filter_product = $this->input->get('filter_product');
-        $filter_family = $this->input->get('filter_family');
-        $reset_table = $this->input->get('reset_table');
+        $filter_product = $this->input->get('filter_product', TRUE);
+        $filter_family = $this->input->get('filter_family', TRUE);
+        $reset_table = $this->input->get('reset_table', TRUE);
 
         $this->load->model('mdl_products');
         $this->load->model('families/mdl_families');
@@ -59,7 +59,7 @@ class Ajax extends Admin_Controller
     {
         $this->load->model('mdl_products');
 
-        $products = $this->mdl_products->where_in('product_id', $this->input->post('product_ids'))->get()->result();
+        $products = $this->mdl_products->where_in('product_id', $this->input->post('product_ids', TRUE))->get()->result();
 
         foreach ($products as $product) {
             $product->product_price = format_amount($product->product_price);

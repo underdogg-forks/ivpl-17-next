@@ -130,7 +130,7 @@ class Mailer extends Admin_Controller
             return;
         }
 
-        $to = $this->input->post('to_email');
+        $to = $this->input->post('to_email', TRUE);
 
         if (empty($to)) {
             $this->session->set_flashdata('alert_danger', trans('email_to_address_missing'));
@@ -139,12 +139,12 @@ class Mailer extends Admin_Controller
 
         $this->load->model('upload/mdl_uploads');
         $from = array(
-            $this->input->post('from_email'),
-            $this->input->post('from_name')
+            $this->input->post('from_email', TRUE),
+            $this->input->post('from_name', TRUE)
         );
 
-        $pdf_template = $this->input->post('pdf_template');
-        $subject = $this->input->post('subject');
+        $pdf_template = $this->input->post('pdf_template', TRUE);
+        $subject = $this->input->post('subject', TRUE);
         $body = $this->input->post('body');
 
         if (strlen($body) != strlen(strip_tags($body))) {
@@ -153,8 +153,8 @@ class Mailer extends Admin_Controller
             $body = htmlspecialchars_decode(nl2br($body));
         }
 
-        $cc = $this->input->post('cc');
-        $bcc = $this->input->post('bcc');
+        $cc = $this->input->post('cc', TRUE);
+        $bcc = $this->input->post('bcc', TRUE);
         $attachment_files = $this->mdl_uploads->get_invoice_uploads($invoice_id);
 
         $this->mdl_invoices->generate_invoice_number_if_applicable($invoice_id);
@@ -190,12 +190,12 @@ class Mailer extends Admin_Controller
 
         $this->load->model('upload/mdl_uploads');
         $from = array(
-            $this->input->post('from_email'),
-            $this->input->post('from_name')
+            $this->input->post('from_email', TRUE),
+            $this->input->post('from_name', TRUE)
         );
 
-        $pdf_template = $this->input->post('pdf_template');
-        $subject = $this->input->post('subject');
+        $pdf_template = $this->input->post('pdf_template', TRUE);
+        $subject = $this->input->post('subject', TRUE);
 
         if (strlen($this->input->post('body')) != strlen(strip_tags($this->input->post('body')))) {
             $body = htmlspecialchars_decode($this->input->post('body'));
@@ -203,8 +203,8 @@ class Mailer extends Admin_Controller
             $body = htmlspecialchars_decode(nl2br($this->input->post('body')));
         }
 
-        $cc = $this->input->post('cc');
-        $bcc = $this->input->post('bcc');
+        $cc = $this->input->post('cc', TRUE);
+        $bcc = $this->input->post('bcc', TRUE);
         $attachment_files = $this->mdl_uploads->get_quote_uploads($quote_id);
 
         $this->mdl_quotes->generate_quote_number_if_applicable($quote_id);

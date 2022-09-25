@@ -21,7 +21,7 @@ class Ajax extends Admin_Controller
     {
         $this->load->model('invoices/mdl_invoices');
 
-        $query = $this->input->post('filter_query');
+        $query = $this->input->post('filter_query', TRUE);
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {
@@ -43,7 +43,7 @@ class Ajax extends Admin_Controller
     {
         $this->load->model('quotes/mdl_quotes');
 
-        $query = $this->input->post('filter_query');
+        $query = $this->input->post('filter_query', TRUE);
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {
@@ -65,7 +65,7 @@ class Ajax extends Admin_Controller
     {
         $this->load->model('clients/mdl_clients');
 
-        $query = $this->input->post('filter_query');
+        $query = $this->input->post('filter_query', TRUE);
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {
@@ -86,7 +86,7 @@ class Ajax extends Admin_Controller
     {
         $this->load->model('payments/mdl_payments');
 
-        $query = $this->input->post('filter_query');
+        $query = $this->input->post('filter_query', TRUE);
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {

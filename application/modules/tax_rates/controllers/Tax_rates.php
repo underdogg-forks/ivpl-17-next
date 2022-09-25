@@ -52,7 +52,7 @@ class Tax_Rates extends Admin_Controller
 
             // We need to use the correct decimal point for sql IPT-310
             $db_array = $this->mdl_tax_rates->db_array();
-            $db_array['tax_rate_percent'] = standardize_amount($this->input->post('tax_rate_percent'));
+            $db_array['tax_rate_percent'] = standardize_amount($this->input->post('tax_rate_percent', TRUE));
 
             $this->mdl_tax_rates->save($id, $db_array);
 

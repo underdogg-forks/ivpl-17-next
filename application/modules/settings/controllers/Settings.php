@@ -39,7 +39,7 @@ class Settings extends Admin_Controller
 
         // Save input if request is POSt
         if ($this->input->post('settings')) {
-            $settings = $this->input->post('settings');
+            $settings = $this->input->post('settings', TRUE);
 
             // Only execute if the setting is different
             if ($settings['tax_rate_decimal_places'] != get_setting('tax_rate_decimal_places')) {

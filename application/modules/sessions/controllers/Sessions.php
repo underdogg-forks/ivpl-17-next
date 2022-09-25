@@ -28,7 +28,7 @@ class Sessions extends Base_Controller
 
         if ($this->input->post('btn_login')) {
 
-            $this->db->where('user_email', $this->input->post('email'));
+            $this->db->where('user_email', $this->input->post('email', TRUE));
             $query = $this->db->get('ip_users');
             $user = $query->row();
 
@@ -44,7 +44,7 @@ class Sessions extends Base_Controller
                     redirect('sessions/login');
                 } else {
 
-                    if ($this->authenticate($this->input->post('email'), $this->input->post('password'))) {
+                    if ($this->authenticate($this->input->post('email', TRUE), $this->input->post('password', TRUE))) {
                         if ($this->session->userdata('user_type') == 1) {
                             redirect('dashboard');
                         } elseif ($this->session->userdata('user_type') == 2) {
@@ -143,8 +143,8 @@ class Sessions extends Base_Controller
 
         // Check if the form for a new password was used
         if ($this->input->post('btn_new_password')) {
-            $new_password = $this->input->post('new_password');
-            $user_id = $this->input->post('user_id');
+            $new_password = $this->input->post('new_password', TRUE);
+            $user_id = $this->input->post('user_id', TRUE);
 
             if (empty($user_id) || empty($new_password)) {
                 $this->session->set_flashdata('alert_error', trans('loginalert_no_password'));
@@ -161,7 +161,7 @@ class Sessions extends Base_Controller
                 redirect($_SERVER['HTTP_REFERER']);
             }
 
-            if (empty($user->user_passwordreset_token) || $this->input->post('token') !== $user->user_passwordreset_token) {
+            if (empty($user->user_passwordreset_token) || $this->input->post('token', TRUE) !== $user->user_passwordreset_token) {
                 $this->session->set_flashdata('alert_error', trans('loginalert_wrong_auth_code'));
                 redirect($_SERVER['HTTP_REFERER']);
             }
@@ -190,7 +190,7 @@ class Sessions extends Base_Controller
 
         // Check if the password reset form was used
         if ($this->input->post('btn_reset')) {
-            $email = $this->input->post('email');
+            $email = $this->input->post('email', TRUE);
 
             if (empty($email)) {
                 $this->session->set_flashdata('alert_error', trans('loginalert_user_not_found'));
@@ -212,7 +212,7 @@ class Sessions extends Base_Controller
             // Test if a user with this email exists
             if ($recovery_result = $this->db->where('user_email', $email)) {
                 // Create a passwordreset token. 
-                $email = $this->input->post('email');
+                $email = $this->input->post('email', TRUE);
                 //use salt to prevent predictability of the reset token (CVE-2021-29023)
                 $this->load->library('crypt'); 
                 $token = md5(time() . $email . $this->crypt->salt()); 

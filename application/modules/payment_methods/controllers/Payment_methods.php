@@ -47,8 +47,8 @@ class Payment_Methods extends Admin_Controller
             redirect('payment_methods');
         }
 
-        if ($this->input->post('is_update') == 0 && $this->input->post('payment_method_name') != '') {
-            $check = $this->db->get_where('ip_payment_methods', array('payment_method_name' => $this->input->post('payment_method_name')))->result();
+        if ($this->input->post('is_update') == 0 && $this->input->post('payment_method_name', TRUE) != '') {
+            $check = $this->db->get_where('ip_payment_methods', array('payment_method_name' => $this->input->post('payment_method_name', TRUE)))->result();
             if (!empty($check)) {
                 $this->session->set_flashdata('alert_error', trans('payment_method_already_exists'));
                 redirect('payment_methods/form');

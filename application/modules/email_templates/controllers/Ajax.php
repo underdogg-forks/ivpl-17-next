@@ -21,7 +21,7 @@ class Ajax extends Admin_Controller
     {
         $this->load->model('email_templates/mdl_email_templates');
 
-        $id = $this->input->post('email_template_id');
+        $id = $this->input->post('email_template_id', TRUE);
 
         echo json_encode($this->mdl_email_templates->get_by_id($id));
     }

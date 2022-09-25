@@ -66,11 +66,11 @@ class Import extends Admin_Controller
 
             $import_id = $this->mdl_import->start_import();
 
-            if ($this->input->post('files')) {
+            if ($this->input->post('files', TRUE)) {
                 $files = $this->allowed_files;
 
                 foreach ($files as $key => $file) {
-                    if (!is_numeric(array_search($file, $this->input->post('files')))) {
+                    if (!is_numeric(array_search($file, $this->input->post('files', TRUE)))) {
                         unset($files[$key]);
                     }
                 }

@@ -62,7 +62,7 @@ class Setup extends MX_Controller
     public function language()
     {
         if ($this->input->post('btn_continue')) {
-            $this->session->set_userdata('ip_lang', $this->input->post('ip_lang'));
+            $this->session->set_userdata('ip_lang', $this->input->post('ip_lang', TRUE));
             $this->session->set_userdata('install_step', 'prerequisites');
             redirect('setup/prerequisites');
         }
@@ -202,14 +202,14 @@ class Setup extends MX_Controller
             }
         }
 
-        if ($this->input->post('db_hostname')) {
+        if ($this->input->post('db_hostname', TRUE)) {
             // Write a new database configuration to the ipconfig.php file
             $this->write_database_config(
-                $this->input->post('db_hostname'),
-                $this->input->post('db_username'),
-                $this->input->post('db_password'),
-                $this->input->post('db_database'),
-                $this->input->post('db_port')
+                $this->input->post('db_hostname', TRUE),
+                $this->input->post('db_username', TRUE),
+                $this->input->post('db_password', TRUE),
+                $this->input->post('db_database', TRUE),
+                $this->input->post('db_port', TRUE)
             );
         }
 

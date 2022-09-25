@@ -34,7 +34,7 @@ class Payment_Handler extends Base_Controller
     public function make_payment()
     {
         // Attempt to get the invoice
-        $invoice = $this->mdl_invoices->where('invoice_url_key', $this->input->post('invoice_url_key'))->get();
+        $invoice = $this->mdl_invoices->where('invoice_url_key', $this->input->post('invoice_url_key', TRUE))->get();
 
         if ($invoice->num_rows() == 1) {
 
@@ -42,17 +42,15 @@ class Payment_Handler extends Base_Controller
             $invoice = $invoice->row();
 
             // Initialize the gateway
-            $driver = $this->input->post('gateway');
+            $driver = $this->input->post('gateway', TRUE);
             $d = strtolower($driver);
             $gateway = $this->initialize_gateway($driver);
 
             // Get the credit card data
-            $cc_number = $this->input->post('creditcard_number');
-            $cc_expire_month = $this->input->post('creditcard_expiry_month');
-            $cc_expire_year = $this->input->post('creditcard_expiry_year');
+            $cc_number = $this->input->post('creditcard_number', TRUE);
+            $cc_expire_month = $this->input->post('creditcard_expiry_month', TRUE);
+            $cc_expire_year = $this->input->post('creditcard_expiry_year', TRUE);
             $cc_cvv = $this->input->post('creditcard_cvv');
-
-            print $d;
 
             if ($cc_number && !in_array($d,['stripe'])) {
                 try {

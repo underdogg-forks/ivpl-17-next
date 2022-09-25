@@ -52,7 +52,7 @@ class Users extends Admin_Controller
             $id = $this->mdl_users->save($id);
 
             $this->load->model('custom_fields/mdl_user_custom');
-            $this->mdl_user_custom->save_custom($id, $this->input->post('custom'));
+            $this->mdl_user_custom->save_custom($id, $this->input->post('custom', TRUE));
 
             // Update the session details if the logged in user edited his account
             if ($this->session->userdata('user_id') == $id) {
@@ -95,7 +95,7 @@ class Users extends Admin_Controller
             }
         } elseif ($this->input->post('btn_submit')) {
             if ($this->input->post('custom')) {
-                foreach ($this->input->post('custom') as $key => $val) {
+                foreach ($this->input->post('custom', TRUE) as $key => $val) {
                     $this->mdl_users->set_form_value('custom[' . $key . ']', $val);
                 }
             }
@@ -161,7 +161,7 @@ class Users extends Admin_Controller
         }
 
         if ($this->mdl_users->run_validation('validation_rules_change_password')) {
-            $this->mdl_users->save_change_password($user_id, $this->input->post('user_password'));
+            $this->mdl_users->save_change_password($user_id, $this->input->post('user_password', TRUE));
             redirect('users/form/' . $user_id);
         }
 

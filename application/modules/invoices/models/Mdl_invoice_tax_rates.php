@@ -44,7 +44,7 @@ class Mdl_Invoice_Tax_Rates extends Response_Model
         if (isset($db_array['invoice_id'])) {
             $invoice_id = $db_array['invoice_id'];
         } else {
-            $invoice_id = $this->input->post('invoice_id');
+            $invoice_id = $this->input->post('invoice_id', TRUE);
         }
 
         if ($invoice_id) {

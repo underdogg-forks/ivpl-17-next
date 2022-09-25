@@ -72,8 +72,8 @@ class Clients extends Admin_Controller
         // Set validation rule based on is_update
         if ($this->input->post('is_update') == 0 && $this->input->post('client_name') != '') {
             $check = $this->db->get_where('ip_clients', array(
-                'client_name' => $this->input->post('client_name'),
-                'client_surname' => $this->input->post('client_surname')
+                'client_name' => $this->input->post('client_name', TRUE),
+                'client_surname' => $this->input->post('client_surname', TRUE)
             ))->result();
 
             if (!empty($check)) {
@@ -93,7 +93,7 @@ class Clients extends Admin_Controller
             }
             
             $this->load->model('custom_fields/mdl_client_custom');
-            $result = $this->mdl_client_custom->save_custom($id, $this->input->post('custom'));
+            $result = $this->mdl_client_custom->save_custom($id, $this->input->post('custom', TRUE));
 
             if ($result !== true) {
                 $this->session->set_flashdata('alert_error', $result);
@@ -126,7 +126,7 @@ class Clients extends Admin_Controller
             }
         } elseif ($this->input->post('btn_submit')) {
             if ($this->input->post('custom')) {
-                foreach ($this->input->post('custom') as $key => $val) {
+                foreach ($this->input->post('custom', TRUE) as $key => $val) {
                     $this->mdl_clients->set_form_value('custom[' . $key . ']', $val);
                 }
             }

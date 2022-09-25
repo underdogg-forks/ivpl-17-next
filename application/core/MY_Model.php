@@ -312,7 +312,7 @@ class MY_Model extends CI_Model
 
         $validation_rules = $this->{$this->validation_rules}();
 
-        foreach ($this->input->post() as $key => $value) {
+        foreach ($this->input->post(NULL, TRUE) as $key => $value) {
             if (array_key_exists($key, $validation_rules)) {
                 $db_array[$key] = $value;
             }
@@ -442,7 +442,7 @@ class MY_Model extends CI_Model
         }
 
         foreach (array_keys($_POST) as $key) {
-            $this->form_values[$key] = $this->input->post($key);
+            $this->form_values[$key] = $this->input->post($key, TRUE);
         }
 
         if (method_exists($this, $validation_rules)) {

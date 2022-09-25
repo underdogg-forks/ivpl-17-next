@@ -26,7 +26,7 @@
                         <?php _trans('hostname'); ?>
                     </label>
                     <input type="text" name="db_hostname" id="db_hostname" class="form-control"
-                           value="<?php echo($this->input->post('db_hostname') ? $this->input->post('db_hostname') : 'localhost'); ?>">
+                           value="<?php echo($this->input->post('db_hostname', TRUE) ? $this->input->post('db_hostname', TRUE) : 'localhost'); ?>">
                     <span class="help-block"><?php _trans('setup_db_hostname_info'); ?></span>
                 </div>
 
@@ -35,7 +35,7 @@
                         <?php _trans('port'); ?>
                     </label>
                     <input type="text" name="db_port" id="db_port" class="form-control"
-                           value="<?php echo($this->input->post('db_port') ? $this->input->post('db_port') : 3306); ?>">
+                           value="<?php echo($this->input->post('db_port', TRUE) ? $this->input->post('db_port', TRUE) : 3306); ?>">
                     <span class="help-block"><?php _trans('setup_db_port_info'); ?></span>
                 </div>
 
@@ -44,7 +44,7 @@
                         <?php _trans('username'); ?>
                     </label>
                     <input type="text" name="db_username" id="db_username" class="form-control"
-                           value="<?php echo $this->input->post('db_username'); ?>">
+                           value="<?php echo $this->input->post('db_username', TRUE); ?>">
                     <span class="help-block"><?php _trans('setup_db_username_info'); ?></span>
                 </div>
 
@@ -53,7 +53,7 @@
                         <?php _trans('password'); ?>
                     </label>
                     <input type="password" name="db_password" id="db_password" class="form-control"
-                           value="<?php echo $this->input->post('db_password'); ?>">
+                           value="<?php echo $this->input->post('db_password', TRUE); ?>">
                     <span class="help-block"><?php _trans('setup_db_password_info'); ?></span>
                 </div>
 
@@ -62,7 +62,7 @@
                         <?php _trans('database'); ?>
                     </label>
                     <input type="text" name="db_database" id="db_database" class="form-control"
-                           value="<?php echo $this->input->post('db_database'); ?>">
+                           value="<?php echo $this->input->post('db_database', TRUE); ?>">
                     <span class="help-block"><?php _trans('setup_db_database_info'); ?></span>
                 </div>
             <?php } ?>

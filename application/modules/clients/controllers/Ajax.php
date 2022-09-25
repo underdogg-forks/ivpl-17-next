@@ -26,8 +26,8 @@ class Ajax extends Admin_Controller
         $response = [];
 
         // Get the post input
-        $query = $this->input->get('query');
-        $permissiveSearchClients = $this->input->get('permissive_search_clients');
+        $query = $this->input->get('query', TRUE);
+        $permissiveSearchClients = $this->input->get('permissive_search_clients', TRUE);
 
         if (empty($query)) {
             echo json_encode($response);
@@ -91,7 +91,7 @@ class Ajax extends Admin_Controller
     public function save_preference_permissive_search_clients()
     {
         $this->load->model('mdl_settings');
-        $permissiveSearchClients = $this->input->get('permissive_search_clients');
+        $permissiveSearchClients = $this->input->get('permissive_search_clients', TRUE);
 
         if (!preg_match('!^[0-1]{1}$!', $permissiveSearchClients)) {
             exit;
@@ -128,7 +128,7 @@ class Ajax extends Admin_Controller
         $this->load->model('clients/mdl_client_notes');
         $data = [
             'client_notes' => $this->mdl_client_notes->where('client_id',
-                $this->input->post('client_id'))->get()->result(),
+                $this->input->post('client_id', TRUE))->get()->result(),
         ];
 
         $this->layout->load_view('clients/partial_notes', $data);
