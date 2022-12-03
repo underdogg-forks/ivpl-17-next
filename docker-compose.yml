@@ -57,8 +57,7 @@ services:
     volumes:
       - .:/var/www/projects/invoiceplane:delegated
       - nginx_logs:/var/log/nginx
-      - ./resources/docker/nginx/invoiceplane.conf:/etc/nginx/conf.d/invoiceplane.conf:ro
-
+      - ./resources/docker/nginx/sites/:/etc/nginx/sites-available
   # --- MariaDB 10.9
   db:
     container_name: "invoiceplane-db"
