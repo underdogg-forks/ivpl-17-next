@@ -7,53 +7,53 @@ ENV TZ ${TZ}
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    mariadb-client \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
-    libpng-dev \
-    libcurl4-nss-dev \
-    libc-client-dev \
-    libkrb5-dev \
-    firebird-dev \
-    libicu-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    autoconf \
-    wget \
-    zip \
-    unzip \
-    cron \
-    git \
-    libzip-dev \
-    locales-all \
-    libonig-dev \
-    wkhtmltopdf
+#RUN apt-get update && apt-get install -y \
+#    mariadb-client \
+#    libfreetype6-dev \
+#    libjpeg62-turbo-dev \
+#    libmcrypt-dev \
+#    libpng-dev \
+#    libcurl4-nss-dev \
+#    libc-client-dev \
+#    libkrb5-dev \
+#    firebird-dev \
+#    libicu-dev \
+#    libxml2-dev \
+#    libxslt1-dev \
+#    autoconf \
+#    wget \
+#    zip \
+#    unzip \
+#    cron \
+#    git \
+#    libzip-dev \
+#    locales-all \
+#    libonig-dev \
+#    wkhtmltopdf
 
-RUN install-php-extensions \
-    bcmath \
-    exif \
-    gd \
-    imagick \
-    imap \
-    intl \
-    mysqli \
-    pdo_mysql \
-    redis \
-    soap \
-    xdebug \
-    xsl \
-    zip
+#RUN install-php-extensions \
+#    bcmath \
+#    exif \
+#    gd \
+#    imagick \
+#    imap \
+#    intl \
+#    mysqli \
+#    pdo_mysql \
+#    redis \
+#    soap \
+#    xdebug \
+#    xsl \
+#    zip
 
 # Set the timezone
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Comment out xdebug extension line per default
-RUN sed -i 's/^zend_extension=/;zend_extension=/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+#RUN sed -i 's/^zend_extension=/;zend_extension=/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Copy xdebug configuration for remote debugging
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+#COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 #
 #--------------------------------------------------------------------------
