@@ -176,9 +176,9 @@
                                         <small><?php _htmlsc($item->item_product_unit); ?></small>
                                     <?php endif; ?>
                                 </td>
-                                <td class="amount"><?php echo format_currency($item->item_price); ?></td>
-                                <td class="amount"><?php echo format_currency($item->item_discount); ?></td>
-                                <td class="amount"><?php echo format_currency($item->item_subtotal); ?></td>
+                                <td class="amount"><?php echo ($item->item_price > 0) ? format_currency($item->item_price) : ''; ?></td>
+                                <td class="amount"><?php echo ($item->item_price > 0) ? format_currency($item->item_discount) : ''; ?></td>
+                                <td class="amount"><?php echo ($item->item_price > 0) ? format_currency($item->item_subtotal) : ''; ?></td>
                             </tr>
                         <?php endforeach ?>
                         <tr>
