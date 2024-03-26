@@ -95,14 +95,6 @@ function pdf_create(
 
     $mpdf->WriteHTML((string) $html);
 
-    if (file_exists(UPLOADS_TEMP_MPDF_FOLDER . "qr_swiss.pdf")) {
-        $mpdf->AddPage();
-        $pageId = $mpdf->SetSourceFile(UPLOADS_TEMP_MPDF_FOLDER . "qr_swiss.pdf");
-        $tplId = $mpdf->ImportPage($pageId);
-        $mpdf->UseTemplate($tplId);
-        unlink(UPLOADS_TEMP_MPDF_FOLDER . "qr_swiss.pdf");
-    }
-
     if ($isInvoice) {
 
         foreach (glob(UPLOADS_ARCHIVE_FOLDER . '*' . $filename . '.pdf') as $file) {

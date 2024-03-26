@@ -103,29 +103,6 @@ function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = n
 
     $html = $CI->load->view('invoice_templates/pdf/' . $invoice_template, $data, true);
 
-    if ($CI->mdl_settings->setting('qr_code_swiss') &&
-        $CI->mdl_settings->setting('qr_code_swiss_currency') &&
-        $invoice->user_iban != ""
-    ) {
-        $qrBill = invoice_qr_code_swiss($invoice->invoice_id);
-        $fpdf = new \Fpdf\Fpdf('P', 'mm', 'A4');
-        $fpdf->AddPage();
-        try {
-            $output = new QrBill\PaymentPart\Output\FpdfOutput\FpdfOutput($qrBill, 'fr', $fpdf);
-            $output
-                ->setPrintable(false)
-                ->getPaymentPart();
-
-            $fpdf->Output(UPLOADS_TEMP_MPDF_FOLDER . "qr_swiss.pdf", 'F');
-        } catch (Exception $e) {
-            $t = "";
-            foreach ($qrBill->getViolations() as $violation) {
-                $t .= $violation->getMessage()."\n";
-            }
-            throw new Exception("Erreurs: " . $t);
-        }
-    }
-
     $CI->load->helper('mpdf');
     return pdf_create($html, trans('invoice') . '_' . str_replace(array('\\', '/'), '_', $invoice->invoice_number),
         $stream, $invoice->invoice_password, true, $is_guest, $include_zugferd, $associatedFiles);
