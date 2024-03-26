@@ -511,10 +511,8 @@
                 <?php _trans('other_settings'); ?>
             </div>
             <div class="panel-body">
-
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
-
                         <div class="form-group">
                             <label for="settings[read_only_toggle]">
                                 <?php _trans('set_to_read_only'); ?>
@@ -532,10 +530,7 @@
                                 </option>
                             </select>
                         </div>
-
                     </div>
-
-                    <!-- Disable the update of invoice date and due date before emailing! -->
                     <div class="col-xs-12 col-md-6">
                         <div class="form-group">
                             <label for="settings[no_update_invoice_due_date_mail]">
@@ -552,9 +547,7 @@
                             </select>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
 
