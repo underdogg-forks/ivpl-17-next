@@ -70,7 +70,7 @@ function email_invoice(
     $subject = parse_template($db_invoice, $subject);
     $cc = parse_template($db_invoice, $cc);
     $bcc = parse_template($db_invoice, $bcc);
-    $from = array(parse_template($db_invoice, $from[0]), parse_template($db_invoice, $from[1]));
+    $from = [parse_template($db_invoice, $from[0]), parse_template($db_invoice, $from[1])];
 
     $message = (empty($message) ? ' ' : $message);
 
@@ -117,7 +117,7 @@ function email_quote(
     $subject = parse_template($db_quote, $subject);
     $cc = parse_template($db_quote, $cc);
     $bcc = parse_template($db_quote, $bcc);
-    $from = array(parse_template($db_quote, $from[0]), parse_template($db_quote, $from[1]));
+    $from = [parse_template($db_quote, $from[0]), parse_template($db_quote, $from[1])];
 
     $message = (empty($message) ? ' ' : $message);
 

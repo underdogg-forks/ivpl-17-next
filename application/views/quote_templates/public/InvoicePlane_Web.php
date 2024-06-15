@@ -28,7 +28,7 @@
             <h2><?php echo trans('quote') . ' ' . $quote->quote_number; ?></h2>
 
             <div class="btn-group">
-                <?php if (in_array($quote->quote_status_id, array(2, 3))) : ?>
+                <?php if (in_array($quote->quote_status_id, [2, 3])) : ?>
                     <a href="<?php echo site_url('guest/view/approve_quote/' . $quote_url_key); ?>"
                        class="btn btn-success">
                         <i class="fa fa-check"></i><?php echo trans('approve_this_quote'); ?>

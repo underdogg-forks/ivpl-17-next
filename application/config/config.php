@@ -499,7 +499,7 @@ $config['csrf_token_name'] = '_ip_csrf';
 $config['csrf_cookie_name'] = 'ip_csrf_cookie';
 $config['csrf_expire'] = 3600;
 $config['csrf_regenerate'] = true;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = [];
 
 /*
 |--------------------------------------------------------------------------

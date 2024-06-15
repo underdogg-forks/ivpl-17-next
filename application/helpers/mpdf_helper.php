@@ -38,7 +38,7 @@ function pdf_create(
     $CI = &get_instance();
 
     // Get the invoice from the archive if available
-    $invoice_array = array();
+    $invoice_array = [];
 
     // mPDF loading
     $mpdf = new \Mpdf\Mpdf([
@@ -68,7 +68,7 @@ function pdf_create(
 
     // Set a password if set for the voucher
     if (!empty($password)) {
-        $mpdf->SetProtection(array('copy', 'print'), $password, $password);
+        $mpdf->SetProtection(['copy', 'print'], $password, $password);
     }
 
     // Check if the archive folder is available
