@@ -37,16 +37,10 @@ class Invoices extends Guest_Controller
      */
     public function status($status = 'open', $page = 0)
     {
-        // Determine which group of invoices to load
-        switch ($status) {
-            case 'paid':
-                $this->mdl_invoices->is_paid()->where_in('ip_invoices.client_id', $this->user_clients);
-                break;
-            default:
-                $this->mdl_invoices->is_open()->where_in('ip_invoices.client_id', $this->user_clients);
-                break;
-
-        }
+        match ($status) {
+            'paid' => $this->mdl_invoices->is_paid()->where_in('ip_invoices.client_id', $this->user_clients),
+            default => $this->mdl_invoices->is_open()->where_in('ip_invoices.client_id', $this->user_clients),
+        };
 
         $this->mdl_invoices->paginate(site_url('guest/invoices/status/' . $status), $page);
         $invoices = $this->mdl_invoices->result();

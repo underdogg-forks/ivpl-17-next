@@ -68,25 +68,14 @@ class Mdl_Invoice_Groups extends Response_Model
     {
         if (preg_match_all('/{{{([^{|}]*)}}}/', $identifier_format, $template_vars)) {
             foreach ($template_vars[1] as $var) {
-                switch ($var) {
-                    case 'year':
-                        $replace = date('Y');
-                        break;
-                    case 'yy':
-                        $replace = date('y');
-                        break;
-                    case 'month':
-                        $replace = date('m');
-                        break;
-                    case 'day':
-                        $replace = date('d');
-                        break;
-                    case 'id':
-                        $replace = str_pad($next_id, $left_pad, '0', STR_PAD_LEFT);
-                        break;
-                    default:
-                        $replace = '';
-                }
+                $replace = match ($var) {
+                    'year' => date('Y'),
+                    'yy' => date('y'),
+                    'month' => date('m'),
+                    'day' => date('d'),
+                    'id' => str_pad($next_id, $left_pad, '0', STR_PAD_LEFT),
+                    default => '',
+                };
 
                 $identifier_format = str_replace('{{{' . $var . '}}}', $replace, $identifier_format);
             }

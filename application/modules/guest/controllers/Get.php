@@ -20,7 +20,7 @@ class Get extends Base_Controller
         $path = UPLOADS_CFILES_FOLDER;
         $filePath = $path . $filename;
 
-        if (strpos(realpath($filePath), $path) !== 0) {
+        if (!str_starts_with(realpath($filePath), $path)) {
             header("Status: 403 Forbidden");
             echo '<h1>Forbidden</h1>';
             exit;
