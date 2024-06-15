@@ -17,8 +17,8 @@ use Money\Currencies\ISOCurrencies;
  * @return array
  */
 function get_currencies(): array
- {
-    //retrive the available currencies
+{
+    //retrieve the available currencies
     $currencies = new ISOCurrencies();
     $ISOCurrencies = [];
     foreach ($currencies as $currency) {
@@ -26,4 +26,4 @@ function get_currencies(): array
     }
 
     return $ISOCurrencies;
- }
+}
