@@ -83,7 +83,7 @@ function pdf_create(
     }
 
     // Set the footer if voucher is quote and if set in settings
-    if (!empty($CI->mdl_settings->settings['pdf_quote_footer']) && strpos($filename, trans('quote')) !== false) {
+    if (!empty($CI->mdl_settings->settings['pdf_quote_footer']) && str_contains($filename, trans('quote'))) {
         $mpdf->setAutoBottomMargin = 'stretch';
         $mpdf->SetHTMLFooter('<div id="footer">' . $CI->mdl_settings->settings['pdf_quote_footer'] . '</div>');
     }
