@@ -61,7 +61,7 @@ class Upload extends Admin_Controller
                 echo json_encode([
                     'success' => false,
                     'message' => trans('error_duplicate_file')
-                ]);
+                ], JSON_THROW_ON_ERROR);
                 http_response_code(404);
             }
 
@@ -102,7 +102,7 @@ class Upload extends Admin_Controller
                 if (in_array($file, [".", ".."])) {
                     continue;
                 }
-                if (strpos($file, $url_key) !== 0) {
+                if (strpos($file, (string) $url_key) !== 0) {
                     continue;
                 }
                 if (substr(realpath($path), realpath($file) == 0)) {
@@ -117,7 +117,7 @@ class Upload extends Admin_Controller
             return;
         }
 
-        echo json_encode($result);
+        echo json_encode($result, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -133,7 +133,7 @@ class Upload extends Admin_Controller
         // AVOID TREE TRAVERSAL!
         $finalPath = $path . '/' . $url_key . '_' . $fileName;
 
-        if (strpos(realpath($path), realpath($finalPath)) == 0) {
+        if (strpos(realpath($path), (string) realpath($finalPath)) == 0) {
             unlink($path . '/' . $url_key . '_' . $fileName);
         }
     }
@@ -149,7 +149,7 @@ class Upload extends Admin_Controller
         $base_path = UPLOADS_CFILES_FOLDER;
         $file_path = $base_path . $filename;
 
-        if (strpos(realpath($base_path), realpath($file_path)) != 0) {
+        if (strpos(realpath($base_path), (string) realpath($file_path)) != 0) {
             show_404();
             exit;
         }

@@ -53,7 +53,7 @@ class Mailer extends Admin_Controller
 
         if ($email_template_id) {
             $email_template = $this->mdl_email_templates->get_by_id($email_template_id);
-            $this->layout->set('email_template', json_encode($email_template));
+            $this->layout->set('email_template', json_encode($email_template, JSON_THROW_ON_ERROR));
         } else {
             $this->layout->set('email_template', '{}');
         }
@@ -93,7 +93,7 @@ class Mailer extends Admin_Controller
 
         if ($email_template_id) {
             $email_template = $this->mdl_email_templates->get_by_id($email_template_id);
-            $this->layout->set('email_template', json_encode($email_template));
+            $this->layout->set('email_template', json_encode($email_template, JSON_THROW_ON_ERROR));
         } else {
             $this->layout->set('email_template', '{}');
         }

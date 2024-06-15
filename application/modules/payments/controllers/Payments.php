@@ -130,7 +130,7 @@ class Payments extends Admin_Controller
         }
 
         $this->layout->set(
-            ['payment_id' => $id, 'payment_methods' => $this->mdl_payment_methods->get()->result(), 'open_invoices' => $open_invoices, 'custom_fields' => $custom_fields, 'custom_values' => $custom_values, 'amounts' => json_encode($amounts), 'invoice_payment_methods' => json_encode($invoice_payment_methods)]
+            ['payment_id' => $id, 'payment_methods' => $this->mdl_payment_methods->get()->result(), 'open_invoices' => $open_invoices, 'custom_fields' => $custom_fields, 'custom_values' => $custom_values, 'amounts' => json_encode($amounts, JSON_THROW_ON_ERROR), 'invoice_payment_methods' => json_encode($invoice_payment_methods, JSON_THROW_ON_ERROR)]
         );
 
         if ($id) {

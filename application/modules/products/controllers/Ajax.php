@@ -61,7 +61,7 @@ class Ajax extends Admin_Controller
             $product->product_price = format_amount($product->product_price);
         }
 
-        echo json_encode($products);
+        echo json_encode($products, JSON_THROW_ON_ERROR);
     }
 
 }

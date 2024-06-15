@@ -29,7 +29,7 @@ class Ajax extends Admin_Controller
         $this->mdl_quotes->set_id($quote_id);
 
         if ($this->mdl_quotes->run_validation('validation_rules_save_quote')) {
-            $items = json_decode($this->input->post('items'));
+            $items = json_decode($this->input->post('items'), null, 512, JSON_THROW_ON_ERROR);
 
             foreach ($items as $item) {
                 if ($item->item_name) {
@@ -124,12 +124,12 @@ class Ajax extends Admin_Controller
                     'validation_errors' => $result,
                 ];
 
-                echo json_encode($response);
+                echo json_encode($response, JSON_THROW_ON_ERROR);
                 exit;
             }
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function save_quote_tax_rate()
@@ -149,7 +149,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function create()
@@ -171,7 +171,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function modal_change_client()
@@ -219,7 +219,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function get_item()
@@ -228,7 +228,7 @@ class Ajax extends Admin_Controller
 
         $item = $this->mdl_quote_items->get_by_id($this->input->post('item_id'));
 
-        echo json_encode($item);
+        echo json_encode($item, JSON_THROW_ON_ERROR);
     }
 
     public function modal_create_quote()
@@ -292,7 +292,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function modal_quote_to_invoice($quote_id)
@@ -386,7 +386,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -415,7 +415,7 @@ class Ajax extends Admin_Controller
         // Return the response
         echo json_encode([
             'success' => $success,
-        ]);
+        ], JSON_THROW_ON_ERROR);
     }
 
 }
