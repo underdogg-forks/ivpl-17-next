@@ -21,7 +21,7 @@ function redirect_to($fallback_url_string, $redirect = true)
 {
     $CI = &get_instance();
 
-    $redirect_url = ($CI->session->userdata('redirect_to')) ? $CI->session->userdata('redirect_to') : $fallback_url_string;
+    $redirect_url = $CI->session->userdata('redirect_to') ?: $fallback_url_string;
 
     if ($redirect) {
         redirect($redirect_url);

@@ -109,7 +109,7 @@ class Mdl_Custom_Fields extends MY_Model
         }
 
         // Create the record
-        $db_array = ($db_array) ? $db_array : $this->db_array();
+        $db_array = $db_array ?: $this->db_array();
 
         // Save the record to ip_custom_fields
         $id = parent::save($id, $db_array);

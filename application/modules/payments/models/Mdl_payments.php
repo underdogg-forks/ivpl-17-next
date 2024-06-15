@@ -95,7 +95,7 @@ class Mdl_Payments extends Response_Model
      */
     public function save($id = null, $db_array = null)
     {
-        $db_array = ($db_array) ? $db_array : $this->db_array();
+        $db_array = $db_array ?: $this->db_array();
         $this->load->model('invoices/mdl_invoice_amounts');
 
         // Save the payment

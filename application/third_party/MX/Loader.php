@@ -499,4 +499,4 @@ class MX_Loader extends CI_Loader
 }
 
 /** load the CI class for Modular Separation **/
-(class_exists('CI', false)) OR require dirname(__FILE__) . '/Ci.php';
+(class_exists('CI', false)) OR require __DIR__ . '/Ci.php';

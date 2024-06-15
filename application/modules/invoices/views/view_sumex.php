@@ -313,9 +313,9 @@ if ($this->config->item('disable_read_only') == true) {
                         <span>
                             <?php echo ($invoice->client_address_1) ? $invoice->client_address_1 . '<br>' : ''; ?>
                             <?php echo ($invoice->client_address_2) ? $invoice->client_address_2 . '<br>' : ''; ?>
-                            <?php echo ($invoice->client_city) ? $invoice->client_city : ''; ?>
-                            <?php echo ($invoice->client_state) ? $invoice->client_state : ''; ?>
-                            <?php echo ($invoice->client_zip) ? $invoice->client_zip : ''; ?>
+                            <?php echo $invoice->client_city ?: ''; ?>
+                            <?php echo $invoice->client_state ?: ''; ?>
+                            <?php echo $invoice->client_zip ?: ''; ?>
                             <?php echo ($invoice->client_country) ? '<br>' . $invoice->client_country : ''; ?>
                         </span>
                         <?php if ($invoice->client_phone || $invoice->client_email) : ?>

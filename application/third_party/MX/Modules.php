@@ -168,7 +168,7 @@ class Modules
 
         /* autoload Modular Extensions MX core classes */
         if (strstr($class, 'MX_')) {
-            if (is_file($location = dirname(__FILE__) . '/' . substr($class, 3) . EXT)) {
+            if (is_file($location = __DIR__ . '/' . substr($class, 3) . EXT)) {
                 include_once $location;
                 return;
             }

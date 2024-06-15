@@ -40,7 +40,7 @@ class Ajax extends Admin_Controller
                 }
             } else {
                 // New user - assign the entries to a session variable until user record is saved
-                $user_clients = $this->session->userdata('user_clients') ? $this->session->userdata('user_clients') : [];
+                $user_clients = $this->session->userdata('user_clients') ?: [];
 
                 $user_clients[$client_id] = $client_id;
 
