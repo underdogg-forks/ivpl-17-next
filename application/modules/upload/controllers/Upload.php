@@ -102,7 +102,7 @@ class Upload extends Admin_Controller
                 if (in_array($file, [".", ".."])) {
                     continue;
                 }
-                if (strpos($file, (string) $url_key) !== 0) {
+                if (!str_starts_with($file, (string) $url_key)) {
                     continue;
                 }
                 if (substr(realpath($path), realpath($file) == 0)) {
