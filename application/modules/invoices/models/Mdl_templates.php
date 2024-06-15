@@ -21,6 +21,7 @@ class Mdl_Templates extends CI_Model
      */
     public function get_invoice_templates($type = 'pdf')
     {
+        $templates = null;
         $this->load->helper('directory');
 
         if ($type == 'pdf') {
@@ -53,6 +54,7 @@ class Mdl_Templates extends CI_Model
      */
     public function get_quote_templates($type = 'pdf')
     {
+        $templates = null;
         $this->load->helper('directory');
 
         if ($type == 'pdf') {

@@ -43,6 +43,7 @@ class Email_Templates extends Admin_Controller
      */
     public function form($id = null)
     {
+        $custom_fields = [];
         if ($this->input->post('btn_cancel')) {
             redirect('email_templates');
         }

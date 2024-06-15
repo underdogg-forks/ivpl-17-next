@@ -430,6 +430,8 @@ class MX_Loader extends CI_Loader
 
     public function _ci_load($_ci_data)
     {
+        $_ci_file = null;
+        $_ci_return = null;
         extract($_ci_data);
 
         if (isset($_ci_view)) {

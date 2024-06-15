@@ -60,6 +60,8 @@ function diacritics_seems_utf8($str)
  */
 function diacritics_remove_accents($string)
 {
+    $chars = [];
+    $double_chars = [];
     if (!preg_match('/[\x80-\xff]/', $string)) {
         return $string;
     }

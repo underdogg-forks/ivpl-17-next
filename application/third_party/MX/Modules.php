@@ -223,6 +223,7 @@ class Modules
      **/
     public static function find($file, $module, $base)
     {
+        $modules = [];
         $segments = explode('/', $file);
 
         $file = array_pop($segments);
