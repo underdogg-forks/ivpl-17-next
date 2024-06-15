@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,25 +14,27 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Invoice_Custom
+ * Class Mdl_Invoice_Custom.
  */
-class Mdl_Invoice_Custom extends Validator
+final class Mdl_Invoice_Custom extends Validator
 {
     public static $positions = ['custom_fields', 'properties'];
+
     public $table = 'ip_invoice_custom';
+
     public $primary_key = 'ip_invoice_custom.invoice_custom_id';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('SQL_CALC_FOUND_ROWS ip_invoice_custom.*, ip_custom_fields.*', false);
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_custom_fields', 'ip_invoice_custom.invoice_custom_fieldid = ip_custom_fields.custom_field_id');
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('custom_field_table ASC, custom_field_order ASC, custom_field_label ASC');
     }
@@ -40,7 +45,7 @@ class Mdl_Invoice_Custom extends Validator
         if ($result === true) {
             $form_data = $this->_formdata ?? null;
 
-            if (is_null($form_data)) {
+            if (null === $form_data) {
                 return true;
             }
 
@@ -66,7 +71,7 @@ class Mdl_Invoice_Custom extends Validator
     public function by_id($invoice_id)
     {
         $this->db->where('ip_invoice_custom.invoice_id', $invoice_id);
+
         return $this;
     }
-
 }

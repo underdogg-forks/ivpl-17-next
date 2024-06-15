@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,16 +14,22 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Tasks
+ * Class Tasks.
  */
-class Tasks extends Admin_Controller
+final class Tasks extends Admin_Controller
 {
     public $load;
+
     public $mdl_tasks;
+
     public $layout;
+
     public $input;
+
     public $mdl_projects;
+
     public $mdl_tax_rates;
+
     /**
      * Tasks constructor.
      */
@@ -34,7 +43,7 @@ class Tasks extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_tasks->paginate(site_url('tasks/index'), $page);
         $tasks = $this->mdl_tasks->result();
@@ -48,7 +57,7 @@ class Tasks extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('tasks');
@@ -59,9 +68,9 @@ class Tasks extends Admin_Controller
             redirect('tasks');
         }
 
-        if (!$this->input->post('btn_submit')) {
+        if ( ! $this->input->post('btn_submit')) {
             $prep_form = $this->mdl_tasks->prep_form($id);
-            if ($id && !$prep_form) {
+            if ($id && ! $prep_form) {
                 show_404();
             }
         }
@@ -79,7 +88,7 @@ class Tasks extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_tasks->delete($id);
         redirect('tasks');

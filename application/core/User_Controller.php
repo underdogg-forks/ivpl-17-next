@@ -1,5 +1,6 @@
 <?php
-if (!defined('BASEPATH')) {
+
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -13,17 +14,17 @@ if (!defined('BASEPATH')) {
  */
 
 /**
- * Class User_Controller
+ * Class User_Controller.
  */
-class User_Controller extends Base_Controller
+final class User_Controller extends Base_Controller
 {
-
     public $session;
+
     /**
      * User_Controller constructor.
      *
      * @param string $required_key
-     * @param integer $required_val
+     * @param int    $required_val
      */
     public function __construct($required_key, $required_val)
     {

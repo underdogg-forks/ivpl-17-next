@@ -1,6 +1,6 @@
 <?php
-    $default_client_name = $this->mdl_projects->form_value('client_name', true);
-    $default_client_surname = $this->mdl_projects->form_value('client_surname', true);
+$default_client_name = $this->mdl_projects->form_value('client_name', true);
+$default_client_surname = $this->mdl_projects->form_value('client_surname', true);
 ?>
 
 <script>

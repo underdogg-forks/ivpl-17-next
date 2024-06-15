@@ -1,5 +1,5 @@
 <?php
-$cv = $this->controller->view_data["custom_values"];
+$cv = $this->controller->view_data['custom_values'];
 ?>
 
 <script>
@@ -29,7 +29,7 @@ $cv = $this->controller->view_data["custom_values"];
             $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
         });
 
-        <?php if (!$items) { ?>
+        <?php if ( ! $items) { ?>
         $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
         <?php } ?>
 
@@ -80,7 +80,7 @@ $cv = $this->controller->view_data["custom_values"];
                     payment_method: $('#payment_method').val(),
                 },
                 function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                    <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                     var response = JSON.parse(data);
                     if (response.success === 1) {
                         window.location = "<?php echo site_url('invoices/view'); ?>/" + <?php echo $invoice_id; ?>;
@@ -116,7 +116,7 @@ $cv = $this->controller->view_data["custom_values"];
                     'item_id': item_id,
                 },
                 function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                    <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                     var response = JSON.parse(data);
 
                     if (response.success === 1) {
@@ -128,7 +128,7 @@ $cv = $this->controller->view_data["custom_values"];
         });
 
         <?php if ($invoice->is_read_only != 1):
-          if (get_setting('show_responsive_itemlist') == 1) { ?>
+            if (get_setting('show_responsive_itemlist') == 1) { ?>
              function UpR(k) {
                var parent = k.parents('.item');
                var pos = parent.prev();
@@ -215,8 +215,8 @@ if ($this->config->item('disable_read_only') == true) {
     <h1 class="headerbar-title">
         <?php
         echo trans('invoice') . ' ';
-        echo($invoice->invoice_number ? '#' . $invoice->invoice_number : $invoice->invoice_id);
-        ?>
+echo $invoice->invoice_number ? '#' . $invoice->invoice_number : $invoice->invoice_id;
+?>
     </h1>
 
     <div class="headerbar-item pull-right <?php if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) { ?>btn-group<?php } ?>">
@@ -326,7 +326,7 @@ if ($this->config->item('disable_read_only') == true) {
                         <a href="<?php echo site_url('clients/view/' . $invoice->client_id); ?>">
                             <?php _htmlsc(format_client($invoice)) ?>
                         </a>
-                        <?php if ($invoice->invoice_status_id == 1 && !$invoice->creditinvoice_parent_id) { ?>
+                        <?php if ($invoice->invoice_status_id == 1 && ! $invoice->creditinvoice_parent_id) { ?>
                             <span id="invoice_change_client" class="fa fa-edit cursor-pointer small"
                                   data-toggle="tooltip" data-placement="bottom"
                                   title="<?php _trans('change_client'); ?>"></span>
@@ -365,10 +365,10 @@ if ($this->config->item('disable_read_only') == true) {
                                     <div class="alert alert-warning small">
                                         <i class="fa fa-credit-invoice"></i>&nbsp;
                                         <?php
-                                        echo trans('credit_invoice_for_invoice') . ' ';
-                                        $parent_invoice_number = $this->mdl_invoices->get_parent_invoice_number($invoice->creditinvoice_parent_id);
-                                        echo anchor('/invoices/view/' . $invoice->creditinvoice_parent_id, $parent_invoice_number);
-                                        ?>
+                                echo trans('credit_invoice_for_invoice') . ' ';
+                                $parent_invoice_number = $this->mdl_invoices->get_parent_invoice_number($invoice->creditinvoice_parent_id);
+                                echo anchor('/invoices/view/' . $invoice->creditinvoice_parent_id, $parent_invoice_number);
+                                ?>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -435,9 +435,9 @@ if ($this->config->item('disable_read_only') == true) {
                                 <div class="invoice-properties">
                                     <label>
                                         <?php _trans('status');
-                                        if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) {
-                                            echo ' <span class="small">(' . trans('can_be_changed') . ')</span>';
-                                        } ?>
+if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) {
+    echo ' <span class="small">(' . trans('can_be_changed') . ')</span>';
+} ?>
                                     </label>
                                     <select name="invoice_status_id" id="invoice_status_id"
                                             class="form-control input-sm simple-select" data-minimum-results-for-search="Infinity"
@@ -462,8 +462,10 @@ if ($this->config->item('disable_read_only') == true) {
                                         } ?>>
                                         <option value="0"><?php _trans('select_payment_method'); ?></option>
                                         <?php foreach ($payment_methods as $payment_method) { ?>
-                                            <option <?php check_select($invoice->payment_method,
-                                                $payment_method->payment_method_id) ?>
+                                            <option <?php check_select(
+                                                $invoice->payment_method,
+                                                $payment_method->payment_method_id
+                                            ) ?>
                                                 value="<?php echo $payment_method->payment_method_id; ?>">
                                                 <?php echo $payment_method->payment_method_name; ?>
                                             </option>
@@ -506,11 +508,11 @@ if ($this->config->item('disable_read_only') == true) {
             <br>
 
             <?php if (get_setting('show_responsive_itemlist') == 1) {
-                    $this->layout->load_view('invoices/partial_itemlist_responsive');
-                  } else {
-                    $this->layout->load_view('invoices/partial_itemlist_table');
-                  }
-            ?>
+                $this->layout->load_view('invoices/partial_itemlist_responsive');
+            } else {
+                $this->layout->load_view('invoices/partial_itemlist_table');
+            }
+?>
 
             <hr/>
 

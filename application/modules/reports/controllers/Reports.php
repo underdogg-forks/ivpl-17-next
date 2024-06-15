@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,12 +14,14 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Reports
+ * Class Reports.
  */
-class Reports extends Admin_Controller
+final class Reports extends Admin_Controller
 {
     public $mdl_reports;
+
     public $layout;
+
     /**
      * Reports constructor.
      */
@@ -27,7 +32,7 @@ class Reports extends Admin_Controller
         $this->load->model('mdl_reports');
     }
 
-    public function sales_by_client()
+    public function sales_by_client(): void
     {
         if ($this->input->post('btn_submit')) {
             $data = ['results' => $this->mdl_reports->sales_by_client($this->input->post('from_date'), $this->input->post('to_date')), 'from_date' => $this->input->post('from_date'), 'to_date' => $this->input->post('to_date')];
@@ -42,7 +47,7 @@ class Reports extends Admin_Controller
         $this->layout->buffer('content', 'reports/sales_by_client_index')->render();
     }
 
-    public function payment_history()
+    public function payment_history(): void
     {
         if ($this->input->post('btn_submit')) {
             $data = ['results' => $this->mdl_reports->payment_history($this->input->post('from_date'), $this->input->post('to_date')), 'from_date' => $this->input->post('from_date'), 'to_date' => $this->input->post('to_date')];
@@ -57,7 +62,7 @@ class Reports extends Admin_Controller
         $this->layout->buffer('content', 'reports/payment_history_index')->render();
     }
 
-    public function invoice_aging()
+    public function invoice_aging(): void
     {
         if ($this->input->post('btn_submit')) {
             $data = ['results' => $this->mdl_reports->invoice_aging()];
@@ -72,9 +77,8 @@ class Reports extends Admin_Controller
         $this->layout->buffer('content', 'reports/invoice_aging_index')->render();
     }
 
-    public function sales_by_year()
+    public function sales_by_year(): void
     {
-
         if ($this->input->post('btn_submit')) {
             $data = ['results' => $this->mdl_reports->sales_by_year($this->input->post('from_date'), $this->input->post('to_date'), $this->input->post('minQuantity'), $this->input->post('maxQuantity'), $this->input->post('checkboxTax')), 'from_date' => $this->input->post('from_date'), 'to_date' => $this->input->post('to_date')];
 
@@ -87,5 +91,4 @@ class Reports extends Admin_Controller
 
         $this->layout->buffer('content', 'reports/sales_by_year_index')->render();
     }
-
 }

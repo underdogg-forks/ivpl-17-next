@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,24 +14,38 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Settings
+ * Class Settings.
  */
-class Settings extends Admin_Controller
+final class Settings extends Admin_Controller
 {
     public $load;
+
     public $config;
+
     public $input;
+
     public $db;
+
     public $mdl_settings;
+
     public $crypt;
+
     public $upload;
+
     public $session;
+
     public $mdl_templates;
+
     public $layout;
+
     public $mdl_invoice_groups;
+
     public $mdl_tax_rates;
+
     public $mdl_payment_methods;
+
     public $mdl_email_templates;
+
     /**
      * Settings constructor.
      */
@@ -42,7 +59,7 @@ class Settings extends Admin_Controller
         $this->load->helper('payments_helper');
     }
 
-    public function index()
+    public function index(): void
     {
         // Get the payment gateway configurations
         $this->config->load('payment_gateways');
@@ -58,7 +75,8 @@ class Settings extends Admin_Controller
 
             // Only execute if the setting is different
             if ($settings['tax_rate_decimal_places'] != get_setting('tax_rate_decimal_places')) {
-                $this->db->query("
+                $this->db->query(
+                    "
                     ALTER TABLE `ip_tax_rates` CHANGE `tax_rate_percent` `tax_rate_percent`
                     DECIMAL( 5, {$settings['tax_rate_decimal_places']} ) NOT null"
                 );
@@ -79,16 +97,11 @@ class Settings extends Admin_Controller
                 if (isset($settings[$key . '_field_is_password']) && $value != '') {
                     // Encrypt passwords but don't save empty passwords
                     $this->mdl_settings->save($key, $this->crypt->encode(trim($value)));
-
                 } elseif (isset($settings[$key . '_field_is_amount'])) {
-
                     // Format amount inputs
                     $this->mdl_settings->save($key, standardize_amount($value));
-
                 } else {
-
                     $this->mdl_settings->save($key, $value);
-
                 }
 
                 if ($key == 'number_format') {
@@ -96,7 +109,6 @@ class Settings extends Admin_Controller
                     $this->mdl_settings->save('decimal_point', $number_formats[$value]['decimal_point']);
                     $this->mdl_settings->save('thousands_separator', $number_formats[$value]['thousands_separator']);
                 }
-
             }
 
             $upload_config = ['upload_path' => './uploads/', 'allowed_types' => 'gif|jpg|jpeg|png|svg', 'max_size' => '9999', 'max_width' => '9999', 'max_height' => '9999'];
@@ -105,7 +117,7 @@ class Settings extends Admin_Controller
             if ($_FILES['invoice_logo']['name']) {
                 $this->load->library('upload', $upload_config);
 
-                if (!$this->upload->do_upload('invoice_logo')) {
+                if ( ! $this->upload->do_upload('invoice_logo')) {
                     $this->session->set_flashdata('alert_error', $this->upload->display_errors());
                     redirect('settings');
                 }
@@ -119,7 +131,7 @@ class Settings extends Admin_Controller
             if ($_FILES['login_logo']['name']) {
                 $this->load->library('upload', $upload_config);
 
-                if (!$this->upload->do_upload('login_logo')) {
+                if ( ! $this->upload->do_upload('login_logo')) {
                     $this->session->set_flashdata('alert_error', $this->upload->display_errors());
                     redirect('settings');
                 }
@@ -164,7 +176,7 @@ class Settings extends Admin_Controller
     /**
      * @param $type
      */
-    public function remove_logo($type)
+    public function remove_logo($type): void
     {
         unlink('./uploads/' . get_setting($type . '_logo'));
 

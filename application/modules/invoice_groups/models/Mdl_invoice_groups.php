@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,20 +14,22 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Invoice_Groups
+ * Class Mdl_Invoice_Groups.
  */
-class Mdl_Invoice_Groups extends Response_Model
+final class Mdl_Invoice_Groups extends Response_Model
 {
     public $db;
+
     public $table = 'ip_invoice_groups';
+
     public $primary_key = 'ip_invoice_groups.invoice_group_id';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('SQL_CALC_FOUND_ROWS *', false);
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_invoice_groups.invoice_group_name');
     }
@@ -38,8 +43,9 @@ class Mdl_Invoice_Groups extends Response_Model
     }
 
     /**
-     * @param $invoice_group_id
+     * @param      $invoice_group_id
      * @param bool $set_next
+     *
      * @return mixed
      */
     public function generate_invoice_number($invoice_group_id, $set_next = true)
@@ -60,9 +66,20 @@ class Mdl_Invoice_Groups extends Response_Model
     }
 
     /**
+     * @param $invoice_group_id
+     */
+    public function set_next_invoice_number($invoice_group_id): void
+    {
+        $this->db->where($this->primary_key, $invoice_group_id);
+        $this->db->set('invoice_group_next_id', 'invoice_group_next_id+1', false);
+        $this->db->update($this->table);
+    }
+
+    /**
      * @param $identifier_format
      * @param $next_id
      * @param $left_pad
+     *
      * @return mixed
      */
     private function parse_identifier_format($identifier_format, $next_id, $left_pad)
@@ -70,11 +87,11 @@ class Mdl_Invoice_Groups extends Response_Model
         if (preg_match_all('/{{{([^{|}]*)}}}/', $identifier_format, $template_vars)) {
             foreach ($template_vars[1] as $var) {
                 $replace = match ($var) {
-                    'year' => date('Y'),
-                    'yy' => date('y'),
+                    'year'  => date('Y'),
+                    'yy'    => date('y'),
                     'month' => date('m'),
-                    'day' => date('d'),
-                    'id' => str_pad($next_id, $left_pad, '0', STR_PAD_LEFT),
+                    'day'   => date('d'),
+                    'id'    => str_pad($next_id, $left_pad, '0', STR_PAD_LEFT),
                     default => '',
                 };
 
@@ -84,15 +101,4 @@ class Mdl_Invoice_Groups extends Response_Model
 
         return $identifier_format;
     }
-
-    /**
-     * @param $invoice_group_id
-     */
-    public function set_next_invoice_number($invoice_group_id)
-    {
-        $this->db->where($this->primary_key, $invoice_group_id);
-        $this->db->set('invoice_group_next_id', 'invoice_group_next_id+1', false);
-        $this->db->update($this->table);
-    }
-
 }

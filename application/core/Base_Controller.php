@@ -1,5 +1,6 @@
 <?php
-if (!defined('BASEPATH')) {
+
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -13,16 +14,20 @@ if (!defined('BASEPATH')) {
  */
 
 /**
- * Class Base_Controller
+ * Class Base_Controller.
  */
-class Base_Controller extends MX_Controller
+final class Base_Controller extends MX_Controller
 {
-
     public $config;
+
     public $input;
+
     public $load;
+
     public $mdl_settings;
+
     public $session;
+
     /** @var bool */
     public $ajax_controller = false;
 
@@ -36,13 +41,13 @@ class Base_Controller extends MX_Controller
         $this->config->load('invoice_plane');
 
         // Don't allow non-ajax requests to ajax controllers
-        if ($this->ajax_controller && !$this->input->is_ajax_request()) {
+        if ($this->ajax_controller && ! $this->input->is_ajax_request()) {
             exit;
         }
 
         // Globally disallow GET requests to delete methods
         $this->load->helper('url');
-        if (strstr(current_url(), 'delete') && $this->input->method() !== 'post') {
+        if (mb_strstr(current_url(), 'delete') && $this->input->method() !== 'post') {
             show_404();
         }
 
@@ -51,10 +56,9 @@ class Base_Controller extends MX_Controller
         $this->load->helper('redirect');
 
         // Check if database has been configured
-        if (!env_bool('SETUP_COMPLETED')) {
+        if ( ! env_bool('SETUP_COMPLETED')) {
             redirect('/welcome');
         } else {
-
             $this->load->library('encryption');
             $this->load->library('form_validation');
             $this->load->library('session');
@@ -71,8 +75,9 @@ class Base_Controller extends MX_Controller
 
             // Load setting model and load settings
             $this->load->model('settings/mdl_settings');
-            if ($this->mdl_settings != null)
+            if ($this->mdl_settings != null) {
                 $this->mdl_settings->load_settings();
+            }
             $this->load->helper('settings');
 
             // Load the language based on user config, fall back to system if needed
@@ -88,7 +93,6 @@ class Base_Controller extends MX_Controller
 
             // Load the layout module to start building the app
             $this->load->module('layout');
-
         }
     }
 }

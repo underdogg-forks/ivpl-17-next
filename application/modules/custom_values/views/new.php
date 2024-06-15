@@ -15,7 +15,7 @@
 
                 <?php $this->layout->load_view('layout/alerts'); ?>
 
-                <?php $alpha = str_replace("-", "_", strtolower($field->custom_field_type)); ?>
+                <?php $alpha = str_replace('-', '_', mb_strtolower($field->custom_field_type)); ?>
 
                 <div class="form-group">
                     <label for="custom_field_label"><?php _trans('field'); ?></label>

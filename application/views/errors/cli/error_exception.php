@@ -11,7 +11,7 @@ Line Number: <?php echo $exception->getLine(); ?>
 
     Backtrace:
     <?php foreach ($exception->getTrace() as $error): ?>
-        <?php if (isset($error['file']) && !str_starts_with($error['file'], (string) realpath(BASEPATH))): ?>
+        <?php if (isset($error['file']) && ! str_starts_with($error['file'], (string) realpath(BASEPATH))): ?>
             File: <?php echo $error['file'], "\n"; ?>
             Line: <?php echo $error['line'], "\n"; ?>
             Function: <?php echo $error['function'], "\n\n"; ?>

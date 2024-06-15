@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,7 +14,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Returns all errors prepared for JSON
+ * Returns all errors prepared for JSON.
+ *
  * @return array
  */
 function json_errors()

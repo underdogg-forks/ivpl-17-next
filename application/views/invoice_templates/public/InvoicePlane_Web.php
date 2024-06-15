@@ -25,7 +25,7 @@
             <h2><?php echo trans('invoice'); ?>&nbsp;<?php echo $invoice->invoice_number; ?></h2>
 
             <div class="btn-group">
-                <?php if ($invoice->sumex_id == NULL) : ?>
+                <?php if ($invoice->sumex_id == null) : ?>
                 <a href="<?php echo site_url('guest/view/generate_invoice_pdf/' . $invoice_url_key); ?>"
                    class="btn btn-primary">
                     <?php else : ?>
@@ -52,20 +52,20 @@
 
             <?php
             $logo = invoice_logo();
-            if ($logo !== '' && $logo !== '0') {
-                echo $logo . '<br><br>';
-            }
-            ?>
+if ($logo !== '' && $logo !== '0') {
+    echo $logo . '<br><br>';
+}
+?>
 
             <div class="row">
                 <div class="col-xs-12 col-md-6 col-lg-5">
 
                     <h4><?php _htmlsc($invoice->user_name); ?></h4>
                     <p><?php if ($invoice->user_vat_id) {
-                            echo lang("vat_id_short") . ": " . $invoice->user_vat_id . '<br>';
-                        } ?>
+                        echo lang('vat_id_short') . ': ' . $invoice->user_vat_id . '<br>';
+                    } ?>
                         <?php if ($invoice->user_tax_code) {
-                            echo lang("tax_code_short") . ": " . $invoice->user_tax_code . '<br>';
+                            echo lang('tax_code_short') . ': ' . $invoice->user_tax_code . '<br>';
                         } ?>
                         <?php if ($invoice->user_address_1) {
                             echo htmlsc($invoice->user_address_1) . '<br>';
@@ -93,10 +93,10 @@
 
                     <h4><?php _htmlsc(format_client($invoice)); ?></h4>
                     <p><?php if ($invoice->client_vat_id) {
-                            echo lang("vat_id_short") . ": " . $invoice->client_vat_id . '<br>';
-                        } ?>
+                        echo lang('vat_id_short') . ': ' . $invoice->client_vat_id . '<br>';
+                    } ?>
                         <?php if ($invoice->client_tax_code) {
-                            echo lang("tax_code_short") . ": " . $invoice->client_tax_code . '<br>';
+                            echo lang('tax_code_short') . ': ' . $invoice->client_tax_code . '<br>';
                         } ?>
                         <?php if ($invoice->client_address_1) {
                             echo htmlsc($invoice->client_address_1) . '<br>';
@@ -127,13 +127,13 @@
                             <td><?php echo trans('invoice_date'); ?></td>
                             <td style="text-align:right;"><?php echo date_from_mysql($invoice->invoice_date_created); ?></td>
                         </tr>
-                        <tr class="<?php echo($is_overdue ? 'overdue' : '') ?>">
+                        <tr class="<?php echo $is_overdue ? 'overdue' : '' ?>">
                             <td><?php echo trans('due_date'); ?></td>
                             <td class="text-right">
                                 <?php echo date_from_mysql($invoice->invoice_date_due); ?>
                             </td>
                         </tr>
-                        <tr class="<?php echo($is_overdue ? 'overdue' : '') ?>">
+                        <tr class="<?php echo $is_overdue ? 'overdue' : '' ?>">
                             <td><?php echo trans('amount_due'); ?></td>
                             <td style="text-align:right;"><?php echo format_currency($invoice->invoice_balance); ?></td>
                         </tr>
@@ -216,7 +216,7 @@
                                 } else {
                                     echo format_amount($invoice->invoice_discount_amount);
                                 }
-                                ?>
+?>
                             </td>
                         </tr>
 
@@ -319,6 +319,5 @@
         </div><!-- .invoice-items -->
     </div><!-- #content -->
 </div>
-
 </body>
 </html>

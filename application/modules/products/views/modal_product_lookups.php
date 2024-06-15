@@ -16,7 +16,7 @@
             $.post("<?php echo site_url('products/ajax/process_product_selections'); ?>", {
                 product_ids: product_ids
             }, function (data) {
-                <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                 var items = JSON.parse(data);
 
                 for (var key in items) {

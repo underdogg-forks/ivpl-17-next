@@ -1,5 +1,5 @@
 <?php
-$cv = $this->controller->view_data["custom_values"];
+$cv = $this->controller->view_data['custom_values'];
 ?>
 <script>
     $(function () {
@@ -80,7 +80,7 @@ $cv = $this->controller->view_data["custom_values"];
                                        value="<?php echo $this->mdl_users->form_value('user_email', true); ?>" required>
                             </div>
 
-                            <?php if (!$id) { ?>
+                            <?php if ( ! $id) { ?>
                                 <div class="form-group">
                                     <label for="user_password">
                                         <?php _trans('password'); ?>
@@ -357,7 +357,7 @@ $cv = $this->controller->view_data["custom_values"];
 
                                 <div class="panel-body">
                                     <?php
-                                    $cv = $this->controller->view_data["custom_values"];
+                                    $cv = $this->controller->view_data['custom_values'];
                             foreach ($custom_fields as $custom_field) {
                                 if ($custom_field->custom_field_location != 0) {
                                     continue;

@@ -13,7 +13,7 @@
     <?php
     // Get the page head content
     $this->layout->load_view('layout/includes/head');
-    ?>
+?>
 </head>
 <body class="<?php echo get_setting('disable_sidebar') !== '' && get_setting('disable_sidebar') !== '0' ? 'hidden-sidebar' : ''; ?>">
 
@@ -32,7 +32,7 @@ $this->layout->load_view('layout/includes/navbar');
     if (get_setting('disable_sidebar') != 1) {
         $this->layout->load_view('layout/includes/sidebar');
     }
-    ?>
+?>
     <div id="main-content">
         <?php echo $content; ?>
     </div>

@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,15 +14,20 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Custom_Values
+ * Class Custom_Values.
  */
-class Custom_Values extends Admin_Controller
+final class Custom_Values extends Admin_Controller
 {
     public $load;
+
     public $mdl_custom_values;
+
     public $layout;
+
     public $input;
+
     public $mdl_custom_fields;
+
     /**
      * Custom_Values constructor.
      */
@@ -33,7 +41,7 @@ class Custom_Values extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_custom_values->paginate(site_url('custom_values/index'), $page);
         $custom_values = $this->mdl_custom_values->get_grouped()->result();
@@ -46,7 +54,7 @@ class Custom_Values extends Admin_Controller
     /**
      * @param null $id
      */
-    public function field($id = null)
+    public function field($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('custom_values');
@@ -69,7 +77,7 @@ class Custom_Values extends Admin_Controller
     /**
      * @param null $id
      */
-    public function edit($id = null)
+    public function edit($id = null): void
     {
         $this->layout->set('id', $id);
 
@@ -94,7 +102,7 @@ class Custom_Values extends Admin_Controller
     /**
      * @param null $id
      */
-    public function create($id = null)
+    public function create($id = null): void
     {
         redirect('custom_values');
 
@@ -120,7 +128,7 @@ class Custom_Values extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_custom_values->delete($id);
         redirect('custom_values');

@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,28 +14,28 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Payment_Logs
+ * Class Mdl_Payment_Logs.
  */
-class Mdl_Payment_Logs extends Response_Model
+final class Mdl_Payment_Logs extends Response_Model
 {
     public $table = 'ip_merchant_responses';
+
     public $primary_key = 'ip_merchant_responses.merchant_response_id';
 
-    public function default_select()
+    public function default_select(): void
     {
-        $this->db->select("
+        $this->db->select('
             ip_invoices.invoice_number,
-            ip_merchant_responses.*", false);
+            ip_merchant_responses.*', false);
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_merchant_responses.merchant_response_id DESC');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_invoices', 'ip_invoices.invoice_id = ip_merchant_responses.invoice_id');
     }
-
 }

@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,16 +14,22 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Projects
+ * Class Projects.
  */
-class Projects extends Admin_Controller
+final class Projects extends Admin_Controller
 {
     public $load;
+
     public $mdl_projects;
+
     public $layout;
+
     public $input;
+
     public $mdl_clients;
+
     public $mdl_tasks;
+
     /**
      * Projects constructor.
      */
@@ -34,7 +43,7 @@ class Projects extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_projects->paginate(site_url('projects/index'), $page);
         $projects = $this->mdl_projects->result();
@@ -47,7 +56,7 @@ class Projects extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('projects');
@@ -58,7 +67,7 @@ class Projects extends Admin_Controller
             redirect('projects');
         }
 
-        if ($id && !$this->input->post('btn_submit') && !$this->mdl_projects->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit') && ! $this->mdl_projects->prep_form($id)) {
             show_404();
         }
 
@@ -75,7 +84,7 @@ class Projects extends Admin_Controller
     /**
      * @param null $project_id
      */
-    public function view($project_id)
+    public function view($project_id): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('projects');
@@ -84,7 +93,7 @@ class Projects extends Admin_Controller
         $this->load->model('projects/mdl_projects');
         $project = $this->mdl_projects->get_by_id($project_id);
 
-        if (!$project) {
+        if ( ! $project) {
             show_404();
         }
 
@@ -98,7 +107,7 @@ class Projects extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->load->model('tasks/mdl_tasks');
         $this->mdl_tasks->update_on_project_delete($id);
@@ -106,5 +115,4 @@ class Projects extends Admin_Controller
         $this->mdl_projects->delete($id);
         redirect('projects');
     }
-
 }

@@ -1,5 +1,6 @@
 <?php
-if (!defined('BASEPATH')) {
+
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -13,14 +14,14 @@ if (!defined('BASEPATH')) {
  */
 
 /**
- * Class Response_Model
+ * Class Response_Model.
  */
-class Response_Model extends Form_Validation_Model
+final class Response_Model extends Form_Validation_Model
 {
-
     public $session;
+
     /**
-     * @param null|int $id
+     * @param null|int   $id
      * @param null|array $db_array
      *
      * @return null|int
@@ -41,7 +42,7 @@ class Response_Model extends Form_Validation_Model
     /**
      * @param int $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         parent::delete($id);
 

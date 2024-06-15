@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,19 +14,25 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Ajax
+ * Class Ajax.
  */
-class Ajax extends Admin_Controller
+final class Ajax extends Admin_Controller
 {
     public $input;
+
     public $load;
+
     public $mdl_products;
+
     public $security;
+
     public $mdl_families;
+
     public $layout;
+
     public $ajax_controller = true;
 
-    public function modal_product_lookups()
+    public function modal_product_lookups(): void
     {
         $filter_product = $this->input->get('filter_product', true);
         $filter_family = $this->input->get('filter_family', true);
@@ -32,12 +41,12 @@ class Ajax extends Admin_Controller
         $this->load->model('mdl_products');
         $this->load->model('families/mdl_families');
 
-        if (!empty($filter_family)) {
+        if ( ! empty($filter_family)) {
             $this->mdl_products->by_family($filter_family);
             $filter_family = $this->security->xss_clean($filter_family);
         }
 
-        if (!empty($filter_product)) {
+        if ( ! empty($filter_product)) {
             $this->mdl_products->by_product($filter_product);
             $filter_product = $this->security->xss_clean($filter_product);
         }
@@ -57,7 +66,7 @@ class Ajax extends Admin_Controller
         }
     }
 
-    public function process_product_selections()
+    public function process_product_selections(): void
     {
         $this->load->model('mdl_products');
 
@@ -69,5 +78,4 @@ class Ajax extends Admin_Controller
 
         echo json_encode($products, JSON_THROW_ON_ERROR);
     }
-
 }

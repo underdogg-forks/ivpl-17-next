@@ -61,14 +61,14 @@
                 <label for="email" class="control-label"><?php _trans('email'); ?></label>
                 <input type="email" name="email" id="email" class="form-control"
                        placeholder="<?php _trans('email'); ?>" required autofocus
-                    <?php if (!empty($_POST['email'])) : ?> value="<?php echo $_POST['email']; ?>"<?php endif; ?>>
+                    <?php if ( ! empty($_POST['email'])) : ?> value="<?php echo $_POST['email']; ?>"<?php endif; ?>>
             </div>
 
             <div class="form-group">
                 <label for="password" class="control-label"><?php _trans('password'); ?></label>
                 <input type="password" name="password" id="password" class="form-control"
                        placeholder="<?php _trans('password'); ?>" required
-                    <?php if (!empty($_POST['password'])) : ?> value="<?php echo $_POST['email']; ?>"<?php endif; ?>>
+                    <?php if ( ! empty($_POST['password'])) : ?> value="<?php echo $_POST['email']; ?>"<?php endif; ?>>
             </div>
 
             <input type="hidden" name="btn_login" value="true">

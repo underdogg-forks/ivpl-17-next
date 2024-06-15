@@ -1,5 +1,5 @@
 <?php
-$cv = $this->controller->view_data["custom_values"];
+$cv = $this->controller->view_data['custom_values'];
 ?>
 <script>
     function getIcon(fullname) {
@@ -56,7 +56,7 @@ $cv = $this->controller->view_data["custom_values"];
             $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
         });
 
-        <?php if (!$items) { ?>
+        <?php if ( ! $items) { ?>
         $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
         <?php } ?>
 
@@ -114,7 +114,7 @@ $cv = $this->controller->view_data["custom_values"];
                     payment_method: $('#payment_method').val()
                 },
                 function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                    <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                     var response = JSON.parse(data);
                     if (response.success === 1) {
                         window.location = "<?php echo site_url('invoices/view'); ?>/" + <?php echo $invoice_id; ?>;
@@ -194,8 +194,8 @@ if ($this->config->item('disable_read_only') == true) {
 <div id="headerbar">
     <h1 class="headerbar-title">
         <?php
-        echo($invoice->invoice_number ? '#' . $invoice->invoice_number : $invoice->invoice_id);
-        ?>
+        echo $invoice->invoice_number ? '#' . $invoice->invoice_number : $invoice->invoice_id;
+?>
     </h1>
 
     <div class="headerbar-item pull-right <?php if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) { ?>btn-group<?php } ?>">
@@ -383,15 +383,15 @@ if ($this->config->item('disable_read_only') == true) {
                                             <select name="invoice_sumex_reason" id="invoice_sumex_reason"
                                                     class="form-control input-sm simple-select">
                                                 <?php $reasons = [
-                                                    'disease',
-                                                    'accident',
-                                                    'maternity',
-                                                    'prevention',
-                                                    'birthdefect',
-                                                    'unknown'
-                                                ]; ?>
+                                            'disease',
+                                            'accident',
+                                            'maternity',
+                                            'prevention',
+                                            'birthdefect',
+                                            'unknown',
+                                        ]; ?>
                                                 <?php foreach ($reasons as $key => $reason): ?>
-                                                    <?php $selected = ($invoice->sumex_reason == $key ? " selected" : ""); ?>
+                                                    <?php $selected = ($invoice->sumex_reason == $key ? ' selected' : ''); ?>
                                                     <option value="<?php echo $key; ?>"<?php echo $selected; ?>>
                                                         <?php _trans('reason_' . $reason); ?>
                                                     </option>
@@ -449,8 +449,10 @@ if ($this->config->item('disable_read_only') == true) {
                                 <span class="label label-warning">
                                     <i class="fa fa-credit-invoice"></i>&nbsp;
                                     <?php echo trans('credit_invoice_for_invoice') . ' ';
-                                    echo anchor('/invoices/view/' . $invoice->creditinvoice_parent_id,
-                                        $invoice->creditinvoice_parent_id) ?>
+                                echo anchor(
+                                    '/invoices/view/' . $invoice->creditinvoice_parent_id,
+                                    $invoice->creditinvoice_parent_id
+                                ) ?>
                                 </span>
                                 </div>
                             <?php } ?>
@@ -459,10 +461,10 @@ if ($this->config->item('disable_read_only') == true) {
 
                                 <div class="invoice-properties">
                                     <label><?php _trans('status');
-                                        if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) {
-                                            echo ' <span class="small">(' . trans('can_be_changed') . ')</span>';
-                                        }
-                                        ?>
+if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) {
+    echo ' <span class="small">(' . trans('can_be_changed') . ')</span>';
+}
+?>
                                     </label>
                                     <select name="invoice_status_id" id="invoice_status_id"
                                             class="form-control simple-select"
@@ -621,7 +623,7 @@ if ($this->config->item('disable_read_only') == true) {
             </div>
 
             <?php if ($custom_fields): ?>
-                <?php $cv = $this->controller->view_data["custom_values"]; ?>
+                <?php $cv = $this->controller->view_data['custom_values']; ?>
                 <div class="row">
                     <div class="col-xs-12">
                         <fieldset>
@@ -738,7 +740,7 @@ if ($this->config->item('disable_read_only') == true) {
     ;
 
     myDropzone.on("success", function (file, response) {
-        <?php echo(IP_DEBUG ? 'console.log(response);' : ''); ?>
+        <?php echo IP_DEBUG ? 'console.log(response);' : ''; ?>
         if (typeof response !== 'undefined') {
             response = JSON.parse(response);
             if (response.success !== true) {
@@ -780,7 +782,7 @@ if ($this->config->item('disable_read_only') == true) {
     },
 
         function (response) {
-            <?php echo(IP_DEBUG ? 'console.log(response);' : ''); ?>
+            <?php echo IP_DEBUG ? 'console.log(response);' : ''; ?>
         }
 
     )

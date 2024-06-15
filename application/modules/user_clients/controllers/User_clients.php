@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,17 +14,24 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class User_Clients
+ * Class User_Clients.
  */
-class User_Clients extends Admin_Controller
+final class User_Clients extends Admin_Controller
 {
     public $load;
+
     public $input;
+
     public $mdl_users;
+
     public $mdl_user_clients;
+
     public $layout;
+
     public $db;
+
     public $mdl_clients;
+
     /**
      * Custom_Values constructor.
      */
@@ -34,7 +44,7 @@ class User_Clients extends Admin_Controller
         $this->load->model('user_clients/mdl_user_clients');
     }
 
-    public function index()
+    public function index(): void
     {
         redirect('users');
     }
@@ -42,7 +52,7 @@ class User_Clients extends Admin_Controller
     /**
      * @param null $id
      */
-    public function user($id = null)
+    public function user($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('users');
@@ -66,7 +76,7 @@ class User_Clients extends Admin_Controller
     /**
      * @param null $user_id
      */
-    public function create($user_id = null)
+    public function create($user_id = null): void
     {
         redirect('custom_values');
 
@@ -75,22 +85,20 @@ class User_Clients extends Admin_Controller
         }
 
         if ($this->mdl_user_clients->run_validation()) {
-
             if ($this->input->post('user_all_clients')) {
                 $users_id = [$user_id];
 
                 $this->mdl_user_clients->set_all_clients_user($users_id);
 
                 $user_update = ['user_all_clients' => 1];
-
             } else {
                 $user_update = ['user_all_clients' => 0];
 
-               $this->mdl_user_clients->save();
+                $this->mdl_user_clients->save();
             }
 
-            $this->db->where('user_id',$user_id);
-            $this->db->update('ip_users',$user_update);
+            $this->db->where('user_id', $user_id);
+            $this->db->update('ip_users', $user_update);
 
             redirect('user_clients/user/' . $user_id);
         }
@@ -106,9 +114,9 @@ class User_Clients extends Admin_Controller
     }
 
     /**
-     * @param integer $user_client_id
+     * @param int $user_client_id
      */
-    public function delete($user_client_id)
+    public function delete($user_client_id): void
     {
         $ref = $this->mdl_user_clients->get_by_id($user_client_id);
 

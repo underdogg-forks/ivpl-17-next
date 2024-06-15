@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,14 +14,18 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Import
+ * Class Import.
  */
-class Import extends Admin_Controller
+final class Import extends Admin_Controller
 {
     public $load;
+
     public $mdl_import;
+
     public $layout;
+
     public $input;
+
     private array $allowed_files = [0 => 'clients.csv', 1 => 'invoices.csv', 2 => 'invoice_items.csv', 3 => 'payments.csv'];
 
     /**
@@ -34,7 +41,7 @@ class Import extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_import->paginate(site_url('import/index'), $page);
         $imports = $this->mdl_import->result();
@@ -44,15 +51,15 @@ class Import extends Admin_Controller
         $this->layout->render();
     }
 
-    public function form()
+    public function form(): void
     {
-        if (!$this->input->post('btn_submit')) {
+        if ( ! $this->input->post('btn_submit')) {
             $this->load->helper('directory');
 
             $files = directory_map('./uploads/import');
 
             foreach ($files as $key => $file) {
-                if (!is_numeric(array_search($file, $this->allowed_files))) {
+                if ( ! is_numeric(array_search($file, $this->allowed_files))) {
                     unset($files[$key]);
                 }
             }
@@ -69,7 +76,7 @@ class Import extends Admin_Controller
                 $files = $this->allowed_files;
 
                 foreach ($files as $key => $file) {
-                    if (!is_numeric(array_search($file, $this->input->post('files')))) {
+                    if ( ! is_numeric(array_search($file, $this->input->post('files')))) {
                         unset($files[$key]);
                     }
                 }
@@ -108,10 +115,9 @@ class Import extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_import->delete($id);
         redirect('import');
     }
-
 }

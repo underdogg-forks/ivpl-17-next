@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,14 +14,15 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * @param $from
- * @param $to
- * @param $subject
- * @param $message
+ * @param      $from
+ * @param      $to
+ * @param      $subject
+ * @param      $message
  * @param null $attachment_path
  * @param null $cc
  * @param null $bcc
  * @param null $more_attachments
+ *
  * @return bool
  */
 function phpmail_send(
@@ -90,7 +94,7 @@ function phpmail_send(
     }
 
     // Allow multiple recipients delimited by comma or semicolon
-    $to = (strpos($to, ',')) ? explode(',', $to) : explode(';', $to);
+    $to = (mb_strpos($to, ',')) ? explode(',', $to) : explode(';', $to);
 
     // Add the addresses
     foreach ($to as $address) {
@@ -99,7 +103,7 @@ function phpmail_send(
 
     if ($cc) {
         // Allow multiple CC's delimited by comma or semicolon
-        $cc = (strpos($cc, ',')) ? explode(',', $cc) : explode(';', $cc);
+        $cc = (mb_strpos($cc, ',')) ? explode(',', $cc) : explode(';', $cc);
 
         // Add the CC's
         foreach ($cc as $address) {
@@ -109,7 +113,7 @@ function phpmail_send(
 
     if ($bcc) {
         // Allow multiple BCC's delimited by comma or semicolon
-        $bcc = (strpos($bcc, ',')) ? explode(',', $bcc) : explode(';', $bcc);
+        $bcc = (mb_strpos($bcc, ',')) ? explode(',', $bcc) : explode(';', $bcc);
         // Add the BCC's
         foreach ($bcc as $address) {
             $mail->addBCC($address);
@@ -138,11 +142,11 @@ function phpmail_send(
     // And away it goes...
     if ($mail->send()) {
         $CI->session->set_flashdata('alert_success', 'The email has been sent');
-        return true;
-    } else {
-        // Or not...
-        $CI->session->set_flashdata('alert_error', $mail->ErrorInfo);
-        return false;
-    }
 
+        return true;
+    }
+    // Or not...
+    $CI->session->set_flashdata('alert_error', $mail->ErrorInfo);
+
+    return false;
 }

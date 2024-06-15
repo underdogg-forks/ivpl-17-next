@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,31 +14,32 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Quote_Items
+ * Class Mdl_Quote_Items.
  */
-class Mdl_Quote_Items extends Response_Model
+final class Mdl_Quote_Items extends Response_Model
 {
-
     public $mdl_quote_item_amounts;
+
     public $mdl_quote_amounts;
+
     public $table = 'ip_quote_items';
 
     public $primary_key = 'ip_quote_items.item_id';
 
     public $date_created_field = 'item_date_added';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('ip_quote_item_amounts.*, ip_products.*, ip_quote_items.*,
             item_tax_rates.tax_rate_percent AS item_tax_rate_percent');
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_quote_items.item_order');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_quote_item_amounts', 'ip_quote_item_amounts.item_id = ip_quote_items.item_id', 'left');
         $this->db->join('ip_tax_rates AS item_tax_rates', 'item_tax_rates.tax_rate_id = ip_quote_items.item_tax_rate_id', 'left');
@@ -141,5 +145,4 @@ class Mdl_Quote_Items extends Response_Model
 
         return true;
     }
-
 }

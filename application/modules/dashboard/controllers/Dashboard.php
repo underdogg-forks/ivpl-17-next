@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,19 +14,27 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Dashboard
+ * Class Dashboard.
  */
-class Dashboard extends Admin_Controller
+final class Dashboard extends Admin_Controller
 {
     public $load;
+
     public $layout;
+
     public $mdl_invoice_amounts;
+
     public $mdl_quote_amounts;
+
     public $mdl_invoices;
+
     public $mdl_quotes;
+
     public $mdl_projects;
+
     public $mdl_tasks;
-    public function index()
+
+    public function index(): void
     {
         $this->load->model('invoices/mdl_invoice_amounts');
         $this->load->model('quotes/mdl_quote_amounts');
@@ -42,5 +53,4 @@ class Dashboard extends Admin_Controller
         $this->layout->buffer('content', 'dashboard/index');
         $this->layout->render();
     }
-
 }

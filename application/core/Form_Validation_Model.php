@@ -1,5 +1,6 @@
 <?php
-if (!defined('BASEPATH')) {
+
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -13,19 +14,20 @@ if (!defined('BASEPATH')) {
  */
 
 /**
- * Class Form_Validation_Model
+ * Class Form_Validation_Model.
  */
-class Form_Validation_Model extends MY_Model
+final class Form_Validation_Model extends MY_Model
 {
-
     public $load;
+
     public $form_validation;
+
     /**
      * Form_Validation_Model constructor.
      */
     public function __construct()
     {
         $this->load->library('form_validation');
-        $this->form_validation->CI =& $this;
+        $this->form_validation->CI = & $this;
     }
 }

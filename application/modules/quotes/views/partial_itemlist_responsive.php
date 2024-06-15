@@ -40,7 +40,7 @@
                                     <option value="0"><?php _trans('none'); ?></option>
                                     <?php foreach ($units as $unit) { ?>
                                         <option value="<?php echo $unit->unit_id; ?>">
-                                            <?php echo $unit->unit_name . "/" . $unit->unit_name_plrl; ?>
+                                            <?php echo $unit->unit_name . '/' . $unit->unit_name_plrl; ?>
                                         </option>
                                     <?php } ?>
                                 </select>
@@ -161,7 +161,7 @@
                                         <?php foreach ($units as $unit) { ?>
                                             <option value="<?php echo $unit->unit_id; ?>"
                                                 <?php check_select($item->item_product_unit_id, $unit->unit_id); ?>>
-                                                <?php echo htmlsc($unit->unit_name) . "/" . htmlsc($unit->unit_name_plrl); ?>
+                                                <?php echo htmlsc($unit->unit_name) . '/' . htmlsc($unit->unit_name_plrl); ?>
                                             </option>
                                         <?php } ?>
                                     </select>

@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,12 +14,14 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Custom_Values
+ * Class Mdl_Custom_Values.
  */
-class Mdl_Custom_Values extends MY_Model
+final class Mdl_Custom_Values extends MY_Model
 {
     public $mdl_custom_fields;
+
     public $table = 'ip_custom_values';
+
     public $primary_key = 'ip_custom_values.custom_values_id';
 
     /**
@@ -24,7 +29,7 @@ class Mdl_Custom_Values extends MY_Model
      */
     public static function custom_types()
     {
-        return array_merge(Mdl_Custom_Values::user_input_types(), Mdl_Custom_Values::custom_value_fields());
+        return array_merge(self::user_input_types(), self::custom_value_fields());
     }
 
     /**
@@ -46,12 +51,12 @@ class Mdl_Custom_Values extends MY_Model
     /**
      * @param $fid
      */
-    public function save_custom($fid)
+    public function save_custom($fid): void
     {
         $this->load->module('custom_fields');
         $field_custom = $this->mdl_custom_fields->get_by_id($fid);
 
-        if (!$field_custom) {
+        if ( ! $field_custom) {
             return;
         }
 
@@ -79,26 +84,31 @@ class Mdl_Custom_Values extends MY_Model
 
     /**
      * @param $id
+     *
      * @return $this
      */
     public function get_by_fid($id)
     {
         $this->where('custom_values_field', $id);
+
         return $this->get();
     }
 
     /**
      * @param $id
+     *
      * @return $this
      */
     public function get_by_column($id)
     {
         $this->where('custom_field_id', $id);
+
         return $this->get();
     }
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function get_by_id($id)
@@ -108,17 +118,20 @@ class Mdl_Custom_Values extends MY_Model
 
     /**
      * @param $ids
+     *
      * @return mixed
      */
     public function get_by_ids($ids)
     {
         $ids = is_array($ids) ? $ids : explode(',', $ids);
+
         return $this->where_in('custom_values_id', $ids)->get();
     }
 
     /**
      * @param $fid
      * @param $id
+     *
      * @return bool
      */
     public function column_has_value($fid, $id)
@@ -126,6 +139,7 @@ class Mdl_Custom_Values extends MY_Model
         $this->where('custom_field_id', $fid);
         $this->where('custom_values_id', $id);
         $this->get();
+
         return (bool) $this->num_rows();
     }
 
@@ -136,25 +150,26 @@ class Mdl_Custom_Values extends MY_Model
     {
         $this->db->select('count(custom_field_label) as count');
         $this->db->group_by('ip_custom_fields.custom_field_id');
+
         return $this->get();
     }
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('ip_custom_fields.*,ip_custom_values.*', false);
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_custom_fields', 'ip_custom_values.custom_values_field = ip_custom_fields.custom_field_id', 'inner');
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         //$this->db->group_by('ip_custom_fields.custom_field_label');
     }
 
-    public function default_group_by()
+    public function default_group_by(): void
     {
         //$this->db->group_by('ip_custom_values.custom_values_field');
     }

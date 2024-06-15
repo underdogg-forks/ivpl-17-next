@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,19 +14,25 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Ajax
+ * Class Ajax.
  */
-class Ajax extends Admin_Controller
+final class Ajax extends Admin_Controller
 {
     public $load;
+
     public $mdl_payments;
+
     public $mdl_payment_methods;
+
     public $security;
+
     public $input;
+
     public $layout;
+
     public $ajax_controller = true;
 
-    public function add()
+    public function add(): void
     {
         $this->load->model('payments/mdl_payments');
 
@@ -39,7 +48,7 @@ class Ajax extends Admin_Controller
         echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
-    public function modal_add_payment()
+    public function modal_add_payment(): void
     {
         $this->load->module('layout');
         $this->load->model('payments/mdl_payments');
@@ -50,5 +59,4 @@ class Ajax extends Admin_Controller
 
         $this->layout->load_view('payments/modal_add_payment', $data);
     }
-
 }

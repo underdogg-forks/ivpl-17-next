@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,25 +14,27 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Projects
+ * Class Mdl_Projects.
  */
-class Mdl_Projects extends Response_Model
+final class Mdl_Projects extends Response_Model
 {
     public $mdl_tasks;
+
     public $table = 'ip_projects';
+
     public $primary_key = 'ip_projects.project_id';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('SQL_CALC_FOUND_ROWS *', false);
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_projects.project_id');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_clients', 'ip_clients.client_id = ip_projects.client_id', 'left');
     }
@@ -37,6 +42,7 @@ class Mdl_Projects extends Response_Model
     public function get_latest()
     {
         $this->db->order_by('ip_projects.project_id', 'DESC');
+
         return $this;
     }
 
@@ -52,7 +58,7 @@ class Mdl_Projects extends Response_Model
     {
         $result = [];
 
-        if (!$project_id) {
+        if ( ! $project_id) {
             return $result;
         }
 
@@ -67,5 +73,4 @@ class Mdl_Projects extends Response_Model
 
         return $result;
     }
-
 }

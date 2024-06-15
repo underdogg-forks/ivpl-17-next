@@ -36,7 +36,7 @@
                     <select name="custom_field_types" id="custom_field_types" class="form-control simple-select"
                             disabled="disabled">
                         <?php foreach ($custom_values_types as $type): ?>
-                            <?php $alpha = str_replace('-', '_', strtolower($type)); ?>
+                            <?php $alpha = str_replace('-', '_', mb_strtolower($type)); ?>
                             <option value="<?php echo $type; ?>" <?php check_select($field->custom_field_type, $type); ?>>
                                 <?php _trans($alpha); ?>
                             </option>
