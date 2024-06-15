@@ -11,12 +11,15 @@
  *---------------------------------------------------------------
  */
 
-if (!file_exists('../ipconfig.php')) {
+if (!file_exists('../.env')) {
     exit("The <b>.env</b> file is missing! Please make a copy of the <b>.env.example</b> file and rename it to <b>.env</b>");
 }
 
+// Path to the ROOT directory
+define('ROOTPATH', dirname(dirname(__FILE__)));
+
 require('../vendor/autoload.php');
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../ipconfig.php');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../.env');
 $dotenv->load();
 
 /**
@@ -263,20 +266,16 @@ if (is_dir($application_folder)) {
             DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR
         );
     }
-
 } elseif (is_dir(BASEPATH . $application_folder . DIRECTORY_SEPARATOR)) {
-
     $application_folder = BASEPATH . strtr(
             trim($application_folder, '/\\'),
             '/\\',
             DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR
         );
-
 } else {
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
     echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: ' . SELF;
     exit(3); // EXIT_CONFIG
-
 }
 
 define('APPPATH', $application_folder . DIRECTORY_SEPARATOR);
@@ -306,9 +305,9 @@ if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) 
     exit(3); // EXIT_CONFIG
 }
 
-define('IPCONFIG_FILE', FCPATH . 'ipconfig.php');
+define('IPCONFIG_FILE', FCPATH . '.env');
 
-define('LOGS_FOLDER', APPPATH . 'logs' . DIRECTORY_SEPARATOR);
+define('LOGS_FOLDER', ROOTPATH . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR);
 
 define('UPLOADS_FOLDER', FCPATH . 'uploads' . DIRECTORY_SEPARATOR);
 define('UPLOADS_ARCHIVE_FOLDER', UPLOADS_FOLDER . 'archive' . DIRECTORY_SEPARATOR);
