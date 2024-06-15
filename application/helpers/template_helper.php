@@ -89,7 +89,7 @@ function parse_template($object, $body)
                             $replace = '';
                         }
                     } else {
-                        $replace = isset($object->{$var}) ? $object->{$var} : $var;
+                        $replace = $object->{$var} ?? $var;
                     }
             }
 

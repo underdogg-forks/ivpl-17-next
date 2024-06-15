@@ -36,5 +36,5 @@ function get_country_list($cldr)
 function get_country_name($cldr, $countrycode)
 {
     $countries = get_country_list($cldr);
-    return (isset($countries[$countrycode]) ? $countries[$countrycode] : $countrycode);
+    return ($countries[$countrycode] ?? $countrycode);
 }

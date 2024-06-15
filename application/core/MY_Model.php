@@ -470,7 +470,7 @@ class MY_Model extends CI_Model
      */
     public function form_value($key, $escape = false)
     {
-        $value = isset($this->form_values[$key]) ? $this->form_values[$key] : '';
+        $value = $this->form_values[$key] ?? '';
         return $escape ? htmlspecialchars($value) : $value;
     }
 

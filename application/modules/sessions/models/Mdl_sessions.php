@@ -65,7 +65,7 @@ class Mdl_Sessions extends CI_Model
             }
 
             if ($this->crypt->check_password($user->user_password, $password)) {
-                $session_data = ['user_type' => $user->user_type, 'user_id' => $user->user_id, 'user_name' => $user->user_name, 'user_email' => $user->user_email, 'user_company' => $user->user_company, 'user_language' => isset($user->user_language) ? $user->user_language : 'system'];
+                $session_data = ['user_type' => $user->user_type, 'user_id' => $user->user_id, 'user_name' => $user->user_name, 'user_email' => $user->user_email, 'user_company' => $user->user_company, 'user_language' => $user->user_language ?? 'system'];
 
                 $this->session->set_userdata($session_data);
 
