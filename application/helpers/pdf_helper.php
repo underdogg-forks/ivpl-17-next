@@ -60,11 +60,7 @@ function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = n
     }
 
     // Get all custom fields
-    $custom_fields = array(
-        'invoice' => $CI->mdl_custom_fields->get_values_for_fields('mdl_invoice_custom', $invoice->invoice_id),
-        'client' => $CI->mdl_custom_fields->get_values_for_fields('mdl_client_custom', $invoice->client_id),
-        'user' => $CI->mdl_custom_fields->get_values_for_fields('mdl_user_custom', $invoice->user_id),
-    );
+    $custom_fields = ['invoice' => $CI->mdl_custom_fields->get_values_for_fields('mdl_invoice_custom', $invoice->invoice_id), 'client' => $CI->mdl_custom_fields->get_values_for_fields('mdl_client_custom', $invoice->client_id), 'user' => $CI->mdl_custom_fields->get_values_for_fields('mdl_user_custom', $invoice->user_id)];
 
     if ($invoice->quote_id) {
         $custom_fields['quote'] = $CI->mdl_custom_fields->get_values_for_fields('mdl_quote_custom', $invoice->quote_id);
@@ -76,33 +72,17 @@ function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = n
     if ($include_zugferd) {
         $CI->load->helper('zugferd');
 
-        $associatedFiles = array(
-            array(
-                'name' => 'ZUGFeRD-invoice.xml',
-                'description' => 'ZUGFeRD Invoice',
-                'AFRelationship' => 'Alternative',
-                'mime' => 'text/xml',
-                'path' => generate_invoice_zugferd_xml_temp_file($invoice, $items)
-            )
-        );
+        $associatedFiles = [['name' => 'ZUGFeRD-invoice.xml', 'description' => 'ZUGFeRD Invoice', 'AFRelationship' => 'Alternative', 'mime' => 'text/xml', 'path' => generate_invoice_zugferd_xml_temp_file($invoice, $items)]];
     } else {
         $associatedFiles = null;
     }
 
-    $data = array(
-        'invoice' => $invoice,
-        'invoice_tax_rates' => $CI->mdl_invoice_tax_rates->where('invoice_id', $invoice_id)->get()->result(),
-        'items' => $items,
-        'payment_method' => $payment_method,
-        'output_type' => 'pdf',
-        'show_item_discounts' => $show_item_discounts,
-        'custom_fields' => $custom_fields,
-    );
+    $data = ['invoice' => $invoice, 'invoice_tax_rates' => $CI->mdl_invoice_tax_rates->where('invoice_id', $invoice_id)->get()->result(), 'items' => $items, 'payment_method' => $payment_method, 'output_type' => 'pdf', 'show_item_discounts' => $show_item_discounts, 'custom_fields' => $custom_fields];
 
     $html = $CI->load->view('invoice_templates/pdf/' . $invoice_template, $data, true);
 
     $CI->load->helper('mpdf');
-    return pdf_create($html, trans('invoice') . '_' . str_replace(array('\\', '/'), '_', $invoice->invoice_number),
+    return pdf_create($html, trans('invoice') . '_' . str_replace(['\\', '/'], '_', $invoice->invoice_number),
         $stream, $invoice->invoice_password, true, $is_guest, $include_zugferd, $associatedFiles);
 }
 
@@ -112,10 +92,7 @@ function generate_invoice_sumex($invoice_id, $stream = true, $client = false)
 
     $CI->load->model('invoices/mdl_items');
     $invoice = $CI->mdl_invoices->get_by_id($invoice_id);
-    $CI->load->library('Sumex', array(
-        'invoice' => $invoice,
-        'items' => $CI->mdl_items->where('invoice_id', $invoice_id)->get()->result()
-    ));
+    $CI->load->library('Sumex', ['invoice' => $invoice, 'items' => $CI->mdl_items->where('invoice_id', $invoice_id)->get()->result()]);
 
     // Append a copy at the end and change the title:
     // WARNING: The title depends on what invoice type is (TP, TG)
@@ -153,7 +130,7 @@ function generate_invoice_sumex($invoice_id, $stream = true, $client = false)
                 $pageFormat = 'P';  //  portrait
             }
 
-            $pdf->addPage($pageFormat, array($size['w'], $size['h']));
+            $pdf->addPage($pageFormat, [$size['w'], $size['h']]);
             $pdf->useTemplate($templateId);
         }
 
@@ -169,7 +146,7 @@ function generate_invoice_sumex($invoice_id, $stream = true, $client = false)
                 $pageFormat = 'P';  //  portrait
             }
 
-            $pdf->addPage($pageFormat, array($size['w'], $size['h']));
+            $pdf->addPage($pageFormat, [$size['w'], $size['h']]);
             $pdf->useTemplate($templateId);
         }
 
@@ -237,24 +214,13 @@ function generate_quote_pdf($quote_id, $stream = true, $quote_template = null)
     }
 
     // Get all custom fields
-    $custom_fields = array(
-        'quote' => $CI->mdl_custom_fields->get_values_for_fields('mdl_quote_custom', $quote->quote_id),
-        'client' => $CI->mdl_custom_fields->get_values_for_fields('mdl_client_custom', $quote->client_id),
-        'user' => $CI->mdl_custom_fields->get_values_for_fields('mdl_user_custom', $quote->user_id),
-    );
+    $custom_fields = ['quote' => $CI->mdl_custom_fields->get_values_for_fields('mdl_quote_custom', $quote->quote_id), 'client' => $CI->mdl_custom_fields->get_values_for_fields('mdl_client_custom', $quote->client_id), 'user' => $CI->mdl_custom_fields->get_values_for_fields('mdl_user_custom', $quote->user_id)];
 
-    $data = array(
-        'quote' => $quote,
-        'quote_tax_rates' => $CI->mdl_quote_tax_rates->where('quote_id', $quote_id)->get()->result(),
-        'items' => $items,
-        'output_type' => 'pdf',
-        'show_item_discounts' => $show_item_discounts,
-        'custom_fields' => $custom_fields,
-    );
+    $data = ['quote' => $quote, 'quote_tax_rates' => $CI->mdl_quote_tax_rates->where('quote_id', $quote_id)->get()->result(), 'items' => $items, 'output_type' => 'pdf', 'show_item_discounts' => $show_item_discounts, 'custom_fields' => $custom_fields];
 
     $html = $CI->load->view('quote_templates/pdf/' . $quote_template, $data, true);
 
     $CI->load->helper('mpdf');
 
-    return pdf_create($html, trans('quote') . '_' . str_replace(array('\\', '/'), '_', $quote->quote_number), $stream, $quote->quote_password);
+    return pdf_create($html, trans('quote') . '_' . str_replace(['\\', '/'], '_', $quote->quote_number), $stream, $quote->quote_password);
 }

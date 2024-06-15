@@ -107,7 +107,7 @@ class Modules
         if (!isset(self::$registry[$alias])) {
             /* find the controller */
             if ($module == null) {
-		    list($class) = CI::$APP->router->locate(array());
+		    list($class) = CI::$APP->router->locate([]);
 	    } else {
             list($class) = CI::$APP->router->locate(explode('/', $module));
 	    }
