@@ -4,9 +4,68 @@
 
 class Sumex
 {
-    public const ROLES = ['physician', 'physiotherapist', 'chiropractor', 'ergotherapist', 'nutritionist', 'midwife', 'logotherapist', 'hospital', 'pharmacist', 'dentist', 'labtechnician', 'dentaltechnician', 'othertechnician', 'psychologist', 'wholesaler', 'nursingstaff', 'transport', 'druggist', 'naturopathicdoctor', 'naturopathictherapist', 'other'];
-    public const PLACES = ['practice', 'hospital', 'lab', 'association', 'company'];
-    public const CANTONS = ["AG", "AI", "AR", "BE", "BL", "BS", "FR", "GE", "GL", "GR", "JU", "LU", "NE", "NW", "OW", "SG", "SH", "SO", "SZ", "TI", "TG", "UR", "VD", "VS", "ZG", "ZH", "LI", "A", "D", "F", "I"];
+    const ROLES = array(
+        'physician',
+        'physiotherapist',
+        'chiropractor',
+        'ergotherapist',
+        'nutritionist',
+        'midwife',
+        'logotherapist',
+        'hospital',
+        'pharmacist',
+        'dentist',
+        'labtechnician',
+        'dentaltechnician',
+        'othertechnician',
+        'psychologist',
+        'wholesaler',
+        'nursingstaff',
+        'transport',
+        'druggist',
+        'naturopathicdoctor',
+        'naturopathictherapist',
+        'other');
+    const PLACES = array(
+        'practice',
+        'hospital',
+        'lab',
+        'association',
+        'company'
+    );
+    const CANTONS = array(
+        "AG",
+        "AI",
+        "AR",
+        "BE",
+        "BL",
+        "BS",
+        "FR",
+        "GE",
+        "GL",
+        "GR",
+        "JU",
+        "LU",
+        "NE",
+        "NW",
+        "OW",
+        "SG",
+        "SH",
+        "SO",
+        "SZ",
+        "TI",
+        "TG",
+        "UR",
+        "VD",
+        "VS",
+        "ZG",
+        "ZH",
+        "LI",
+        "A",
+        "D",
+        "F",
+        "I"
+    );
     public $invoice;
     public $doc;
     public $root;
@@ -21,28 +80,51 @@ class Sumex
     public $_canton = "TI";
     public $_esrType = "9";
 
-    public $_patient = ['gender' => 'male', 'birthdate' => '1970-01-01', 'familyName' => 'FamilyName', 'givenName' => 'GivenName', 'street' => 'ClientStreet 10', 'zip' => '0000', 'city' => 'ClientCity', 'phone' => '000 000 00 00', 'avs' => '7000000000000'];
+    public $_patient = array(
+        'gender' => 'male',
+        'birthdate' => '1970-01-01',
+        'familyName' => 'FamilyName',
+        'givenName' => 'GivenName',
+        'street' => 'ClientStreet 10',
+        'zip' => '0000',
+        'city' => 'ClientCity',
+        'phone' => '000 000 00 00',
+        'avs' => '7000000000000'
+    );
 
     public $_casedate = "1970-01-01";
     public $_casenumber = "0";
     public $_insuredid = '1234567';
 
-    public $_treatment = ['start' => '', 'end' => '', 'reason' => 'disease', 'diagnosis' => '.'];
+    public $_treatment = array(
+        'start' => '',
+        'end' => '',
+        'reason' => 'disease',
+        'diagnosis' => '.'
+    );
 
-    public $_company = [
+    public $_company = array(
         'name' => 'SomeCompany GmbH',
         'street' => 'Via Cantonale 5',
         'zip' => '6900',
         'city' => 'Lugano',
         'phone' => '091 902 11 00',
-        'gln' => '123456789123',
-        // EAN 13
-        'rcc' => 'C000002',
-    ];
+        'gln' => '123456789123', // EAN 13
+        'rcc' => 'C000002'
+    );
 
-    public $_insurance = ['gln' => '7634567890000', 'name' => 'SUVA', 'street' => 'ChangeMe 12', 'zip' => '6900', 'city' => 'Lugano'];
+    public $_insurance = array(
+        'gln' => '7634567890000',
+        'name' => 'SUVA',
+        'street' => 'ChangeMe 12',
+        'zip' => '6900',
+        'city' => 'Lugano'
+    );
 
-    public $_options = ['copy' => "0", 'storno' => "0"];
+    public $_options = array(
+        'copy' => "0",
+        'storno' => "0"
+    );
 
     public function __construct($params)
     {
@@ -53,7 +135,7 @@ class Sumex
         $this->invoice = $params['invoice'];
         $this->items = $params['items'];
         if (!is_array(@$params['options'])) {
-            $params['options'] = [];
+            $params['options'] = array();
         }
         $this->_options = array_merge($this->_options, $params['options']);
 
@@ -84,12 +166,25 @@ class Sumex
         $this->_insuredid = $this->invoice->client_insurednumber;
 
 
-        $treatments = ['disease', 'accident', 'maternity', 'prevention', 'birthdefect', 'unknown'];
+        $treatments = array(
+            'disease',
+            'accident',
+            'maternity',
+            'prevention',
+            'birthdefect',
+            'unknown'
+        );
 
 
-        $this->_treatment = ['start' => $this->invoice->sumex_treatmentstart, 'end' => $this->invoice->sumex_treatmentend, 'reason' => $treatments[$this->invoice->sumex_reason], 'diagnosis' => $this->invoice->sumex_diagnosis, 'observations' => $this->invoice->sumex_observations];
+        $this->_treatment = array(
+            'start' => $this->invoice->sumex_treatmentstart,
+            'end' => $this->invoice->sumex_treatmentend,
+            'reason' => $treatments[$this->invoice->sumex_reason],
+            'diagnosis' => $this->invoice->sumex_diagnosis,
+            'observations' => $this->invoice->sumex_observations,
+        );
 
-        $esrTypes = ["9", "red"];
+        $esrTypes = array("9", "red");
         $this->_esrType = $esrTypes[$CI->mdl_settings->setting('sumex_sliptype')];
 
         $this->currencyCode = $CI->mdl_settings->setting('currency_code');

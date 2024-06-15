@@ -15,9 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class ZugferdXml
 {
-    public $invoice;
-    public $doc;
-    public $root;
+    var $invoice;
+    var $doc;
+    var $root;
 
     public function __construct($params)
     {

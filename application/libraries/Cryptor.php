@@ -34,9 +34,9 @@ class Cryptor
     private $iv_num_bytes;
     private $format;
 
-    public const FORMAT_RAW = 0;
-    public const FORMAT_B64 = 1;
-    public const FORMAT_HEX = 2;
+    const FORMAT_RAW = 0;
+    const FORMAT_B64 = 1;
+    const FORMAT_HEX = 2;
 
     /**
      * Construct a Cryptor, using aes256 encryption, sha256 key hashing and base64 encoding.

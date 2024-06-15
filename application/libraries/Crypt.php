@@ -20,7 +20,7 @@ class Crypt
      */
     public function salt()
     {
-        return substr(sha1(random_int(0, mt_getrandmax())), 0, 22);
+        return substr(sha1(mt_rand()), 0, 22);
     }
 
     /**
