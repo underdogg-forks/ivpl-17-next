@@ -16,7 +16,7 @@ if (!file_exists('../.env')) {
 }
 
 // Path to the ROOT directory
-define('ROOTPATH', dirname(dirname(__FILE__)));
+define('ROOTPATH', dirname(__DIR__));
 
 require('../vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../.env');
@@ -215,7 +215,7 @@ $view_folder = '';
 
 // Set the current directory correctly for CLI requests
 if (defined('STDIN')) {
-    chdir(dirname(__FILE__));
+    chdir(__DIR__);
 }
 
 if (($_temp = realpath($system_path)) !== false) {
@@ -249,7 +249,7 @@ define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 define('BASEPATH', $system_path);
 
 // Path to the front controller (this file) directory
-define('FCPATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 // Name of the "system" directory
 define('SYSDIR', basename(BASEPATH));
