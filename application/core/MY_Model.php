@@ -122,7 +122,7 @@ class MY_Model extends CI_Model
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return $this
      */
@@ -135,6 +135,65 @@ class MY_Model extends CI_Model
         }
 
         return $this;
+    }
+
+    /**
+     * Sets CI query object and automatically creates active record query
+     * based on methods in child model.
+     * $this->model_name->get()
+     *
+     * @param bool $include_defaults
+     *
+     * @return $this
+     */
+    public function get($include_defaults = true)
+    {
+        if ($include_defaults) {
+            $this->set_defaults();
+        }
+
+        $this->run_filters();
+
+        $this->query = $this->db->get($this->table);
+
+        $this->filter = [];
+
+        return $this;
+    }
+
+    /**
+     * Query builder which listens to methods in child model
+     *
+     * @param array $exclude
+     */
+    private function set_defaults($exclude = [])
+    {
+        $native_methods = $this->native_methods;
+
+        foreach ($exclude as $unset_method) {
+            unset($native_methods[array_search($unset_method, $native_methods)]);
+        }
+
+        foreach ($native_methods as $native_method) {
+            $native_method = 'default_' . $native_method;
+
+            if (method_exists($this, $native_method)) {
+                $this->$native_method();
+            }
+        }
+    }
+
+    private function run_filters()
+    {
+        foreach ($this->filter as $filter) {
+            call_user_func_array([$this->db, $filter[0]], $filter[1]);
+        }
+
+        /**
+         * Clear the filter array since this should only be run once per model
+         * execution
+         */
+        $this->filter = [];
     }
 
     /**
@@ -180,76 +239,6 @@ class MY_Model extends CI_Model
         $this->pagination->initialize($config);
 
         $this->page_links = $this->pagination->create_links();
-    }
-
-    /**
-     * Query builder which listens to methods in child model
-     *
-     * @param array $exclude
-     */
-    private function set_defaults($exclude = [])
-    {
-        $native_methods = $this->native_methods;
-
-        foreach ($exclude as $unset_method) {
-            unset($native_methods[array_search($unset_method, $native_methods)]);
-        }
-
-        foreach ($native_methods as $native_method) {
-            $native_method = 'default_' . $native_method;
-
-            if (method_exists($this, $native_method)) {
-                $this->$native_method();
-            }
-        }
-    }
-
-    private function run_filters()
-    {
-        foreach ($this->filter as $filter) {
-            call_user_func_array([$this->db, $filter[0]], $filter[1]);
-        }
-
-        /**
-         * Clear the filter array since this should only be run once per model
-         * execution
-         */
-        $this->filter = [];
-    }
-
-    /**
-     * Sets CI query object and automatically creates active record query
-     * based on methods in child model.
-     * $this->model_name->get()
-     *
-     * @param bool $include_defaults
-     *
-     * @return $this
-     */
-    public function get($include_defaults = true)
-    {
-        if ($include_defaults) {
-            $this->set_defaults();
-        }
-
-        $this->run_filters();
-
-        $this->query = $this->db->get($this->table);
-
-        $this->filter = [];
-
-        return $this;
-    }
-
-    /**
-     * Returns the CI query row object
-     * $this->model_name->get()->row();
-     *
-     * @return mixed
-     */
-    public function row()
-    {
-        return $this->query->row();
     }
 
     /**
@@ -353,6 +342,17 @@ class MY_Model extends CI_Model
     public function result()
     {
         return $this->query->result();
+    }
+
+    /**
+     * Returns the CI query row object
+     * $this->model_name->get()->row();
+     *
+     * @return mixed
+     */
+    public function row()
+    {
+        return $this->query->row();
     }
 
     /**
@@ -464,13 +464,13 @@ class MY_Model extends CI_Model
      * Returns the assigned form value to a form input element
      *
      * @param string $key
-     * @param bool $escape
+     * @param bool   $escape
      *
      * @return mixed|string
      */
     public function form_value($key, $escape = false)
     {
-        $value = $this->form_values[$key] ?? '';
+        $value = isset($this->form_values[$key]) ? $this->form_values[$key] : '';
         return $escape ? htmlspecialchars($value) : $value;
     }
 

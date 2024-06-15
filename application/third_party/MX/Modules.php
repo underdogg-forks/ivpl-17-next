@@ -77,7 +77,7 @@ class Modules
                 ob_start();
                 $output = call_user_func_array([$class, $method], array_slice($args, 1));
                 $buffer = ob_get_clean();
-                return $output ?? $buffer;
+                return ($output !== null) ? $output : $buffer;
             }
         }
 
@@ -89,7 +89,7 @@ class Modules
     {
         if (is_array($module))
 	{
-                [$module, $params] = @myEach($module);
+                list($module, $params) = @myEach($module);
 	}
         else
 	{
@@ -107,9 +107,9 @@ class Modules
         if (!isset(self::$registry[$alias])) {
             /* find the controller */
             if ($module == null) {
-		    [$class] = CI::$APP->router->locate([]);
+		    list($class) = CI::$APP->router->locate(array());
 	    } else {
-            [$class] = CI::$APP->router->locate(explode('/', $module));
+            list($class) = CI::$APP->router->locate(explode('/', $module));
 	    }
 
             /* controller cannot be located */
@@ -148,11 +148,11 @@ class Modules
             /* load config or language array */
             include $location;
 
-            if (!isset(${$type}) OR !is_array(${$type})) {
+            if (!isset($$type) OR !is_array($$type)) {
                 show_error("{$location} does not contain a valid {$type} array");
             }
 
-            $result = ${$type};
+            $result = $$type;
         }
         log_message('debug', "File loaded: {$location}");
         return $result;
@@ -162,13 +162,13 @@ class Modules
     public static function autoload($class)
     {
         /* don't autoload CI_ prefixed classes or those using the config subclass_prefix */
-        if (strstr($class, 'CI_') OR strstr($class, (string) config_item('subclass_prefix'))) {
+        if (strstr($class, 'CI_') OR strstr($class, config_item('subclass_prefix'))) {
             return;
         }
 
         /* autoload Modular Extensions MX core classes */
         if (strstr($class, 'MX_')) {
-            if (is_file($location = __DIR__ . '/' . substr($class, 3) . EXT)) {
+            if (is_file($location = dirname(__FILE__) . '/' . substr($class, 3) . EXT)) {
                 include_once $location;
                 return;
             }
@@ -193,7 +193,7 @@ class Modules
     {
         /* load the route file */
         if (!isset(self::$routes[$module])) {
-            if ([$path] = self::find('routes', $module, 'config/')) {
+            if (list($path) = self::find('routes', $module, 'config/')) {
                 $path && self::$routes[$module] = self::load_file('routes', $path, 'route');
             }
         }
@@ -223,7 +223,6 @@ class Modules
      **/
     public static function find($file, $module, $base)
     {
-        $modules = [];
         $segments = explode('/', $file);
 
         $file = array_pop($segments);

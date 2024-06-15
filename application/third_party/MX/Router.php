@@ -3,7 +3,7 @@
 (defined('BASEPATH')) or exit('No direct script access allowed');
 
 // load the MX core module class
-require __DIR__ . '/Modules.php';
+require dirname(__FILE__) . '/Modules.php';
 
 /**
  * Modular Extensions - HMVC.
@@ -43,7 +43,7 @@ class MX_Router extends CI_Router
 {
     public $module;
 
-    private int $located = 0;
+    private $located = 0;
 
     public function fetch_module()
     {
@@ -97,7 +97,7 @@ class MX_Router extends CI_Router
         }
 
         // get the segments array elements
-        [$module, $directory, $controller] = array_pad($segments, 3, null);
+        list($module, $directory, $controller) = array_pad($segments, 3, null);
 
         // check modules
         foreach (Modules::$locations as $location => $offset) {

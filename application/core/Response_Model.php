@@ -19,7 +19,7 @@ class Response_Model extends Form_Validation_Model
 {
 
     /**
-     * @param null|int $id
+     * @param null|int   $id
      * @param null|array $db_array
      *
      * @return null|int
