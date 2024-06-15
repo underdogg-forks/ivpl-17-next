@@ -84,7 +84,7 @@ class Mdl_Settings extends CI_Model
      */
     public function setting($key, $default = '')
     {
-        return (isset($this->settings[$key])) ? $this->settings[$key] : $default;
+        return $this->settings[$key] ?? $default;
     }
 
     /**

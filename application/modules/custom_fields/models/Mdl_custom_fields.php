@@ -145,10 +145,10 @@ class Mdl_Custom_Fields extends MY_Model
             $custom_field_label = strtolower(str_replace(' ', '_', $db_array['custom_field_label']));
         }
 
-        if (in_array($db_array['custom_field_type'], $this->custom_types())) {
+        if (in_array($db_array['custom_field_type'], static::custom_types())) {
             $type = $db_array['custom_field_type'];
         } else {
-            $type = $this->custom_types()[0];
+            $type = static::custom_types()[0];
         }
 
         // Create the name for the custom field column

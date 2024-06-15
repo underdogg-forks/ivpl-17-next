@@ -36,7 +36,7 @@ class Upload extends Admin_Controller
      */
     public function upload_file($customerId, $url_key)
     {
-        Upload::create_dir($this->targetPath . '/');
+        (new Upload())->create_dir($this->targetPath . '/');
 
         if (!empty($_FILES)) {
             $tempFile = $_FILES['file']['tmp_name'];
@@ -66,7 +66,7 @@ class Upload extends Admin_Controller
             }
 
         } else {
-            Upload::show_files($url_key, $customerId);
+            (new Upload())->show_files($url_key, $customerId);
         }
     }
 

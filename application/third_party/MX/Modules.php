@@ -77,7 +77,7 @@ class Modules
                 ob_start();
                 $output = call_user_func_array([$class, $method], array_slice($args, 1));
                 $buffer = ob_get_clean();
-                return ($output !== null) ? $output : $buffer;
+                return $output ?? $buffer;
             }
         }
 
@@ -148,11 +148,11 @@ class Modules
             /* load config or language array */
             include $location;
 
-            if (!isset($$type) OR !is_array($$type)) {
+            if (!isset(${$type}) OR !is_array(${$type})) {
                 show_error("{$location} does not contain a valid {$type} array");
             }
 
-            $result = $$type;
+            $result = ${$type};
         }
         log_message('debug', "File loaded: {$location}");
         return $result;
