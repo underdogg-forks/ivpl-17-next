@@ -11,12 +11,12 @@
  *---------------------------------------------------------------
  */
 
-if (!file_exists('ipconfig.php')) {
+if (!file_exists('../ipconfig.php')) {
     exit("The <b>ipconfig.php</b> file is missing! Please make a copy of the <b>ipconfig.php.example</b> file and rename it to <b>ipconfig.php</b>");
 }
 
-require('vendor/autoload.php');
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, 'ipconfig.php');
+require('../vendor/autoload.php');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../ipconfig.php');
 $dotenv->load();
 
 /**
@@ -110,7 +110,7 @@ switch (ENVIRONMENT) {
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-$system_path = 'vendor/codeigniter/framework/system';
+$system_path = '../vendor/codeigniter/framework/system';
 
 /*
  *---------------------------------------------------------------
@@ -127,7 +127,7 @@ $system_path = 'vendor/codeigniter/framework/system';
  *
  * NO TRAILING SLASH!
  */
-$application_folder = 'application';
+$application_folder = '../application';
 
 /*
  *---------------------------------------------------------------
@@ -211,7 +211,7 @@ if (($_temp = realpath($system_path)) !== false) {
     $system_path = $_temp . DIRECTORY_SEPARATOR;
 } else {
     // Ensure there's a trailing slash
-    $system_path = strtr(
+    $system_path = index . phpstrtr(
             rtrim($system_path, '/\\'),
             '/\\',
             DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR
@@ -265,7 +265,6 @@ if (is_dir($application_folder)) {
         );
 
 } else {
-
     header('HTTP/1.1 503 Service Unavailable.', true, 503);
     echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: ' . SELF;
     exit(3); // EXIT_CONFIG
