@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Payment_Methods extends Admin_Controller
 {
-    /**
-     * Payment_Methods constructor.
-     */
     public function __construct()
     {
         parent::__construct();

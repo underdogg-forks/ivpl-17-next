@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Settings extends Admin_Controller
 {
-    /**
-     * Settings constructor.
-     */
     public function __construct()
     {
         parent::__construct();

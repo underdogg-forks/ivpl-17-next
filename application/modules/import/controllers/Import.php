@@ -8,9 +8,7 @@ class Import extends Admin_Controller
 {
     private array $allowed_files = [0 => 'clients.csv', 1 => 'invoices.csv', 2 => 'invoice_items.csv', 3 => 'payments.csv'];
 
-    /**
-     * Import constructor.
-     */
+
     public function __construct()
     {
         parent::__construct();

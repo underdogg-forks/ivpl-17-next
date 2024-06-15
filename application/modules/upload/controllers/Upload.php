@@ -12,9 +12,7 @@ class Upload extends Admin_Controller
 
     public $content_types = ['gif' => 'image/gif', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'pdf' => 'application/pdf', 'png' => 'image/png', 'txt' => 'text/plain', 'xml' => 'application/xml'];
 
-    /**
-     * Upload constructor.
-     */
+
     public function __construct()
     {
         parent::__construct();

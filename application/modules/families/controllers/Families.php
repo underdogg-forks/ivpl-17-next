@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Families extends Admin_Controller
 {
-    /**
-     * Families constructor.
-     */
     public function __construct()
     {
         parent::__construct();

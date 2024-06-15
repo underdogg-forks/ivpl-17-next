@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Tax_Rates extends Admin_Controller
 {
-    /**
-     * Tax_Rates constructor.
-     */
     public function __construct()
     {
         parent::__construct();

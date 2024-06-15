@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Email_Templates extends Admin_Controller
 {
-    /**
-     * Email_Templates constructor.
-     */
     public function __construct()
     {
         parent::__construct();

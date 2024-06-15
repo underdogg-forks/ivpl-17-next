@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Invoices extends Guest_Controller
 {
-    /**
-     * Invoices constructor.
-     */
     public function __construct()
     {
         parent::__construct();

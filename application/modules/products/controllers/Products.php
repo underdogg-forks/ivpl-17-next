@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Products extends Admin_Controller
 {
-    /**
-     * Products constructor.
-     */
     public function __construct()
     {
         parent::__construct();

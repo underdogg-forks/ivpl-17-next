@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Clients extends Admin_Controller
 {
-    /**
-     * Clients constructor.
-     */
     public function __construct()
     {
         parent::__construct();

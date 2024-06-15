@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Projects extends Admin_Controller
 {
-    /**
-     * Projects constructor.
-     */
     public function __construct()
     {
         parent::__construct();

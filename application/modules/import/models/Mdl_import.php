@@ -24,9 +24,7 @@ class Mdl_Import extends Response_Model
 
     public $primary_keys = ['ip_clients' => 'client_id', 'ip_invoices' => 'invoice_id', 'ip_invoice_items' => 'item_id', 'ip_payments' => 'payment_id'];
 
-    /**
-     * Mdl_Import constructor.
-     */
+
     public function __construct() {}
 
     public function default_select(): void

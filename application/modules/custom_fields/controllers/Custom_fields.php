@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Custom_Fields extends Admin_Controller
 {
-    /**
-     * Custom_Fields constructor.
-     */
     public function __construct()
     {
         parent::__construct();

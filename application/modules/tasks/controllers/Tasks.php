@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Tasks extends Admin_Controller
 {
-    /**
-     * Tasks constructor.
-     */
     public function __construct()
     {
         parent::__construct();

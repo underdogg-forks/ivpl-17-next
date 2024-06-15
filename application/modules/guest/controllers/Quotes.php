@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Quotes extends Guest_Controller
 {
-    /**
-     * Quotes constructor.
-     */
     public function __construct()
     {
         parent::__construct();

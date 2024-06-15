@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Units extends Admin_Controller
 {
-    /**
-     * Units constructor.
-     */
     public function __construct()
     {
         parent::__construct();

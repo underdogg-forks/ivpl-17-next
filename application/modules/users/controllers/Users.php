@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Users extends Admin_Controller
 {
-    /**
-     * Users constructor.
-     */
     public function __construct()
     {
         parent::__construct();

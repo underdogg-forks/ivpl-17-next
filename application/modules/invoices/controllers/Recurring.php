@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Recurring extends Admin_Controller
 {
-    /**
-     * Recurring constructor.
-     */
     public function __construct()
     {
         parent::__construct();

@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Versions extends Admin_Controller
 {
-    /**
-     * Versions constructor.
-     */
     public function __construct()
     {
         parent::__construct();

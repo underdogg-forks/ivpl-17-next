@@ -8,9 +8,7 @@ class Setup extends MX_Controller
 {
     public $errors = 0;
 
-    /**
-     * Setup constructor.
-     */
+
     public function __construct()
     {
         if (env_bool('DISABLE_SETUP', false)) {

@@ -8,9 +8,7 @@ class Mailer extends Admin_Controller
 {
     private $mailer_configured;
 
-    /**
-     * Mailer constructor.
-     */
+
     public function __construct()
     {
         parent::__construct();

@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Payments extends Guest_Controller
 {
-    /**
-     * Payments constructor.
-     */
     public function __construct()
     {
         parent::__construct();

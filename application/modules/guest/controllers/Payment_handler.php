@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Payment_Handler extends Base_Controller
 {
-    /**
-     * Payment_Handler constructor.
-     */
     public function __construct()
     {
         parent::__construct();

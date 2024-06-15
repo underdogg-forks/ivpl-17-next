@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Reports extends Admin_Controller
 {
-    /**
-     * Reports constructor.
-     */
     public function __construct()
     {
         parent::__construct();

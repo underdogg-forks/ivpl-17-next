@@ -6,9 +6,6 @@ if ( ! defined('BASEPATH')) {
 
 class Invoice_Groups extends Admin_Controller
 {
-    /**
-     * Invoice_Groups constructor.
-     */
     public function __construct()
     {
         parent::__construct();
