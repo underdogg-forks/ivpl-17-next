@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Quote_Amounts.
- */
 class Mdl_Quote_Amounts extends CI_Model
 {
     /**

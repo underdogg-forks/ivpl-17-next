@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Quote_Tax_Rates.
- */
 class Mdl_Quote_Tax_Rates extends Response_Model
 {
     public $table = 'ip_quote_tax_rates';

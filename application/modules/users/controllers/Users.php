@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Users.
- */
 class Users extends Admin_Controller
 {
     /**

@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Upload.
- */
 class Upload extends Admin_Controller
 {
     public $targetPath;

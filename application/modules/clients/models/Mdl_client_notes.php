@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Client_Notes.
- */
 class Mdl_Client_Notes extends Response_Model
 {
     public $table = 'ip_client_notes';

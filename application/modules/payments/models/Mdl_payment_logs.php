@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Payment_Logs.
- */
 class Mdl_Payment_Logs extends Response_Model
 {
     public $table = 'ip_merchant_responses';

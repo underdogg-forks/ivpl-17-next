@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Tasks.
- */
 class Mdl_Tasks extends Response_Model
 {
     public $table = 'ip_tasks';

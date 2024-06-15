@@ -13,9 +13,7 @@ if ( ! defined('BASEPATH')) {
  * @link        https://invoiceplane.com
  */
 
-/**
- * Class Guest.
- */
+
 class Get extends Base_Controller
 {
     public function attachment($filename): void

@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Versions.
- */
 class Mdl_Versions extends Response_Model
 {
     public $table = 'ip_versions';

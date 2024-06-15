@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Setup.
- */
 class Setup extends MX_Controller
 {
     public $errors = 0;

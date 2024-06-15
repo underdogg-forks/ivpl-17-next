@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Setup.
- */
 class Mdl_Setup extends CI_Model
 {
     public $errors = [];

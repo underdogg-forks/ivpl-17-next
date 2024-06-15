@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Invoice_Groups.
- */
 class Invoice_Groups extends Admin_Controller
 {
     /**

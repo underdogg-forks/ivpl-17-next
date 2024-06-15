@@ -13,9 +13,7 @@ if ( ! defined('BASEPATH')) {
  * @link        https://invoiceplane.com
  */
 
-/**
- * Class Mdl_Items.
- */
+
 class Mdl_Items extends Response_Model
 {
     public $table = 'ip_invoice_items';

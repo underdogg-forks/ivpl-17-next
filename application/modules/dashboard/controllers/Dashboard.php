@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Dashboard.
- */
 class Dashboard extends Admin_Controller
 {
     public function index(): void

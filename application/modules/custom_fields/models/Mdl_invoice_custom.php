@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Invoice_Custom.
- */
 class Mdl_Invoice_Custom extends Validator
 {
     public static $positions = ['custom_fields', 'properties'];

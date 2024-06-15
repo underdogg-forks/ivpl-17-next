@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_User_Clients.
- */
 class Mdl_User_Clients extends MY_Model
 {
     public $table = 'ip_user_clients';

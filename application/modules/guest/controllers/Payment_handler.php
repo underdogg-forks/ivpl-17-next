@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Payment_Handler.
- */
 class Payment_Handler extends Base_Controller
 {
     /**

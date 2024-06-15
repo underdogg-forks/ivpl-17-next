@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Projects.
- */
 class Projects extends Admin_Controller
 {
     /**

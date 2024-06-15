@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Email_Templates.
- */
 class Email_Templates extends Admin_Controller
 {
     /**

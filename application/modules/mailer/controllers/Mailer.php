@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mailer.
- */
 class Mailer extends Admin_Controller
 {
     private $mailer_configured;

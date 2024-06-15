@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Sessions.
- */
 class Sessions extends Base_Controller
 {
     public function index(): void

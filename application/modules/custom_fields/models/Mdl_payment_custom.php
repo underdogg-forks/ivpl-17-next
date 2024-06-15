@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Payment_Custom.
- */
 class Mdl_Payment_Custom extends Validator
 {
     public static $positions = ['custom_fields'];

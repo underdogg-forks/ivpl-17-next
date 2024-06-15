@@ -13,9 +13,7 @@ if ( ! defined('BASEPATH')) {
  * @link		https://userplane.com
  */
 
-/**
- * Class Mdl_User_Custom.
- */
+
 class Mdl_User_Custom extends Validator
 {
     public static $positions = ['custom_fields', 'account_information', 'address', 'tax_information', 'contact_information'];

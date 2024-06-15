@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Custom_Values.
- */
 class Mdl_Custom_Values extends MY_Model
 {
     public $table = 'ip_custom_values';

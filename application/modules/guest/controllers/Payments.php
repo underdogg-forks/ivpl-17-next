@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Payments.
- */
 class Payments extends Guest_Controller
 {
     /**

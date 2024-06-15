@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Email_Templates.
- */
 class Mdl_Email_Templates extends Response_Model
 {
     public $table = 'ip_email_templates';

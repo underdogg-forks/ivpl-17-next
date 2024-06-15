@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Templates.
- */
 class Mdl_Templates extends CI_Model
 {
     /**

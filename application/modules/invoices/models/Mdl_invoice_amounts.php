@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Invoice_Amounts.
- */
 class Mdl_Invoice_Amounts extends CI_Model
 {
     /**

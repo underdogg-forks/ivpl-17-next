@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Quotes.
- */
 class Quotes extends Guest_Controller
 {
     /**

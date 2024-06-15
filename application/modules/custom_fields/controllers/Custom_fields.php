@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Custom_Fields.
- */
 class Custom_Fields extends Admin_Controller
 {
     /**

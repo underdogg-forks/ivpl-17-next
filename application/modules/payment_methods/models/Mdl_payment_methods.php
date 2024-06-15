@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Payment_Methods.
- */
 class Mdl_Payment_Methods extends Response_Model
 {
     public $table = 'ip_payment_methods';

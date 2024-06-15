@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Families.
- */
 class Families extends Admin_Controller
 {
     /**

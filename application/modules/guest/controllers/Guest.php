@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Guest.
- */
 class Guest extends Guest_Controller
 {
     public function index(): void

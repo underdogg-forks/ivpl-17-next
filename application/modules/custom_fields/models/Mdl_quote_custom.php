@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Quote_Custom.
- */
 class Mdl_Quote_Custom extends Validator
 {
     public static $positions = ['custom_fields', 'properties'];

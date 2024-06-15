@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Tax_Rates.
- */
 class Tax_Rates extends Admin_Controller
 {
     /**

@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Mdl_Families.
- */
 class Mdl_Families extends Response_Model
 {
     public $table = 'ip_families';

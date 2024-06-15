@@ -4,9 +4,6 @@ if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-/**
- * Class Settings.
- */
 class Settings extends Admin_Controller
 {
     /**
