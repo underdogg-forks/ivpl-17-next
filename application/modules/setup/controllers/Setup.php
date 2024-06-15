@@ -255,6 +255,7 @@ class Setup extends MX_Controller
      */
     private function check_database()
     {
+        $db = [];
         // Reload the ipconfig.php file
         global $dotenv;
         $dotenv->load();
@@ -411,6 +412,7 @@ class Setup extends MX_Controller
 
     public function complete()
     {
+        $data = [];
         if ($this->session->userdata('install_step') <> 'complete') {
             redirect('setup/prerequisites');
         }

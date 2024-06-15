@@ -100,6 +100,7 @@ class Sessions extends Base_Controller
      */
     public function passwordreset($token = null)
     {
+        $config = [];
         // Check if a token was provided
         if ($token) {
             if(!preg_match("/[^[:alnum:]\-_]/", $token)) {
