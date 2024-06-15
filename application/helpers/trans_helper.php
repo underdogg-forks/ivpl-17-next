@@ -93,7 +93,7 @@ function get_available_languages()
     $languages = directory_map(APPPATH . 'language', true);
     sort($languages);
 
-    for ($i = 0; $i < count($languages); $i++) {
+    for ($i = 0; $i < (is_array($languages) || $languages instanceof \Countable ? count($languages) : 0); $i++) {
         $languages[$i] = str_replace(['\\', '/'], '', $languages[$i]);
     }
 

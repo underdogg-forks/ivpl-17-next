@@ -240,7 +240,7 @@
                     <?php } ?>
 
                     <?php
-                    if (count($attachments) > 0) { ?>
+                    if ((is_array($attachments) || $attachments instanceof \Countable ? count($attachments) : 0) > 0) { ?>
                         <div class="col-xs-12 col-md-6">
                             <h4><?php echo trans('attachments'); ?></h4>
                             <div class="table-responsive">

@@ -44,7 +44,7 @@ class MX_Config extends CI_Config
         }
 
         $_module OR $_module = CI::$APP->router->fetch_module();
-        list($path, $file) = Modules::find($file, $_module, 'config/');
+        [$path, $file] = Modules::find($file, $_module, 'config/');
 
         if ($path === false) {
             parent::load($file, $use_sections, $fail_gracefully);

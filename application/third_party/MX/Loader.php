@@ -76,14 +76,14 @@ class MX_Loader extends CI_Loader
         $path = false;
 
         if ($this->_module) {
-            list($path, $file) = Modules::find('constants', $this->_module, 'config/');
+            [$path, $file] = Modules::find('constants', $this->_module, 'config/');
 
             /* module constants file */
             if ($path != false) {
                 include_once $path . $file . EXT;
             }
 
-            list($path, $file) = Modules::find('autoload', $this->_module, 'config/');
+            [$path, $file] = Modules::find('autoload', $this->_module, 'config/');
 
             /* module autoload file */
             if ($path != false) {
@@ -92,7 +92,7 @@ class MX_Loader extends CI_Loader
         }
 
         /* nothing to do */
-        if (count($autoload) == 0) {
+        if ((is_array($autoload) || $autoload instanceof \Countable ? count($autoload) : 0) == 0) {
             return;
         }
 
@@ -204,11 +204,11 @@ class MX_Loader extends CI_Loader
 		$_alias = strtolower($object_name);
 	}
 
-        list($path, $_library) = Modules::find($library, $this->_module, 'libraries/');
+        [$path, $_library] = Modules::find($library, $this->_module, 'libraries/');
 
         /* load library config file as params */
         if ($params == null) {
-            list($path2, $file) = Modules::find($_alias, $this->_module, 'config/');
+            [$path2, $file] = Modules::find($_alias, $this->_module, 'config/');
             ($path2) && $params = Modules::load_file($file, $path2, 'config');
         }
 
@@ -251,7 +251,7 @@ class MX_Loader extends CI_Loader
         }
 
         /* check module */
-        list($path, $_model) = Modules::find(strtolower($model), $this->_module, 'models/');
+        [$path, $_model] = Modules::find(strtolower($model), $this->_module, 'models/');
 
         if ($path == false) {
             /* check application & packages */
@@ -332,7 +332,7 @@ class MX_Loader extends CI_Loader
             return;
         }
 
-        list($path, $_helper) = Modules::find($helper . '_helper', $this->_module, 'helpers/');
+        [$path, $_helper] = Modules::find($helper . '_helper', $this->_module, 'helpers/');
 
         if ($path === false) {
             return parent::helper($helper);
@@ -378,7 +378,7 @@ class MX_Loader extends CI_Loader
             return $this;
         }
 
-        list($path, $_plugin) = Modules::find($plugin . '_pi', $this->_module, 'plugins/');
+        [$path, $_plugin] = Modules::find($plugin . '_pi', $this->_module, 'plugins/');
 
         if ($path === false && !is_file($_plugin = APPPATH . 'plugins/' . $_plugin . EXT)) {
             show_error("Unable to locate the plugin file: {$_plugin}");
@@ -401,7 +401,7 @@ class MX_Loader extends CI_Loader
     /** Load a module view **/
     public function view($view, $vars = [], $return = false)
     {
-        list($path, $_view) = Modules::find($view, $this->_module, 'views/');
+        [$path, $_view] = Modules::find($view, $this->_module, 'views/');
 
         if ($path != false) {
             $this->_ci_view_paths = [$path => true] + $this->_ci_view_paths;

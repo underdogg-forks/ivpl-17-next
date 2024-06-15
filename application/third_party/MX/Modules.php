@@ -89,7 +89,7 @@ class Modules
     {
         if (is_array($module))
 	{
-                list($module, $params) = @myEach($module);
+                [$module, $params] = @myEach($module);
 	}
         else
 	{
@@ -107,9 +107,9 @@ class Modules
         if (!isset(self::$registry[$alias])) {
             /* find the controller */
             if ($module == null) {
-		    list($class) = CI::$APP->router->locate([]);
+		    [$class] = CI::$APP->router->locate([]);
 	    } else {
-            list($class) = CI::$APP->router->locate(explode('/', $module));
+            [$class] = CI::$APP->router->locate(explode('/', $module));
 	    }
 
             /* controller cannot be located */
@@ -193,7 +193,7 @@ class Modules
     {
         /* load the route file */
         if (!isset(self::$routes[$module])) {
-            if (list($path) = self::find('routes', $module, 'config/')) {
+            if ([$path] = self::find('routes', $module, 'config/')) {
                 $path && self::$routes[$module] = self::load_file('routes', $path, 'route');
             }
         }

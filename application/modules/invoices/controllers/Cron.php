@@ -142,6 +142,6 @@ class Cron extends Base_Controller
                 log_message('error', 'v1.6.1: automatic_email_on_recur was not set or mailer was not configured');
             }
         }
-        log_message('debug', '[Recurring Invoices] ' . count($invoices_recurring) . ' recurring invoices processed');
+        log_message('debug', '[Recurring Invoices] ' . (is_array($invoices_recurring) || $invoices_recurring instanceof \Countable ? count($invoices_recurring) : 0) . ' recurring invoices processed');
     }
 }

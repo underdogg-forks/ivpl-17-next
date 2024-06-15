@@ -63,7 +63,7 @@ class Mdl_User_Clients extends MY_Model
         for ($x = 0; $x < count($users_id); $x++) {
             $clients = $this->mdl_clients->get_not_assigned_to_user($users_id[$x]);
             
-            for ($i = 0; $i < count($clients); $i++) {
+            for ($i = 0; $i < (is_array($clients) || $clients instanceof \Countable ? count($clients) : 0); $i++) {
                 $user_client = ['user_id' => $users_id[$x], 'client_id' => $clients[$i]->client_id];
                 
                 $this->db->insert('ip_user_clients', $user_client);
@@ -78,7 +78,7 @@ class Mdl_User_Clients extends MY_Model
         
         $new_users = [];
         
-        for ($i = 0; $i < count($users); $i++) {
+        for ($i = 0; $i < (is_array($users) || $users instanceof \Countable ? count($users) : 0); $i++) {
             array_push($new_users, $users[$i]->user_id);
         }
         
