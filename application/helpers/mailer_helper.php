@@ -49,7 +49,8 @@ function email_invoice(
     $cc = null,
     $bcc = null,
     $attachments = null
-) {
+)
+{
     $CI = &get_instance();
 
     $CI->load->helper('mailer/phpmailer');
@@ -100,7 +101,8 @@ function email_quote(
     $cc = null,
     $bcc = null,
     $attachments = null
-) {
+)
+{
     $CI = &get_instance();
 
     $CI->load->helper('mailer/phpmailer');
