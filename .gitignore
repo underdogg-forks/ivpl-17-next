@@ -16,3 +16,4 @@ adminer.php
 /.php_cs.cache
 /doc
 *.bak
+/.env
