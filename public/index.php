@@ -222,7 +222,7 @@ if (($_temp = realpath($system_path)) !== false) {
     $system_path = $_temp . DIRECTORY_SEPARATOR;
 } else {
     // Ensure there's a trailing slash
-    $system_path = index . phpstrtr(
+    $system_path = INDEX . phpstrtr(
             rtrim($system_path, '/\\'),
             '/\\',
             DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR
