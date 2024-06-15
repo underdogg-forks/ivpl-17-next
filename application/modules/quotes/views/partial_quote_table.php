@@ -21,7 +21,7 @@
 
         foreach ($quotes as $quote) {
             // Convert the dropdown menu to a dropup if quote is after the invoice split
-            $dropup = $quote_idx > $quote_list_split ? true : false;
+            $dropup = $quote_idx > $quote_list_split;
             ?>
             <tr>
                 <td>

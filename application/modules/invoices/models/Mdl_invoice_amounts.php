@@ -15,6 +15,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Invoice_Amounts extends CI_Model
 {
+    public $db;
+    public $load;
+    public $mdl_invoices;
+    public $config;
+    public $mdl_invoice_tax_rates;
     /**
      * IP_INVOICE_AMOUNTS
      * invoice_amount_id
@@ -63,7 +68,7 @@ class Mdl_Invoice_Amounts extends CI_Model
           WHERE invoice_id = " . $this->db->escape($invoice_id)
         );
 
-        $invoice_paid = $query->row()->invoice_paid ? floatval($query->row()->invoice_paid) : 0;
+        $invoice_paid = $query->row()->invoice_paid ? (float) $query->row()->invoice_paid : 0;
 
         // Create the database array and insert or update
         $db_array = ['invoice_id' => $invoice_id, 'invoice_item_subtotal' => $invoice_item_subtotal, 'invoice_item_tax_total' => $invoice_amounts->invoice_item_tax_total, 'invoice_total' => $invoice_total, 'invoice_paid' => $invoice_paid, 'invoice_balance' => $invoice_total - $invoice_paid];
@@ -85,30 +90,26 @@ class Mdl_Invoice_Amounts extends CI_Model
         // Get invoice status
         $this->load->model('invoices/mdl_invoices');
         $invoice = $this->mdl_invoices->get_by_id($invoice_id);
-        $invoice_is_credit = ($invoice->creditinvoice_parent_id > 0 ? true : false);
+        $invoice_is_credit = ($invoice->creditinvoice_parent_id > 0);
 
         // Set to paid if balance is zero
-        if ($invoice->invoice_balance == 0) {
-            // Check if the invoice total is not zero or negative
-            if ($invoice->invoice_total != 0 || $invoice_is_credit) {
+        // Check if the invoice total is not zero or negative
+        if ($invoice->invoice_balance == 0 && ($invoice->invoice_total != 0 || $invoice_is_credit)) {
+            $this->db->where('invoice_id', $invoice_id);
+            $payment = $this->db->get('ip_payments')->row();
+            $payment_method_id = ($payment->payment_method_id ?: 0);
+            $this->db->where('invoice_id', $invoice_id);
+            $this->db->set('invoice_status_id', 4);
+            $this->db->set('payment_method', $payment_method_id);
+            $this->db->update('ip_invoices');
+            // Set to read-only if applicable
+            if (
+                $this->config->item('disable_read_only') == false
+                && $invoice->invoice_status_id == get_setting('read_only_toggle')
+            ) {
                 $this->db->where('invoice_id', $invoice_id);
-                $payment = $this->db->get('ip_payments')->row();
-                $payment_method_id = ($payment->payment_method_id ?: 0);
-
-                $this->db->where('invoice_id', $invoice_id);
-                $this->db->set('invoice_status_id', 4);
-                $this->db->set('payment_method', $payment_method_id);
+                $this->db->set('is_read_only', 1);
                 $this->db->update('ip_invoices');
-
-                // Set to read-only if applicable
-                if (
-                    $this->config->item('disable_read_only') == false
-                    && $invoice->invoice_status_id == get_setting('read_only_toggle')
-                ) {
-                    $this->db->where('invoice_id', $invoice_id);
-                    $this->db->set('is_read_only', 1);
-                    $this->db->update('ip_invoices');
-                }
             }
         }
     }
@@ -135,7 +136,7 @@ class Mdl_Invoice_Amounts extends CI_Model
         $discount_amount = (float)number_format($invoice_data->invoice_discount_amount, 2, '.', '');
         $discount_percent = (float)number_format($invoice_data->invoice_discount_percent, 2, '.', '');
 
-        $total = $total - $discount_amount;
+        $total -= $discount_amount;
 
         return $total - round(($total / 100 * $discount_percent), 2);
     }

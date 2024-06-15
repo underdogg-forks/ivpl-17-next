@@ -76,7 +76,7 @@
             <br>
             <?php
             $logo = invoice_logo();
-            if ($logo) {
+            if ($logo !== '' && $logo !== '0') {
                 echo $logo . '<br><br>';
             }
             ?>

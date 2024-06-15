@@ -15,6 +15,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Units extends Admin_Controller
 {
+    public $load;
+    public $mdl_units;
+    public $layout;
+    public $input;
+    public $db;
     /**
      * Units constructor.
      */
@@ -64,7 +69,7 @@ class Units extends Admin_Controller
             redirect('units');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
+        if ($id && !$this->input->post('btn_submit')) {
             if (!$this->mdl_units->prep_form($id)) {
                 show_404();
             }

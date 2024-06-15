@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Setup extends CI_Model
 {
+    public $db;
+    public $load;
+    public $session;
+    public $mdl_settings;
     public $errors = [];
 
     /**
@@ -47,10 +51,8 @@ class Mdl_Setup extends CI_Model
         $commands = explode(';', $contents);
 
         foreach ($commands as $command) {
-            if (trim($command)) {
-                if (!$this->db->query(trim($command) . ';')) {
-                    $this->errors[] = $this->db->_error_message();
-                }
+            if (trim($command) !== '' && trim($command) !== '0' && !$this->db->query(trim($command) . ';')) {
+                $this->errors[] = $this->db->_error_message();
             }
         }
     }
@@ -297,7 +299,7 @@ class Mdl_Setup extends CI_Model
         $test_user = $this->db->query('SELECT * FROM `ip_users` ORDER BY `user_id` ASC LIMIT 1')->row();
 
         // Add new user key if applicable
-        if (!isset($test_user->user_all_clients)) {
+        if (!(property_exists($test_user, 'user_all_clients') && $test_user->user_all_clients !== null)) {
             $this->db->query('ALTER TABLE `ip_users`
               ADD `user_all_clients` INT(1) NOT NULL DEFAULT 0
               AFTER `user_psalt`;'

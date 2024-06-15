@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Invoice_Groups extends Admin_Controller
 {
+    public $load;
+    public $mdl_invoice_groups;
+    public $layout;
+    public $input;
     /**
      * Invoice_Groups constructor.
      */
@@ -52,7 +56,7 @@ class Invoice_Groups extends Admin_Controller
             redirect('invoice_groups');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
+        if ($id && !$this->input->post('btn_submit')) {
             if (!$this->mdl_invoice_groups->prep_form($id)) {
                 show_404();
             }

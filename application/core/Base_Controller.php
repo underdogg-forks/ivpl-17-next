@@ -18,6 +18,11 @@ if (!defined('BASEPATH')) {
 class Base_Controller extends MX_Controller
 {
 
+    public $config;
+    public $input;
+    public $load;
+    public $mdl_settings;
+    public $session;
     /** @var bool */
     public $ajax_controller = false;
 

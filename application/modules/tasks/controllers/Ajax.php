@@ -12,6 +12,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Ajax extends Admin_Controller
 {
+    public $load;
+    public $mdl_tasks;
+    public $layout;
+    public $input;
     /**
      * @param null|integer $invoice_id
      */

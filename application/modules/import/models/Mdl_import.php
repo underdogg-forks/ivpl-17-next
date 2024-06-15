@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Import extends Response_Model
 {
+    public $mdl_invoices;
+    public $mdl_items;
+    public $mdl_payments;
     public $table = 'ip_imports';
     public $primary_key = 'ip_imports.import_id';
     public $expected_headers = ['clients.csv' => ['client_name', 'client_address_1', 'client_address_2', 'client_city', 'client_state', 'client_zip', 'client_country', 'client_phone', 'client_fax', 'client_mobile', 'client_email', 'client_web', 'client_vat_id', 'client_tax_code', 'client_active'], 'invoices.csv' => ['user_email', 'client_name', 'invoice_date_created', 'invoice_date_due', 'invoice_number', 'invoice_terms'], 'invoice_items.csv' => ['invoice_number', 'item_tax_rate', 'item_date_added', 'item_name', 'item_description', 'item_quantity', 'item_price'], 'payments.csv' => ['invoice_number', 'payment_method', 'payment_date', 'payment_amount', 'payment_note']];
@@ -71,7 +74,7 @@ class Mdl_Import extends Response_Model
 
         $fileheaders = null;
 
-        while (($data = fgetcsv($handle, 1000, ",")) <> false) {
+        while (($data = fgetcsv($handle, 1000, ",")) != false) {
             // Check to make sure the file headers match the expected headers
             if ($row == 1) {
                 foreach ($headers as $header) {
@@ -85,7 +88,7 @@ class Mdl_Import extends Response_Model
                 $db_array = [];
                 // Loop through each of the values in the row
                 foreach ($headers as $header) {
-                    $db_array[$header] = ($data[array_keys($fileheaders, $header)[0]] <> 'null') ? $data[array_keys($fileheaders, $header)[0]] : '';
+                    $db_array[$header] = ($data[array_keys($fileheaders, $header)[0]] != 'null') ? $data[array_keys($fileheaders, $header)[0]] : '';
                 }
 
                 // Create a couple of default values if file is clients.csv
@@ -124,12 +127,12 @@ class Mdl_Import extends Response_Model
         // Init an array to store the inserted ids
         $ids = [];
 
-        while (($data = fgetcsv($handle, 1000, ",")) <> false) {
+        while (($data = fgetcsv($handle, 1000, ",")) != false) {
             // Init $record_error as false
             $record_error = false;
 
             // Check to make sure the file headers match expected headers
-            if ($row == 1 and $data <> $headers) {
+            if ($row == 1 && $data != $headers) {
                 return false;
             } elseif ($row > 1) {
                 // Init the array
@@ -168,7 +171,7 @@ class Mdl_Import extends Response_Model
                     $db_array['invoice_url_key'] = $this->mdl_invoices->get_url_key();
 
                     // Assign the final value to the array
-                    $db_array[$header] = ($data[$key] <> 'null') ? $data[$key] : '';
+                    $db_array[$header] = ($data[$key] != 'null') ? $data[$key] : '';
                 }
 
                 // Check for any record errors
@@ -202,12 +205,12 @@ class Mdl_Import extends Response_Model
         // Init an array to store the inserted ids
         $ids = [];
 
-        while (($data = fgetcsv($handle, 1000, ",")) <> false) {
+        while (($data = fgetcsv($handle, 1000, ",")) != false) {
             // Init record_error as false
             $record_error = false;
 
             // Check to make sure the file headers match expected headers
-            if ($row == 1 and $data <> $headers) {
+            if ($row == 1 && $data != $headers) {
                 return false;
             } elseif ($row > 1) {
                 // Init the array
@@ -242,7 +245,7 @@ class Mdl_Import extends Response_Model
                     }
 
                     // Assign the final value to the array
-                    $db_array[$header] = ($data[$key] <> 'null') ? $data[$key] : '';
+                    $db_array[$header] = ($data[$key] != 'null') ? $data[$key] : '';
                 }
 
                 if (!$record_error) {
@@ -270,10 +273,10 @@ class Mdl_Import extends Response_Model
 
         $ids = [];
 
-        while (($data = fgetcsv($handle, 1000, ",")) <> false) {
+        while (($data = fgetcsv($handle, 1000, ",")) != false) {
             $record_error = false;
 
-            if ($row == 1 and $data <> $headers) {
+            if ($row == 1 && $data != $headers) {
                 return false;
             } elseif ($row > 1) {
                 $db_array = [];
@@ -306,7 +309,7 @@ class Mdl_Import extends Response_Model
                         }
                     }
 
-                    $db_array[$header] = ($data[$key] <> 'null') ? $data[$key] : '';
+                    $db_array[$header] = ($data[$key] != 'null') ? $data[$key] : '';
                 }
 
                 if (!$record_error) {

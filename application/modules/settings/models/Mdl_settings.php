@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Settings extends CI_Model
 {
+    public $db;
+    public $load;
+    public $mdl_versions;
     public $settings = [];
 
     /**

@@ -69,13 +69,13 @@ function parse_template($object, $body)
                     $replace = site_url('guest/view/quote/' . $object->quote_url_key);
                     break;
                 case 'sumex_casedate':
-                    if (isset($object->sumex_casedate)){
+                    if (property_exists($object, 'sumex_casedate') && $object->sumex_casedate !== null){
                         $replace = date_from_mysql($object->sumex_casedate, true);
                     }
                     break;
                 default:
                     // Check if it's a custom field
-                    if (preg_match('/ip_cf_([0-9].*)/', $var, $cf_id)) {
+                    if (preg_match('/ip_cf_(\d.*)/', $var, $cf_id)) {
                         // Get the custom field
                         $CI =& get_instance();
                         $CI->load->model('custom_fields/mdl_custom_fields');

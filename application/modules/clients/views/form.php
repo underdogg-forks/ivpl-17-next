@@ -277,11 +277,7 @@ foreach ($genders as $key => $val) { ?>
                             <label for="client_birthdate"><?php _trans('birthdate'); ?></label>
                             <?php
                             $bdate = $this->mdl_clients->form_value('client_birthdate');
-if ($bdate && $bdate != "0000-00-00") {
-    $bdate = date_from_mysql($bdate);
-} else {
-    $bdate = '';
-}
+$bdate = $bdate && $bdate != "0000-00-00" ? date_from_mysql($bdate) : '';
 ?>
                             <div class="input-group">
                                 <input type="text" name="client_birthdate" id="client_birthdate"

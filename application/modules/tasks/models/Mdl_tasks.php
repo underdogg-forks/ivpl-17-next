@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Tasks extends Response_Model
 {
+    public $mdl_invoices;
     public $table = 'ip_tasks';
     public $primary_key = 'ip_tasks.task_id';
 
@@ -95,7 +96,7 @@ class Mdl_Tasks extends Response_Model
      */
     public function get_invoice_for_task($task_id)
     {
-        if (!$task_id) {
+        if ($task_id === 0) {
             return null;
         }
 
@@ -104,7 +105,7 @@ class Mdl_Tasks extends Response_Model
             ->where('ip_invoice_items.item_task_id', $task_id)
             ->get()->result();
 
-        if (empty($invoice_item) || !isset($invoice_item->invoice_id)) {
+        if (empty($invoice_item) || !(property_exists($invoice_item, 'invoice_id') && $invoice_item->invoice_id !== null)) {
             return null;
         }
 
@@ -121,7 +122,7 @@ class Mdl_Tasks extends Response_Model
     {
         $result = [];
 
-        if (!$invoice_id) {
+        if ($invoice_id === 0) {
             return $result;
         }
 
@@ -162,7 +163,7 @@ class Mdl_Tasks extends Response_Model
      */
     public function update_on_invoice_delete($invoice_id)
     {
-        if (!$invoice_id) {
+        if ($invoice_id === 0) {
             return;
         }
         $query = $this->db->select($this->table . '.*')
@@ -201,7 +202,7 @@ class Mdl_Tasks extends Response_Model
      */
     public function update_on_project_delete($project_id)
     {
-        if (!$project_id) {
+        if ($project_id === 0) {
             return;
         }
 

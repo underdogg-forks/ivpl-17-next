@@ -15,6 +15,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class User_Clients extends Admin_Controller
 {
+    public $load;
+    public $input;
+    public $mdl_users;
+    public $mdl_user_clients;
+    public $layout;
+    public $db;
+    public $mdl_clients;
     /**
      * Custom_Values constructor.
      */

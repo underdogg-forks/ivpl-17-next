@@ -247,7 +247,7 @@
     </table>
 </main>
 
-<?php if (get_setting('qr_code')) : ?>
+<?php if (get_setting('qr_code') !== '' && get_setting('qr_code') !== '0') : ?>
     <table class="invoice-qr-code-table">
         <tr>
             <td>

@@ -1,8 +1,9 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 class Welcome extends CI_Controller
 {
+    public $load;
     /**
      * Index Page for this controller.
      *

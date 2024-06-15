@@ -18,6 +18,9 @@ if (!defined('BASEPATH')) {
 class Guest_Controller extends User_Controller
 {
 
+    public $load;
+    public $mdl_user_clients;
+    public $session;
     /** @var array */
     public $user_clients = [];
 

@@ -15,6 +15,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Custom_Values extends Admin_Controller
 {
+    public $load;
+    public $mdl_custom_values;
+    public $layout;
+    public $input;
+    public $mdl_custom_fields;
     /**
      * Custom_Values constructor.
      */

@@ -18,6 +18,25 @@ if (!defined('BASEPATH')) {
 class Invoices extends Admin_Controller
 {
 
+    public $load;
+    public $mdl_invoices;
+    public $layout;
+    public $db;
+    public $mdl_invoice_custom;
+    public $mdl_custom_fields;
+    public $mdl_custom_values;
+    public $mdl_items;
+    public $mdl_tax_rates;
+    public $mdl_invoice_tax_rates;
+    public $mdl_units;
+    public $mdl_payment_methods;
+    public $config;
+    public $mdl_tasks;
+    public $session;
+    public $output;
+    public $zugferdxml;
+    public $sumex;
+    public $mdl_invoice_amounts;
     /**
      * Invoices constructor.
      */
@@ -93,7 +112,7 @@ class Invoices extends Admin_Controller
 
         } else {
             foreach (glob(UPLOADS_ARCHIVE_FOLDER . '*.pdf') as $file) {
-                array_push($invoice_array, $file);
+                $invoice_array[] = $file;
             }
 
             rsort($invoice_array);

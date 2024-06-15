@@ -18,6 +18,7 @@ if (!defined('BASEPATH')) {
 class Response_Model extends Form_Validation_Model
 {
 
+    public $session;
     /**
      * @param null|int $id
      * @param null|array $db_array

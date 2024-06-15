@@ -18,6 +18,7 @@ if (!defined('BASEPATH')) {
 class User_Controller extends Base_Controller
 {
 
+    public $session;
     /**
      * User_Controller constructor.
      *

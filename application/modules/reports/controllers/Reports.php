@@ -15,6 +15,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Reports extends Admin_Controller
 {
+    public $mdl_reports;
+    public $layout;
     /**
      * Reports constructor.
      */

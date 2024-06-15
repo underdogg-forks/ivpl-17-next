@@ -72,7 +72,7 @@ function pdf_create(
     }
 
     // Check if the archive folder is available
-    if (!(is_dir(UPLOADS_ARCHIVE_FOLDER) || is_link(UPLOADS_ARCHIVE_FOLDER))) {
+    if (!is_dir(UPLOADS_ARCHIVE_FOLDER) && !is_link(UPLOADS_ARCHIVE_FOLDER)) {
         mkdir(UPLOADS_ARCHIVE_FOLDER, '0777');
     }
 
@@ -89,7 +89,7 @@ function pdf_create(
     }
 
     // Watermark
-    if (get_setting('pdf_watermark')) {
+    if (get_setting('pdf_watermark') !== '' && get_setting('pdf_watermark') !== '0') {
         $mpdf->showWatermarkText = true;
     }
 
@@ -98,7 +98,7 @@ function pdf_create(
     if ($isInvoice) {
 
         foreach (glob(UPLOADS_ARCHIVE_FOLDER . '*' . $filename . '.pdf') as $file) {
-            array_push($invoice_array, $file);
+            $invoice_array[] = $file;
         }
 
         if (!empty($invoice_array) && !is_null($is_guest)) {

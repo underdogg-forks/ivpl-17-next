@@ -15,6 +15,20 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Clients extends Admin_Controller
 {
+    public $load;
+    public $mdl_clients;
+    public $layout;
+    public $input;
+    public $db;
+    public $session;
+    public $mdl_user_clients;
+    public $mdl_client_custom;
+    public $mdl_custom_fields;
+    public $mdl_custom_values;
+    public $mdl_client_notes;
+    public $mdl_invoices;
+    public $mdl_quotes;
+    public $mdl_payments;
     /**
      * Clients constructor.
      */
@@ -97,7 +111,7 @@ class Clients extends Admin_Controller
             }
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
+        if ($id && !$this->input->post('btn_submit')) {
             if (!$this->mdl_clients->prep_form($id)) {
                 show_404();
             }

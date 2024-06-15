@@ -71,7 +71,7 @@ function set_language($language)
     $CI->lang->language = [];
 
     // Load system language if no custom language is set
-    $default_lang = isset($CI->mdl_settings) ? $CI->mdl_settings->setting('default_language') : 'english';
+    $default_lang = property_exists($CI, 'mdl_settings') && $CI->mdl_settings !== null ? $CI->mdl_settings->setting('default_language') : 'english';
     $new_language = ($language == 'system' ? $default_lang : $language);
 
     $app_dir = $CI->config->_config_paths[0];
@@ -99,8 +99,9 @@ function get_available_languages()
 
     $languages = directory_map(APPPATH . 'language', true);
     sort($languages);
+    $languagesCount = count($languages);
 
-    for ($i = 0; $i < (is_array($languages) || $languages instanceof \Countable ? count($languages) : 0); $i++) {
+    for ($i = 0; $i < (is_array($languages) || $languages instanceof \Countable ? $languagesCount : 0); $i++) {
         $languages[$i] = str_replace(['\\', '/'], '', $languages[$i]);
     }
 

@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_invoice_sumex extends Response_Model
 {
+    public $db;
     public $table = 'ip_invoice_sumex';
     public $primary_key = 'ip_invoice_sumex.sumex_id';
 

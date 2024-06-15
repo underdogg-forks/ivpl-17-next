@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Versions extends Admin_Controller
 {
+    public $load;
+    public $mdl_versions;
+    public $layout;
     /**
      * Versions constructor.
      */

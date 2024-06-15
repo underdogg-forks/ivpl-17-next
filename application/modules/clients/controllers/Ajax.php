@@ -16,6 +16,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Ajax extends Admin_Controller
 {
 
+    public $db;
+    public $mdl_client_notes;
+    public $security;
     public $ajax_controller = true;
 
     public function name_query()

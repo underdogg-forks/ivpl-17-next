@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Custom_Values extends MY_Model
 {
+    public $mdl_custom_fields;
     public $table = 'ip_custom_values';
     public $primary_key = 'ip_custom_values.custom_values_id';
 
@@ -125,10 +126,7 @@ class Mdl_Custom_Values extends MY_Model
         $this->where('custom_field_id', $fid);
         $this->where('custom_values_id', $id);
         $this->get();
-        if ($this->num_rows()) {
-            return true;
-        }
-        return false;
+        return (bool) $this->num_rows();
     }
 
     /**

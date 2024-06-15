@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Families extends Admin_Controller
 {
+    public $load;
+    public $mdl_families;
+    public $layout;
+    public $input;
+    public $db;
+    public $session;
     /**
      * Families constructor.
      */
@@ -61,7 +67,7 @@ class Families extends Admin_Controller
             redirect('families');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
+        if ($id && !$this->input->post('btn_submit')) {
             if (!$this->mdl_families->prep_form($id)) {
                 show_404();
             }

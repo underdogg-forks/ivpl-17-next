@@ -15,6 +15,16 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Users extends Admin_Controller
 {
+    public $load;
+    public $mdl_users;
+    public $layout;
+    public $input;
+    public $mdl_user_custom;
+    public $session;
+    public $mdl_custom_fields;
+    public $mdl_custom_values;
+    public $mdl_user_clients;
+    public $mdl_clients;
     /**
      * Users constructor.
      */
@@ -157,7 +167,7 @@ class Users extends Admin_Controller
      */
     public function delete($id)
     {
-        if ($id <> 1) {
+        if ($id != 1) {
             $this->mdl_users->delete($id);
         }
         redirect('users');

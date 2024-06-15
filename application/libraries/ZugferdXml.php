@@ -15,6 +15,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class ZugferdXml
 {
+    public $items;
+    public $currencyCode;
     public $invoice;
     public $doc;
     public $root;

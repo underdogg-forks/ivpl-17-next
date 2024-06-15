@@ -48,7 +48,7 @@ function phpmail_send(
             $mail->Port = get_setting('smtp_port');
 
             // Is SMTP authentication required?
-            if (get_setting('smtp_authentication')) {
+            if (get_setting('smtp_authentication') !== '' && get_setting('smtp_authentication') !== '0') {
                 $mail->SMTPAuth = true;
 
                 $decoded = $CI->crypt->decode($CI->mdl_settings->get('smtp_password'));
@@ -58,12 +58,12 @@ function phpmail_send(
             }
 
             // Is a security method required?
-            if (get_setting('smtp_security')) {
+            if (get_setting('smtp_security') !== '' && get_setting('smtp_security') !== '0') {
                 $mail->SMTPSecure = get_setting('smtp_security');
             }
 
             // Check if certificates should not be verified
-            if (!get_setting('smtp_verify_certs', true)) {
+            if (get_setting('smtp_verify_certs', true) === '' || get_setting('smtp_verify_certs', true) === '0') {
                 $mail->SMTPOptions = ['ssl' => ['verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true]];
             }
 

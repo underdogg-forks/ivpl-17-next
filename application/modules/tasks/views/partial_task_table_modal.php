@@ -17,7 +17,7 @@
                            id="task-id-<?php echo $task->task_id ?>" value="<?php echo $task->task_id; ?>">
                 </td>
                 <td nowrap class="text-left">
-                    <b><?php echo isset($task->project_name) ? htmlsc($task->project_name) : ''; ?></b>
+                    <b><?php echo property_exists($task, 'project_name') && $task->project_name !== null ? htmlsc($task->project_name) : ''; ?></b>
                 </td>
                 <td>
                     <b><?php _htmlsc($task->task_name); ?></b>

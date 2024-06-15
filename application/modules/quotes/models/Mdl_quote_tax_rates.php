@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Quote_Tax_Rates extends Response_Model
 {
+    public $mdl_quote_amounts;
     public $table = 'ip_quote_tax_rates';
     public $primary_key = 'ip_quote_tax_rates.quote_tax_rate_id';
 

@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Recurring extends Admin_Controller
 {
+    public $load;
+    public $mdl_invoices_recurring;
+    public $layout;
     /**
      * Recurring constructor.
      */

@@ -15,6 +15,18 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Quotes extends Admin_Controller
 {
+    public $load;
+    public $mdl_quotes;
+    public $layout;
+    public $mdl_quote_custom;
+    public $db;
+    public $mdl_custom_fields;
+    public $mdl_custom_values;
+    public $mdl_quote_items;
+    public $mdl_tax_rates;
+    public $mdl_units;
+    public $mdl_quote_tax_rates;
+    public $mdl_quote_amounts;
     /**
      * Quotes constructor.
      */

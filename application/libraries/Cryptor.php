@@ -99,12 +99,9 @@ class Cryptor
         $res = $iv . $encrypted;
 
         // and format the result if required.
-        if ($fmt == Cryptor::FORMAT_B64)
-        {
+        if ($fmt == Cryptor::FORMAT_B64) {
             $res = base64_encode($res);
-        }
-        else if ($fmt == Cryptor::FORMAT_HEX)
-        {
+        } elseif ($fmt == Cryptor::FORMAT_HEX) {
             $res = unpack('H*', $res)[1];
         }
 
@@ -128,12 +125,9 @@ class Cryptor
         $raw = $in;
 
         // Restore the encrypted data if encoded
-        if ($fmt == Cryptor::FORMAT_B64)
-        {
+        if ($fmt == Cryptor::FORMAT_B64) {
             $raw = base64_decode($in);
-        }
-        else if ($fmt == Cryptor::FORMAT_HEX)
-        {
+        } elseif ($fmt == Cryptor::FORMAT_HEX) {
             $raw = pack('H*', $in);
         }
 

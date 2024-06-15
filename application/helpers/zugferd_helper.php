@@ -40,6 +40,5 @@ function zugferd_rdf()
     $s .= '  <zf:DocumentFileName>ZUGFeRD-invoice.xml</zf:DocumentFileName>' . "\n";
     $s .= '  <zf:Version>1.0</zf:Version>' . "\n";
     $s .= '  <zf:ConformanceLevel>COMFORT</zf:ConformanceLevel>' . "\n";
-    $s .= '</rdf:Description>' . "\n";
-    return $s;
+    return $s . ('</rdf:Description>' . "\n");
 }

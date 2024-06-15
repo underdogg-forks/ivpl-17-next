@@ -15,6 +15,17 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mailer extends Admin_Controller
 {
+    public $load;
+    public $layout;
+    public $mdl_invoices;
+    public $mdl_settings;
+    public $mdl_email_templates;
+    public $mdl_custom_fields;
+    public $mdl_templates;
+    public $mdl_quotes;
+    public $form_validation;
+    public $input;
+    public $mdl_uploads;
     private $mailer_configured;
 
     /**
@@ -91,7 +102,7 @@ class Mailer extends Admin_Controller
 
         $email_template_id = get_setting('email_quote_template');
 
-        if ($email_template_id) {
+        if ($email_template_id !== '' && $email_template_id !== '0') {
             $email_template = $this->mdl_email_templates->get_by_id($email_template_id);
             $this->layout->set('email_template', json_encode($email_template, JSON_THROW_ON_ERROR));
         } else {
@@ -146,7 +157,7 @@ class Mailer extends Admin_Controller
         $subject = $this->input->post('subject');
         $body = $this->input->post('body');
 
-        if (strlen($body) != strlen(strip_tags($body))) {
+        if (strlen($body) !== strlen(strip_tags($body))) {
             $body = htmlspecialchars_decode($body, ENT_COMPAT);
         } else {
             $body = htmlspecialchars_decode(nl2br($body), ENT_COMPAT);
@@ -193,7 +204,7 @@ class Mailer extends Admin_Controller
         $pdf_template = $this->input->post('pdf_template');
         $subject = $this->input->post('subject');
 
-        if (strlen($this->input->post('body')) != strlen(strip_tags($this->input->post('body')))) {
+        if (strlen($this->input->post('body')) !== strlen(strip_tags($this->input->post('body')))) {
             $body = htmlspecialchars_decode($this->input->post('body'), ENT_COMPAT);
         } else {
             $body = htmlspecialchars_decode(nl2br($this->input->post('body')), ENT_COMPAT);

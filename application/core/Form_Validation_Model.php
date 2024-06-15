@@ -18,6 +18,8 @@ if (!defined('BASEPATH')) {
 class Form_Validation_Model extends MY_Model
 {
 
+    public $load;
+    public $form_validation;
     /**
      * Form_Validation_Model constructor.
      */

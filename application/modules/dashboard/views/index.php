@@ -337,7 +337,7 @@
                                     </span>
                                     </td>
                                     <td>
-                                        <?php echo !empty($task->project_id) ? anchor('projects/view/' . $task->project_id, htmlsc($task->project_name)) : ''; ?>
+                                        <?php echo empty($task->project_id) ? '' : anchor('projects/view/' . $task->project_id, htmlsc($task->project_name)); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

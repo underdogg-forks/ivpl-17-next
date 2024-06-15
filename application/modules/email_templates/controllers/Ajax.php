@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Ajax extends Admin_Controller
 {
+    public $load;
+    public $input;
+    public $mdl_email_templates;
     public $ajax_controller = true;
 
     public function get_content()

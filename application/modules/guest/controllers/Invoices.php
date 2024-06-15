@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Invoices extends Guest_Controller
 {
+    public $load;
+    public $mdl_invoices;
+    public $user_clients;
+    public $layout;
+    public $mdl_items;
+    public $mdl_invoice_tax_rates;
     /**
      * Invoices constructor.
      */

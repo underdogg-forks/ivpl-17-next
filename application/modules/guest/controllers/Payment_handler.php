@@ -16,6 +16,15 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Payment_Handler extends Base_Controller
 {
 
+    public $load;
+    public $mdl_invoices;
+    public $input;
+    public $session;
+    public $mdl_settings;
+    public $mdl_payments;
+    public $db;
+    public $config;
+    public $crypt;
     /**
      * Payment_Handler constructor.
      */
@@ -52,7 +61,7 @@ class Payment_Handler extends Base_Controller
             $cc_expire_year = $this->input->post('creditcard_expiry_year');
             $cc_cvv = $this->input->post('creditcard_cvv');
 
-            if ($cc_number && !in_array($d,['stripe'])) {
+            if ($cc_number && $d != 'stripe') {
                 try {
                     $credit_card = new \Omnipay\Common\CreditCard([
                         'number' => $cc_number,
@@ -68,7 +77,7 @@ class Payment_Handler extends Base_Controller
                     redirect('guest/payment_information/form/' . $invoice->invoice_url_key);
                 }
             } 
-            elseif($cc_number && in_array($d,['stripe'])) {
+            elseif($cc_number && $d == 'stripe') {
                 $credit_card = $cc_number;
             }
             else {
@@ -208,7 +217,7 @@ class Payment_Handler extends Base_Controller
             if (isset($gateway_settings[$key]) && $gateway_settings[$key]['type'] == 'password') {
                 $value = $this->crypt->decode($setting->setting_value);
             } elseif (isset($gateway_settings[$key]) && $gateway_settings[$key]['type'] == 'checkbox') {
-                $value = $setting->setting_value == '1' ? true : false;
+                $value = $setting->setting_value == '1';
             } else {
                 $value = $setting->setting_value;
             }

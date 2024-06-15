@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Quotes extends Response_Model
 {
+    public $mdl_quote_items;
+    public $mdl_quote_tax_rates;
+    public $mdl_quote_custom;
+    public $mdl_clients;
+    public $mdl_invoice_groups;
+    public $mdl_quotes;
     public $table = 'ip_quotes';
     public $primary_key = 'ip_quotes.quote_id';
     public $date_modified_field = 'quote_date_modified';
@@ -68,7 +74,7 @@ class Mdl_Quotes extends Response_Model
      */
     public function validation_rules_save_quote()
     {
-        return ['quote_number' => ['field' => 'quote_number', 'label' => trans('quote') . ' #', 'rules' => 'is_unique[ip_quotes.quote_number' . (($this->id) ? '.quote_id.' . $this->id : '') . ']'], 'quote_date_created' => ['field' => 'quote_date_created', 'label' => trans('date'), 'rules' => 'required'], 'quote_date_expires' => ['field' => 'quote_date_expires', 'label' => trans('due_date'), 'rules' => 'required'], 'quote_password' => ['field' => 'quote_password', 'label' => trans('quote_password')]];
+        return ['quote_number' => ['field' => 'quote_number', 'label' => trans('quote') . ' #', 'rules' => 'is_unique[ip_quotes.quote_number' . (($this->id !== 0) ? '.quote_id.' . $this->id : '') . ']'], 'quote_date_created' => ['field' => 'quote_date_created', 'label' => trans('date'), 'rules' => 'required'], 'quote_date_expires' => ['field' => 'quote_date_expires', 'label' => trans('due_date'), 'rules' => 'required'], 'quote_password' => ['field' => 'quote_password', 'label' => trans('quote_password')]];
     }
 
     /**
@@ -85,7 +91,7 @@ class Mdl_Quotes extends Response_Model
         $this->db->insert('ip_quote_amounts', $db_array);
 
         // Create the default invoice tax record if applicable
-        if (get_setting('default_invoice_tax_rate')) {
+        if (get_setting('default_invoice_tax_rate') !== '' && get_setting('default_invoice_tax_rate') !== '0') {
             $db_array = ['quote_id' => $quote_id, 'tax_rate_id' => get_setting('default_invoice_tax_rate'), 'include_item_tax' => get_setting('default_include_item_tax'), 'quote_tax_rate_amount' => 0];
 
             $this->db->insert('ip_quote_tax_rates', $db_array);
@@ -355,12 +361,10 @@ class Mdl_Quotes extends Response_Model
 
         $quote = $this->db->get('ip_quotes');
 
-        if ($quote->num_rows()) {
-            if ($quote->row()->quote_status_id == 2) {
-                $this->db->where('quote_id', $quote_id);
-                $this->db->set('quote_status_id', 3);
-                $this->db->update('ip_quotes');
-            }
+        if ($quote->num_rows() && $quote->row()->quote_status_id == 2) {
+            $this->db->where('quote_id', $quote_id);
+            $this->db->set('quote_status_id', 3);
+            $this->db->update('ip_quotes');
         }
     }
 
@@ -374,12 +378,10 @@ class Mdl_Quotes extends Response_Model
 
         $quote = $this->db->get('ip_quotes');
 
-        if ($quote->num_rows()) {
-            if ($quote->row()->quote_status_id == 1) {
-                $this->db->where('quote_id', $quote_id);
-                $this->db->set('quote_status_id', 2);
-                $this->db->update('ip_quotes');
-            }
+        if ($quote->num_rows() && $quote->row()->quote_status_id == 1) {
+            $this->db->where('quote_id', $quote_id);
+            $this->db->set('quote_status_id', 2);
+            $this->db->update('ip_quotes');
         }
     }
 
@@ -390,17 +392,15 @@ class Mdl_Quotes extends Response_Model
     {
         $quote = $this->mdl_quotes->get_by_id($quote_id);
 
-        if (!empty($quote)) {
-            if ($quote->quote_status_id == 1 && $quote->quote_number == "") {
-                // Generate new quote number if applicable
-                if (get_setting('generate_quote_number_for_draft') == 0) {
-                    $quote_number = $this->mdl_quotes->get_quote_number($quote->invoice_group_id);
+        if (!empty($quote) && ($quote->quote_status_id == 1 && $quote->quote_number == "")) {
+            // Generate new quote number if applicable
+            if (get_setting('generate_quote_number_for_draft') == 0) {
+                $quote_number = $this->mdl_quotes->get_quote_number($quote->invoice_group_id);
 
-                    // Set new quote number and save
-                    $this->db->where('quote_id', $quote_id);
-                    $this->db->set('quote_number', $quote_number);
-                    $this->db->update('ip_quotes');
-                }
+                // Set new quote number and save
+                $this->db->where('quote_id', $quote_id);
+                $this->db->set('quote_number', $quote_number);
+                $this->db->update('ip_quotes');
             }
         }
     }

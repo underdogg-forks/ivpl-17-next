@@ -15,15 +15,14 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Layout extends MX_Controller
 {
+    public $load;
     public $view_data = [];
 
     /**
      * @return $this
      */
-    public function buffer()
+    public function buffer(...$args)
     {
-        $args = func_get_args();
-
         if (count($args) == 1) {
             foreach ($args[0] as $arg) {
                 $key = $arg[0];
@@ -46,10 +45,8 @@ class Layout extends MX_Controller
     /**
      * @return $this
      */
-    public function set()
+    public function set(...$args)
     {
-        $args = func_get_args();
-
         if (count($args) == 1) {
             foreach ($args[0] as $key => $value) {
                 $this->view_data[$key] = $value;

@@ -16,6 +16,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Mdl_Items extends Response_Model
 {
 
+    public $db;
+    public $mdl_item_amounts;
+    public $mdl_invoice_amounts;
     public $table = 'ip_invoice_items';
 
     public $primary_key = 'ip_invoice_items.item_id';
@@ -110,7 +113,7 @@ class Mdl_Items extends Response_Model
 
         $this->load->model('invoices/mdl_invoice_amounts');
 
-        if (is_object($db_array) && isset($db_array->invoice_id)) {
+        if (is_object($db_array) && (property_exists($db_array, 'invoice_id') && $db_array->invoice_id !== null)) {
             $this->mdl_invoice_amounts->calculate($db_array->invoice_id);
         } elseif (is_array($db_array) && isset($db_array['invoice_id'])) {
             $this->mdl_invoice_amounts->calculate($db_array['invoice_id']);

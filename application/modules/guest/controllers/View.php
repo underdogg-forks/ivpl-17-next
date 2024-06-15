@@ -15,6 +15,16 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class View extends Base_Controller
 {
+    public $load;
+    public $mdl_invoices;
+    public $session;
+    public $mdl_payment_methods;
+    public $mdl_custom_fields;
+    public $mdl_items;
+    public $mdl_invoice_tax_rates;
+    public $mdl_quotes;
+    public $mdl_quote_items;
+    public $mdl_quote_tax_rates;
     /**
      * @param $invoice_url_key
      */
@@ -40,7 +50,7 @@ class View extends Base_Controller
 
         $invoice = $invoice->row();
 
-        if ($this->session->userdata('user_type') <> 1 and $invoice->invoice_status_id == 2) {
+        if ($this->session->userdata('user_type') != 1 && $invoice->invoice_status_id == 2) {
             $this->mdl_invoices->mark_viewed($invoice->invoice_id);
         }
 
@@ -55,7 +65,7 @@ class View extends Base_Controller
         // Attachments
         $attachments = $this->get_attachments($invoice_url_key);
 
-        $is_overdue = ($invoice->invoice_balance > 0 && strtotime($invoice->invoice_date_due) < time() ? true : false);
+        $is_overdue = ($invoice->invoice_balance > 0 && strtotime($invoice->invoice_date_due) < time());
 
         $data = ['invoice' => $invoice, 'items' => $this->mdl_items->where('invoice_id', $invoice->invoice_id)->get()->result(), 'invoice_tax_rates' => $this->mdl_invoice_tax_rates->where('invoice_id', $invoice->invoice_id)->get()->result(), 'invoice_url_key' => $invoice_url_key, 'flash_message' => $this->session->flashdata('flash_message'), 'payment_method' => $payment_method, 'is_overdue' => $is_overdue, 'attachments' => $attachments, 'custom_fields' => $custom_fields];
 
@@ -154,7 +164,7 @@ class View extends Base_Controller
 
         $quote = $quote->row();
 
-        if ($this->session->userdata('user_type') <> 1 and $quote->quote_status_id == 2) {
+        if ($this->session->userdata('user_type') != 1 && $quote->quote_status_id == 2) {
             $this->mdl_quotes->mark_viewed($quote->quote_id);
         }
 
@@ -164,7 +174,7 @@ class View extends Base_Controller
         // Attachments
         $attachments = $this->get_attachments($quote_url_key);
 
-        $is_expired = (strtotime($quote->quote_date_expires) < time() ? true : false);
+        $is_expired = (strtotime($quote->quote_date_expires) < time());
 
         $data = ['quote' => $quote, 'items' => $this->mdl_quote_items->where('quote_id', $quote->quote_id)->get()->result(), 'quote_tax_rates' => $this->mdl_quote_tax_rates->where('quote_id', $quote->quote_id)->get()->result(), 'quote_url_key' => $quote_url_key, 'flash_message' => $this->session->flashdata('flash_message'), 'is_expired' => $is_expired, 'attachments' => $attachments, 'custom_fields' => $custom_fields];
 

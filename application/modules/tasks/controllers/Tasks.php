@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Tasks extends Admin_Controller
 {
+    public $load;
+    public $mdl_tasks;
+    public $layout;
+    public $input;
+    public $mdl_projects;
+    public $mdl_tax_rates;
     /**
      * Tasks constructor.
      */
@@ -55,7 +61,7 @@ class Tasks extends Admin_Controller
 
         if (!$this->input->post('btn_submit')) {
             $prep_form = $this->mdl_tasks->prep_form($id);
-            if ($id and !$prep_form) {
+            if ($id && !$prep_form) {
                 show_404();
             }
         }

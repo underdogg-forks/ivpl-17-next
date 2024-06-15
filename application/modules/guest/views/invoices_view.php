@@ -186,7 +186,7 @@
                             } ?>
                         </td>
                         <td class="amount"><?php
-                            if ($invoice->invoice_discount_amount == floatval(0)) {
+                            if ($invoice->invoice_discount_amount == (float) 0) {
                                 echo $invoice->invoice_discount_percent . '%';
                             } else {
                                 echo format_currency($invoice->invoice_discount_amount);

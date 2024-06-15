@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Projects extends Admin_Controller
 {
+    public $load;
+    public $mdl_projects;
+    public $layout;
+    public $input;
+    public $mdl_clients;
+    public $mdl_tasks;
     /**
      * Projects constructor.
      */
@@ -52,10 +58,8 @@ class Projects extends Admin_Controller
             redirect('projects');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_projects->prep_form($id)) {
-                show_404();
-            }
+        if ($id && !$this->input->post('btn_submit') && !$this->mdl_projects->prep_form($id)) {
+            show_404();
         }
 
         $this->load->model('clients/mdl_clients');

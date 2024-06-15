@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Guest extends Guest_Controller
 {
+    public $load;
+    public $layout;
+    public $mdl_invoices;
+    public $mdl_quotes;
     public function index()
     {
         $this->load->model('quotes/mdl_quotes');

@@ -18,7 +18,7 @@ if (!file_exists('../.env')) {
 // Path to the ROOT directory
 define('ROOTPATH', dirname(__DIR__));
 
-require('../vendor/autoload.php');
+require(__DIR__ . '/../vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../.env');
 $dotenv->load();
 
@@ -49,7 +49,7 @@ function env($env_key, $default = null)
  */
 function env_bool($env_key, $default = false)
 {
-    return env($env_key, $default) === 'true' ? true : false;
+    return env($env_key, $default) === 'true';
 }
 
 // Enable debug mode if set

@@ -15,6 +15,14 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Invoices extends Response_Model
 {
+    public $db;
+    public $mdl_invoice_groups;
+    public $mdl_items;
+    public $mdl_invoice_tax_rates;
+    public $mdl_invoice_custom;
+    public $invoice_custom;
+    public $config;
+    public $mdl_invoices;
     public $table = 'ip_invoices';
     public $primary_key = 'ip_invoices.invoice_id';
     public $date_modified_field = 'invoice_date_modified';
@@ -76,7 +84,7 @@ class Mdl_Invoices extends Response_Model
      */
     public function validation_rules_save_invoice()
     {
-        return ['invoice_number' => ['field' => 'invoice_number', 'label' => trans('invoice') . ' #', 'rules' => 'is_unique[ip_invoices.invoice_number' . (($this->id) ? '.invoice_id.' . $this->id : '') . ']'], 'invoice_date_created' => ['field' => 'invoice_date_created', 'label' => trans('date'), 'rules' => 'required'], 'invoice_date_due' => ['field' => 'invoice_date_due', 'label' => trans('due_date'), 'rules' => 'required'], 'invoice_time_created' => ['rules' => 'required'], 'invoice_password' => ['field' => 'invoice_password', 'label' => trans('invoice_password')]];
+        return ['invoice_number' => ['field' => 'invoice_number', 'label' => trans('invoice') . ' #', 'rules' => 'is_unique[ip_invoices.invoice_number' . (($this->id !== 0) ? '.invoice_id.' . $this->id : '') . ']'], 'invoice_date_created' => ['field' => 'invoice_date_created', 'label' => trans('date'), 'rules' => 'required'], 'invoice_date_due' => ['field' => 'invoice_date_due', 'label' => trans('due_date'), 'rules' => 'required'], 'invoice_time_created' => ['rules' => 'required'], 'invoice_password' => ['field' => 'invoice_password', 'label' => trans('invoice_password')]];
     }
 
     /**
@@ -97,13 +105,10 @@ class Mdl_Invoices extends Response_Model
 
         $this->db->insert('ip_invoice_amounts', $db_array);
 
-        if ($include_invoice_tax_rates) {
-            // Create the default invoice tax record if applicable
-            if (get_setting('default_invoice_tax_rate')) {
-                $db_array = ['invoice_id' => $invoice_id, 'tax_rate_id' => get_setting('default_invoice_tax_rate'), 'include_item_tax' => get_setting('default_include_item_tax', 0), 'invoice_tax_rate_amount' => 0];
-
-                $this->db->insert('ip_invoice_tax_rates', $db_array);
-            }
+        // Create the default invoice tax record if applicable
+        if ($include_invoice_tax_rates && get_setting('default_invoice_tax_rate')) {
+            $db_array = ['invoice_id' => $invoice_id, 'tax_rate_id' => get_setting('default_invoice_tax_rate'), 'include_item_tax' => get_setting('default_include_item_tax', 0), 'invoice_tax_rate_amount' => 0];
+            $this->db->insert('ip_invoice_tax_rates', $db_array);
         }
 
         if($invoice_group !== '0') {
@@ -446,17 +451,15 @@ class Mdl_Invoices extends Response_Model
     {
         $invoice = $this->mdl_invoices->get_by_id($invoice_id);
 
-        if (!empty($invoice)) {
-            if ($invoice->invoice_status_id == 1 && $invoice->invoice_number == "") {
-                // Generate new invoice number if applicable
-                if (get_setting('generate_invoice_number_for_draft') == 0) {
-                    $invoice_number = $this->get_invoice_number($invoice->invoice_group_id);
+        if (!empty($invoice) && ($invoice->invoice_status_id == 1 && $invoice->invoice_number == "")) {
+            // Generate new invoice number if applicable
+            if (get_setting('generate_invoice_number_for_draft') == 0) {
+                $invoice_number = $this->get_invoice_number($invoice->invoice_group_id);
 
-                    // Set new invoice number and save
-                    $this->db->where('invoice_id', $invoice_id);
-                    $this->db->set('invoice_number', $invoice_number);
-                    $this->db->update('ip_invoices');
-                }
+                // Set new invoice number and save
+                $this->db->where('invoice_id', $invoice_id);
+                $this->db->set('invoice_number', $invoice_number);
+                $this->db->update('ip_invoices');
             }
         }
     }

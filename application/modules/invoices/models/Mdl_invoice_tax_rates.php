@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Invoice_Tax_Rates extends Response_Model
 {
+    public $db;
+    public $input;
+    public $mdl_invoice_amounts;
     public $table = 'ip_invoice_tax_rates';
     public $primary_key = 'ip_invoice_tax_rates.invoice_tax_rate_id';
 
@@ -41,11 +44,7 @@ class Mdl_Invoice_Tax_Rates extends Response_Model
 
         $this->load->model('invoices/mdl_invoice_amounts');
 
-        if (isset($db_array['invoice_id'])) {
-            $invoice_id = $db_array['invoice_id'];
-        } else {
-            $invoice_id = $this->input->post('invoice_id');
-        }
+        $invoice_id = isset($db_array['invoice_id']) ? $db_array['invoice_id'] : $this->input->post('invoice_id');
 
         if ($invoice_id) {
             $this->mdl_invoice_amounts->calculate_invoice_taxes($invoice_id);

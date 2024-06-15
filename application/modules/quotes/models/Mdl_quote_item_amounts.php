@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Quote_Item_Amounts extends CI_Model
 {
+    public $load;
+    public $mdl_quote_items;
+    public $db;
     /**
      * item_amount_id
      * item_id

@@ -153,7 +153,7 @@
 
                         <div class="form-group">
                             <label><?php _trans('invoice_logo'); ?></label>
-                            <?php if (get_setting('invoice_logo')) { ?>
+                            <?php if (get_setting('invoice_logo') !== '' && get_setting('invoice_logo') !== '0') { ?>
                                 <br/>
                                 <img class="personal_logo"
                                     src="<?php echo base_url(); ?>uploads/<?php echo get_setting('invoice_logo'); ?>">
@@ -341,7 +341,7 @@
                     </div>
                 </div>
 
-                <div class="row <?php echo !get_setting('qr_code') ? 'hidden' : ''; ?>">
+                <div class="row <?php echo get_setting('qr_code') !== '' && get_setting('qr_code') !== '0' ? '' : 'hidden'; ?>">
                     <div class="col-xs-12 col-md-6">
                         <div class="form-group">
                             <label for="settings[qr_code_recipient]">
@@ -372,7 +372,7 @@
                     </div>
                 </div>
 
-                <div class="row <?php echo !get_setting('qr_code') ? 'hidden' : ''; ?>">
+                <div class="row <?php echo get_setting('qr_code') !== '' && get_setting('qr_code') !== '0' ? '' : 'hidden'; ?>">
                     <div class="col-xs-12 col-md-6">
                         <div class="form-group">
                             <label for="settings[qr_code_bic]">
