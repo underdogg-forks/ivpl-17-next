@@ -75,7 +75,8 @@
             <p><strong><?php _trans('credit_invoice_details'); ?></strong></p>
 
             <ul>
-                <li><?php _trans('client') . ': ' . htmlsc($invoice->client_name); ?></li>
+                <li>
+                            htmlsc($invoice->client_name);<?php _trans('client'); ?></li>
                 <li><?php echo trans('credit_invoice_date') . ': ' . $credit_date; ?></li>
                 <li><?php echo trans('invoice_group') . ': ' . $credit_invoice_group; ?></li>
             </ul>
@@ -96,7 +97,5 @@
                 </button>
             </div>
         </div>
-
     </form>
-
 </div>

@@ -95,12 +95,8 @@ class View extends Base_Controller
 
         if ($invoice->num_rows() == 1) {
             $invoice = $invoice->row();
-
-            if (!$invoice_template) {
-                //$invoice_template = get_setting('pdf_invoice_template');
-				$this->load->helper('template');
-				$invoice_template = select_pdf_invoice_template($invoice);
-            }
+            $this->load->helper('template');
+            $invoice_template = select_pdf_invoice_template($invoice);
 
             $this->load->helper('pdf');
 
@@ -127,9 +123,7 @@ class View extends Base_Controller
                 return;
             }
 
-            if (!$invoice_template) {
-                $invoice_template = get_setting('pdf_invoice_template');
-            }
+            $invoice_template = get_setting('pdf_invoice_template');
 
             $this->load->helper('pdf');
 
@@ -191,9 +185,7 @@ class View extends Base_Controller
         if ($quote->num_rows() == 1) {
             $quote = $quote->row();
 
-            if (!$quote_template) {
-                $quote_template = get_setting('pdf_quote_template');
-            }
+            $quote_template = get_setting('pdf_quote_template');
 
             $this->load->helper('pdf');
 
@@ -228,5 +220,4 @@ class View extends Base_Controller
 
         redirect('guest/view/quote/' . $quote_url_key);
     }
-
 }

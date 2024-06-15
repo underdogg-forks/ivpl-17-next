@@ -30,7 +30,6 @@ class Get extends Base_Controller
 
         if (file_exists($filePath)) {
             $pathParts = pathinfo($filePath);
-            $fileExt = $pathParts['extension'];
             $fileSize = filesize($filePath);
 
             header("Expires: -1");
@@ -46,5 +45,4 @@ class Get extends Base_Controller
         show_404();
         exit;
     }
-
 }
