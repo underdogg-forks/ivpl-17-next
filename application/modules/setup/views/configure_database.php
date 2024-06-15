@@ -26,7 +26,7 @@
                         <?php _trans('hostname'); ?>
                     </label>
                     <input type="text" name="db_hostname" id="db_hostname" class="form-control"
-                           value="<?php echo($this->input->post('db_hostname') ? $this->input->post('db_hostname') : 'localhost'); ?>">
+                           value="<?php echo($this->input->post('db_hostname') ?: 'localhost'); ?>">
                     <span class="help-block"><?php _trans('setup_db_hostname_info'); ?></span>
                 </div>
 
@@ -35,7 +35,7 @@
                         <?php _trans('port'); ?>
                     </label>
                     <input type="text" name="db_port" id="db_port" class="form-control"
-                           value="<?php echo($this->input->post('db_port') ? $this->input->post('db_port') : 3306); ?>">
+                           value="<?php echo($this->input->post('db_port') ?: 3306); ?>">
                     <span class="help-block"><?php _trans('setup_db_port_info'); ?></span>
                 </div>
 

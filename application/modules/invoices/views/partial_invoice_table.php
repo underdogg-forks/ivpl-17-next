@@ -46,7 +46,7 @@
                 <td>
                     <a href="<?php echo site_url('invoices/view/' . $invoice->invoice_id); ?>"
                        title="<?php _trans('edit'); ?>">
-                        <?php echo($invoice->invoice_number ? $invoice->invoice_number : $invoice->invoice_id); ?>
+                        <?php echo($invoice->invoice_number ?: $invoice->invoice_id); ?>
                     </a>
                 </td>
 

@@ -108,7 +108,7 @@ class Payment_Handler extends Base_Controller
             // Send the request
             $response = $gateway->purchase($request)->send();
 
-            $reference = $response->getTransactionReference() ? $response->getTransactionReference() : '[no transation reference]';
+            $reference = $response->getTransactionReference() ?: '[no transation reference]';
 
             // Process the response
             if ($response->isSuccessful()) {
@@ -243,7 +243,7 @@ class Payment_Handler extends Base_Controller
                 'invoice_id' => $invoice->invoice_id,
                 'payment_date' => date('Y-m-d'),
                 'payment_amount' => $invoice->invoice_balance,
-                'payment_method_id' => (get_setting('gateway_' . $d . '_payment_method')) ? get_setting('gateway_' . $d . '_payment_method') : 0,
+                'payment_method_id' => get_setting('gateway_' . $d . '_payment_method') ?: 0,
             ];
 
             $this->mdl_payments->save(null, $db_array);
@@ -291,7 +291,7 @@ class Payment_Handler extends Base_Controller
                 $response = $gateway->completePurchase($params)->send();
                 $payment_success = true;
 
-                $message = $response->getMessage() ? $response->getMessage() : 'No details provided';
+                $message = $response->getMessage() ?: 'No details provided';
             } else {
                 $response = '';
                 $message = 'Customer cancelled the purchase process';
