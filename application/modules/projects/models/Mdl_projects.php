@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Projects extends Response_Model
 {
+    public $mdl_tasks;
     public $table = 'ip_projects';
     public $primary_key = 'ip_projects.project_id';
 

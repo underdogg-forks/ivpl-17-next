@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Invoices_Recurring extends Response_Model
 {
+    public $db;
     public $table = 'ip_invoices_recurring';
     public $primary_key = 'ip_invoices_recurring.invoice_recurring_id';
     public $recur_frequencies = ['1D' => 'calendar_day_1', '2D' => 'calendar_day_2', '3D' => 'calendar_day_3', '4D' => 'calendar_day_4', '5D' => 'calendar_day_5', '6D' => 'calendar_day_6', '15D' => 'calendar_day_15', '30D' => 'calendar_day_30', '7D' => 'calendar_week_1', '14D' => 'calendar_week_2', '21D' => 'calendar_week_3', '28D' => 'calendar_week_4', '1M' => 'calendar_month_1', '2M' => 'calendar_month_2', '3M' => 'calendar_month_3', '4M' => 'calendar_month_4', '5M' => 'calendar_month_5', '6M' => 'calendar_month_6', '7M' => 'calendar_month_7', '8M' => 'calendar_month_8', '9M' => 'calendar_month_9', '10M' => 'calendar_month_10', '11M' => 'calendar_month_11', '1Y' => 'calendar_year_1', '2Y' => 'calendar_year_2', '3Y' => 'calendar_year_3', '4Y' => 'calendar_year_4', '5Y' => 'calendar_year_5'];
@@ -52,11 +53,7 @@ class Mdl_Invoices_Recurring extends Response_Model
         $db_array['recur_start_date'] = date_to_mysql($db_array['recur_start_date']);
         $db_array['recur_next_date'] = $db_array['recur_start_date'];
 
-        if ($db_array['recur_end_date']) {
-            $db_array['recur_end_date'] = date_to_mysql($db_array['recur_end_date']);
-        } else {
-            $db_array['recur_end_date'] = NULL;
-        }
+        $db_array['recur_end_date'] = $db_array['recur_end_date'] ? date_to_mysql($db_array['recur_end_date']) : NULL;
 
         return $db_array;
     }

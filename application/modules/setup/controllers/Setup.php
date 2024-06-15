@@ -18,6 +18,14 @@ if (!defined('BASEPATH')) {
 class Setup extends MX_Controller
 {
 
+    public $load;
+    public $session;
+    public $lang;
+    public $input;
+    public $layout;
+    public $db;
+    public $mdl_setup;
+    public $mdl_users;
     public $errors = 0;
 
     /**
@@ -81,7 +89,7 @@ class Setup extends MX_Controller
 
     public function prerequisites()
     {
-        if ($this->session->userdata('install_step') <> 'prerequisites') {
+        if ($this->session->userdata('install_step') != 'prerequisites') {
             redirect('setup/language');
         }
 
@@ -182,7 +190,7 @@ class Setup extends MX_Controller
 
     public function configure_database()
     {
-        if ($this->session->userdata('install_step') <> 'configure_database') {
+        if ($this->session->userdata('install_step') != 'configure_database') {
             redirect('setup/prerequisites');
         }
 
@@ -275,7 +283,7 @@ class Setup extends MX_Controller
 
     public function install_tables()
     {
-        if ($this->session->userdata('install_step') <> 'install_tables') {
+        if ($this->session->userdata('install_step') != 'install_tables') {
             redirect('setup/prerequisites');
         }
 
@@ -299,7 +307,7 @@ class Setup extends MX_Controller
 
     public function upgrade_tables()
     {
-        if ($this->session->userdata('install_step') <> 'upgrade_tables') {
+        if ($this->session->userdata('install_step') != 'upgrade_tables') {
             redirect('setup/prerequisites');
         }
 
@@ -355,7 +363,7 @@ class Setup extends MX_Controller
 
     public function create_user()
     {
-        if ($this->session->userdata('install_step') <> 'create_user') {
+        if ($this->session->userdata('install_step') != 'create_user') {
             redirect('setup/prerequisites');
         }
 
@@ -388,7 +396,7 @@ class Setup extends MX_Controller
     public function complete()
     {
         $data = [];
-        if ($this->session->userdata('install_step') <> 'complete') {
+        if ($this->session->userdata('install_step') != 'complete') {
             redirect('setup/prerequisites');
         }
 
@@ -415,11 +423,7 @@ class Setup extends MX_Controller
 
         // Then check if the first version entry is less than 30 minutes old
         // If yes we assume that the user ran the setup a few minutes ago
-        if ($data[0]->version_date_applied < (time() - 1800)) {
-            $update = true;
-        } else {
-            $update = false;
-        }
+        $update = $data[0]->version_date_applied < (time() - 1800);
         $this->layout->set('update', $update);
 
         $this->layout->buffer('content', 'setup/complete');

@@ -18,6 +18,7 @@ if (!defined('BASEPATH')) {
 class Mdl_Versions extends Response_Model
 {
 
+    public $mdl_versions;
     public $table = 'ip_versions';
 
     public $primary_key = 'ip_versions.version_id';

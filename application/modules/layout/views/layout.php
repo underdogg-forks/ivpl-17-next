@@ -15,7 +15,7 @@
     $this->layout->load_view('layout/includes/head');
     ?>
 </head>
-<body class="<?php echo get_setting('disable_sidebar') ? 'hidden-sidebar' : ''; ?>">
+<body class="<?php echo get_setting('disable_sidebar') !== '' && get_setting('disable_sidebar') !== '0' ? 'hidden-sidebar' : ''; ?>">
 
 <noscript>
     <div class="alert alert-danger no-margin"><?php _trans('please_enable_js'); ?></div>

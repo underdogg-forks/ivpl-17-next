@@ -15,6 +15,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Ajax extends Admin_Controller
 {
+    public $load;
+    public $input;
+    public $mdl_invoices;
+    public $layout;
+    public $mdl_quotes;
+    public $mdl_clients;
+    public $mdl_payments;
     public $ajax_controller = true;
 
     public function filter_invoices()
@@ -25,7 +32,7 @@ class Ajax extends Admin_Controller
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {
-            if ($keyword) {
+            if ($keyword !== '' && $keyword !== '0') {
                 $keyword = strtolower($keyword);
                 $this->mdl_invoices->like("CONCAT_WS('^',LOWER(invoice_number),invoice_date_created,invoice_date_due,LOWER(client_name),invoice_total,invoice_balance)", $keyword);
             }
@@ -44,7 +51,7 @@ class Ajax extends Admin_Controller
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {
-            if ($keyword) {
+            if ($keyword !== '' && $keyword !== '0') {
                 $keyword = strtolower($keyword);
                 $this->mdl_quotes->like("CONCAT_WS('^',LOWER(quote_number),quote_date_created,quote_date_expires,LOWER(client_name),quote_total)", $keyword);
             }
@@ -63,7 +70,7 @@ class Ajax extends Admin_Controller
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {
-            if ($keyword) {
+            if ($keyword !== '' && $keyword !== '0') {
                 $keyword = trim(strtolower($keyword));
                 $this->mdl_clients->like("CONCAT_WS('^',LOWER(client_name),LOWER(client_surname),LOWER(client_email),client_phone,client_active)", $keyword);
             }
@@ -82,7 +89,7 @@ class Ajax extends Admin_Controller
         $keywords = explode(' ', $query);
 
         foreach ($keywords as $keyword) {
-            if ($keyword) {
+            if ($keyword !== '' && $keyword !== '0') {
                 $keyword = strtolower($keyword);
                 $this->mdl_payments->like("CONCAT_WS('^',payment_date,LOWER(invoice_number),LOWER(client_name),payment_amount,LOWER(payment_method_name),LOWER(payment_note))", $keyword);
             }

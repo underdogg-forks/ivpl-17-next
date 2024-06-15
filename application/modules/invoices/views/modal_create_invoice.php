@@ -86,7 +86,7 @@
                     </select>
                     <span id="toggle_permissive_search_clients" class="input-group-addon"
                           title="<?php _trans('enable_permissive_search_clients'); ?>" style="cursor:pointer;">
-                        <i class="fa fa-toggle-<?php echo get_setting('enable_permissive_search_clients') ? 'on' : 'off' ?> fa-fw"></i>
+                        <i class="fa fa-toggle-<?php echo get_setting('enable_permissive_search_clients') !== '' && get_setting('enable_permissive_search_clients') !== '0' ? 'on' : 'off' ?> fa-fw"></i>
                     </span>
                 </div>
             </div>

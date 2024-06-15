@@ -15,6 +15,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Products extends Admin_Controller
 {
+    public $load;
+    public $mdl_products;
+    public $layout;
+    public $input;
+    public $mdl_families;
+    public $mdl_units;
+    public $mdl_tax_rates;
     /**
      * Products constructor.
      */
@@ -54,10 +61,8 @@ class Products extends Admin_Controller
             redirect('products');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_products->prep_form($id)) {
-                show_404();
-            }
+        if ($id && !$this->input->post('btn_submit') && !$this->mdl_products->prep_form($id)) {
+            show_404();
         }
 
         $this->load->model('families/mdl_families');

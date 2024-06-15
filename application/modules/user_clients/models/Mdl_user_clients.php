@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_User_Clients extends MY_Model
 {
+    public $db;
+    public $load;
+    public $mdl_clients;
+    public $mdl_users;
     public $table = 'ip_user_clients';
     public $primary_key = 'ip_user_clients.user_client_id';
 
@@ -60,11 +64,11 @@ class Mdl_User_Clients extends MY_Model
     {
         $this->load->model('clients/mdl_clients');
         
-        for ($x = 0; $x < count($users_id); $x++) {
-            $clients = $this->mdl_clients->get_not_assigned_to_user($users_id[$x]);
-            
-            for ($i = 0; $i < (is_array($clients) || $clients instanceof \Countable ? count($clients) : 0); $i++) {
-                $user_client = ['user_id' => $users_id[$x], 'client_id' => $clients[$i]->client_id];
+        foreach ($users_id as $x => $singleUsers_id) {
+            $clients = $this->mdl_clients->get_not_assigned_to_user($singleUsers_id);
+            $clientsCount = count($clients);
+            for ($i = 0; $i < (is_array($clients) || $clients instanceof \Countable ? $clientsCount : 0); $i++) {
+                $user_client = ['user_id' => $singleUsers_id, 'client_id' => $clients[$i]->client_id];
                 
                 $this->db->insert('ip_user_clients', $user_client);
             }
@@ -77,9 +81,10 @@ class Mdl_User_Clients extends MY_Model
         $users = $this->mdl_users->where('user_all_clients', 1)->get()->result();
         
         $new_users = [];
+        $usersCount = count($users);
         
-        for ($i = 0; $i < (is_array($users) || $users instanceof \Countable ? count($users) : 0); $i++) {
-            array_push($new_users, $users[$i]->user_id);
+        for ($i = 0; $i < (is_array($users) || $users instanceof \Countable ? $usersCount : 0); $i++) {
+            $new_users[] = $users[$i]->user_id;
         }
         
         $this->set_all_clients_user($new_users);

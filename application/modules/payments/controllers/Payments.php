@@ -15,6 +15,16 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Payments extends Admin_Controller
 {
+    public $load;
+    public $mdl_payments;
+    public $layout;
+    public $input;
+    public $mdl_payment_custom;
+    public $mdl_invoices;
+    public $mdl_custom_fields;
+    public $mdl_custom_values;
+    public $mdl_payment_methods;
+    public $mdl_payment_logs;
     /**
      * Payments constructor.
      */
@@ -62,16 +72,12 @@ class Payments extends Admin_Controller
 
         if (!$this->input->post('btn_submit')) {
             $prep_form = $this->mdl_payments->prep_form($id);
-
-            if ($id and !$prep_form) {
+            if ($id && !$prep_form) {
                 show_404();
             }
-
             $this->load->model('custom_fields/mdl_payment_custom');
             $this->load->model('custom_values/mdl_custom_values');
-
             $payment_custom = $this->mdl_payment_custom->where('payment_id', $id)->get();
-
             if ($payment_custom->num_rows()) {
                 $payment_custom = $payment_custom->row();
 
@@ -81,11 +87,9 @@ class Payments extends Admin_Controller
                     $this->mdl_payments->set_form_value('custom[' . $key . ']', $val);
                 }
             }
-        } else {
-            if ($this->input->post('custom')) {
-                foreach ($this->input->post('custom') as $key => $val) {
-                    $this->mdl_payments->set_form_value('custom[' . $key . ']', $val);
-                }
+        } elseif ($this->input->post('custom')) {
+            foreach ($this->input->post('custom') as $key => $val) {
+                $this->mdl_payments->set_form_value('custom[' . $key . ']', $val);
             }
         }
 

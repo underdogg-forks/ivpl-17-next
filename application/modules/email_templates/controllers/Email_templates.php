@@ -15,6 +15,14 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Email_Templates extends Admin_Controller
 {
+    public $load;
+    public $mdl_email_templates;
+    public $layout;
+    public $input;
+    public $db;
+    public $session;
+    public $mdl_custom_fields;
+    public $mdl_templates;
     /**
      * Email_Templates constructor.
      */
@@ -61,7 +69,7 @@ class Email_Templates extends Admin_Controller
             redirect('email_templates');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
+        if ($id && !$this->input->post('btn_submit')) {
             if (!$this->mdl_email_templates->prep_form($id)) {
                 show_404();
             }

@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Templates extends CI_Model
 {
+    public $load;
     /**
      * @param string $type
      * @return array

@@ -4,6 +4,8 @@
 
 class Sumex
 {
+    public $items;
+    public $currencyCode;
     public const ROLES = ['physician', 'physiotherapist', 'chiropractor', 'ergotherapist', 'nutritionist', 'midwife', 'logotherapist', 'hospital', 'pharmacist', 'dentist', 'labtechnician', 'dentaltechnician', 'othertechnician', 'psychologist', 'wholesaler', 'nursingstaff', 'transport', 'druggist', 'naturopathicdoctor', 'naturopathictherapist', 'other'];
     public const PLACES = ['practice', 'hospital', 'lab', 'association', 'company'];
     public const CANTONS = ["AG", "AI", "AR", "BE", "BL", "BS", "FR", "GE", "GL", "GR", "JU", "LU", "NE", "NW", "OW", "SG", "SH", "SO", "SZ", "TI", "TG", "UR", "VD", "VS", "ZG", "ZH", "LI", "A", "D", "F", "I"];
@@ -190,12 +192,7 @@ class Sumex
         $node->setAttribute('role', $this->_role);
         $node->setAttribute('place', $this->_place);
 
-        if ($this->_esrType == "9") {
-            $esr = $this->xmlInvoiceEsr9();
-        } else {
-            // Red
-            $esr = $this->xmlInvoiceEsrRed();
-        }
+        $esr = $this->_esrType == "9" ? $this->xmlInvoiceEsr9() : $this->xmlInvoiceEsrRed();
 
         $prolog = $this->xmlInvoiceProlog();
         $remark = $this->xmlInvoiceRemark();
@@ -242,7 +239,7 @@ class Sumex
         $referenceNumber .= sprintf("%010d", $this->invoice->invoice_id);
         $referenceNumber .= sprintf("%09d", date("Ymd", strtotime($this->invoice->invoice_date_modified)));
         $refCsum = invoice_recMod10($referenceNumber);
-        $referenceNumber = $referenceNumber . $refCsum;
+        $referenceNumber .= $refCsum;
 
         if (!preg_match("/\d{27}/", $referenceNumber)) {
             throw new Error("Invalid reference number!");
@@ -456,11 +453,7 @@ class Sumex
 
         $postal = $this->generatePostal($street, $zip, $city);
 
-        if ($phone != null) {
-            $telecom = $this->generateTelecom($phone);
-        } else {
-            $telecom = null;
-        }
+        $telecom = $phone != null ? $this->generateTelecom($phone) : null;
 
 
         $person->appendChild($familyName);

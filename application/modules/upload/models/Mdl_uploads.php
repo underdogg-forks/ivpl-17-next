@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Uploads extends Response_Model
 {
+    public $db;
+    public $load;
+    public $mdl_quotes;
+    public $mdl_invoices;
     public $table = 'ip_uploads';
     public $primary_key = 'ip_uploads.upload_id';
     public $date_modified_field = 'uploaded_date';
@@ -47,7 +51,7 @@ class Mdl_Uploads extends Response_Model
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
-                array_push($names, ['path' => UPLOADS_CFILES_FOLDER . $row->file_name_new, 'filename' => $row->file_name_original]);
+                $names[] = ['path' => UPLOADS_CFILES_FOLDER . $row->file_name_new, 'filename' => $row->file_name_original];
             }
         }
 
@@ -68,7 +72,7 @@ class Mdl_Uploads extends Response_Model
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
-                array_push($names, ['path' => UPLOADS_CFILES_FOLDER . $row->file_name_new, 'filename' => $row->file_name_original]);
+                $names[] = ['path' => UPLOADS_CFILES_FOLDER . $row->file_name_new, 'filename' => $row->file_name_original];
             }
         }
 

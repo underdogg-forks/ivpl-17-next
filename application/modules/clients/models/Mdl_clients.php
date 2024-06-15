@@ -15,6 +15,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Clients extends Response_Model
 {
+    public $mdl_clients;
+    public $mdl_user_clients;
     public $table = 'ip_clients';
     public $primary_key = 'ip_clients.client_id';
     public $date_created_field = 'client_date_created';
@@ -85,7 +87,7 @@ class Mdl_Clients extends Response_Model
         if ($input != "") {
             if (preg_match('/(\d{3})\.(\d{4})\.(\d{4})\.(\d{2})/', $input, $matches)) {
                 return $matches[1] . $matches[2] . $matches[3] . $matches[4];
-            } else if (preg_match('/^\d{13}$/', $input)) {
+            } elseif (preg_match('/^\d{13}$/', $input)) {
                 return $input;
             }
         }
@@ -186,7 +188,7 @@ class Mdl_Clients extends Response_Model
             $assigned_clients[] = $client->client_id;
         }
 
-        if (count($assigned_clients) > 0) {
+        if ($assigned_clients !== []) {
             $this->where_not_in('ip_clients.client_id', $assigned_clients);
         }
 

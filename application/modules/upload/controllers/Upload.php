@@ -15,6 +15,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Upload extends Admin_Controller
 {
+    public $load;
+    public $mdl_uploads;
     public $targetPath;
 
     public $ctype_default = "application/octet-stream";
@@ -77,7 +79,7 @@ class Upload extends Admin_Controller
      */
     public function create_dir($path, $chmod = '0777')
     {
-        if (!(is_dir($path) || is_link($path))) {
+        if (!is_dir($path) && !is_link($path)) {
             return mkdir($path, $chmod);
         } else {
             return false;
@@ -105,7 +107,7 @@ class Upload extends Admin_Controller
                 if (!str_starts_with($file, (string) $url_key)) {
                     continue;
                 }
-                if (substr(realpath($path), realpath($file) == 0)) {
+                if (substr(realpath($path), realpath($file) == 0) !== '' && substr(realpath($path), realpath($file) == 0) !== '0') {
                     $obj['name'] = substr($file, strpos($file, '_', 1) + 1);
                     $obj['fullname'] = $file;
                     $obj['size'] = filesize($path . '/' . $file);

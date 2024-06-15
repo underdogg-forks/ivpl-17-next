@@ -15,6 +15,9 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Reports extends CI_Model
 {
+    public $db;
+    public $load;
+    public $mdl_payments;
     /**
      * @param null $from_date
      * @param null $to_date
@@ -24,7 +27,7 @@ class Mdl_Reports extends CI_Model
     {
         $this->db->select('client_name, client_surname, CONCAT(client_name," ", client_surname) AS client_namesurname');
 
-        if ($from_date and $to_date) {
+        if ($from_date && $to_date) {
 
             $from_date = date_to_mysql($from_date);
             $to_date = date_to_mysql($to_date);
@@ -115,7 +118,7 @@ class Mdl_Reports extends CI_Model
     {
         $this->load->model('payments/mdl_payments');
 
-        if ($from_date and $to_date) {
+        if ($from_date && $to_date) {
             $from_date = date_to_mysql($from_date);
             $to_date = date_to_mysql($to_date);
 
@@ -204,20 +207,12 @@ class Mdl_Reports extends CI_Model
     ) {
         $minQuantity = 0;
 
-        if ($from_date == "") {
-            $from_date = date("Y-m-d");
-        } else {
-            $from_date = date_to_mysql($from_date);
-        }
+        $from_date = $from_date == "" ? date("Y-m-d") : date_to_mysql($from_date);
 
-        if ($to_date == "") {
-            $to_date = date("Y-m-d");
-        } else {
-            $to_date = date_to_mysql($to_date);
-        }
+        $to_date = $to_date == "" ? date("Y-m-d") : date_to_mysql($to_date);
 
-        $from_date_year = intval(substr($from_date, 0, 4));
-        $to_date_year = intval(substr($to_date, 0, 4));
+        $from_date_year = (int) substr($from_date, 0, 4);
+        $to_date_year = (int) substr($to_date, 0, 4);
 
         $this->db->select('client_name as Name');
         $this->db->select('client_name');
@@ -225,7 +220,6 @@ class Mdl_Reports extends CI_Model
         $this->db->select('CONCAT(client_name," ", client_surname) AS client_namesurname');
 
         if ($taxChecked == false) {
-
             if ($maxQuantity) {
 
                 $this->db->select('client_id');
@@ -468,13 +462,10 @@ class Mdl_Reports extends CI_Model
                 ) <>0');
 
             }
-
-        } else if ($maxQuantity) {
-
+        } elseif ($maxQuantity) {
             $this->db->select('client_id');
             $this->db->select('client_vat_id AS VAT_ID');
             $this->db->select('client_name as Name');
-
             $this->db->select('
                 (
                     SELECT SUM(amounts.invoice_total) FROM ip_invoice_amounts amounts
@@ -486,7 +477,6 @@ class Mdl_Reports extends CI_Model
                                     AND ' . $this->db->escape($to_date) . '>= inv.invoice_date_created
                         )
                 ) AS total_payment', false);
-
             for ($index = $from_date_year; $index <= $to_date_year; $index++) {
 
                 $this->db->select('
@@ -562,7 +552,6 @@ class Mdl_Reports extends CI_Model
                     ) AS payment_t4_' . $index . '', false);
 
             }
-
             $this->db->where('
                 (
                     SELECT SUM(amounts.invoice_total) FROM ip_invoice_amounts amounts
@@ -595,7 +584,6 @@ class Mdl_Reports extends CI_Model
                                     )
                         )
                 ) <>0');
-
         } else {
 
             $this->db->select('client_id');

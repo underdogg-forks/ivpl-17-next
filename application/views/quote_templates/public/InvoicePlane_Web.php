@@ -59,7 +59,7 @@
         <div class="quote">
 
             <?php
-            if ($logo = invoice_logo()) {
+            if (($logo = invoice_logo()) !== '' && ($logo = invoice_logo()) !== '0') {
                 echo $logo . '<br><br>';
             }
             ?>

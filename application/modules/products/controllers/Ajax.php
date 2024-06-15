@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Ajax extends Admin_Controller
 {
+    public $input;
+    public $load;
+    public $mdl_products;
+    public $security;
+    public $mdl_families;
+    public $layout;
     public $ajax_controller = true;
 
     public function modal_product_lookups()

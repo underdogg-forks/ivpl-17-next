@@ -12,7 +12,7 @@
 
             <?php if (!$database['success']) { ?>
 
-                <?php if ($database['message'] and $_POST) { ?>
+                <?php if ($database['message'] && $_POST) { ?>
                     <div class="alert alert-danger">
                         <b><?php _trans('failure'); ?></b><br>
                         <?php echo $database['message']; ?>

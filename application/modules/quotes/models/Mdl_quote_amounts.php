@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Quote_Amounts extends CI_Model
 {
+    public $db;
+    public $load;
+    public $mdl_quote_tax_rates;
+    public $mdl_quotes;
     /**
      * IP_QUOTE_AMOUNTS
      * quote_amount_id
@@ -92,7 +96,7 @@ class Mdl_Quote_Amounts extends CI_Model
         $discount_amount = (float)number_format($quote_data->quote_discount_amount, 2, '.', '');
         $discount_percent = (float)number_format($quote_data->quote_discount_percent, 2, '.', '');
 
-        $total = $total - $discount_amount;
+        $total -= $discount_amount;
 
         return $total - round(($total / 100 * $discount_percent), 2);
     }

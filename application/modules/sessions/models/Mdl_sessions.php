@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Sessions extends CI_Model
 {
+    public $db;
+    public $load;
+    public $crypt;
+    public $session;
     /**
      * @param $email
      * @param $password

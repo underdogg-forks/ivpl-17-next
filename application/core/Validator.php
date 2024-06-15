@@ -18,6 +18,15 @@ if (!defined('BASEPATH')) {
 class Validator extends MY_Model
 {
 
+    public $form_validation;
+    public $load;
+    public $custom_value;
+    public $cf;
+    public $mdl_custom_fields;
+    /**
+     * @var mixed|null[]|string[]|mixed[]|string[]
+     */
+    public $_formdata;
     /**
      * @return bool
      */
@@ -95,12 +104,7 @@ class Validator extends MY_Model
         $this->load->model('custom_values/mdl_custom_values', 'custom_value');
         $this->custom_value->where('custom_field_id', $id);
         $dbvals = $this->custom_value->where_in('custom_values_id', $value)->get();
-
-        if ($dbvals->num_rows() == sizeof($value)) {
-            return true;
-        }
-
-        return false;
+        return $dbvals->num_rows() == count($value);
     }
 
     /**
@@ -167,15 +171,13 @@ class Validator extends MY_Model
 
             if ($model->num_rows()) {
                 $model = $model->row();
-                if (@$model->custom_field_required == "1") {
-                    if ($value == "") {
-                        $errors[] = [
-                            "field" => $model->custom_field_id,
-                            "label" => $model->custom_field_label,
-                            "error_msg" => "missing field required",
-                        ];
-                        continue;
-                    }
+                if (@$model->custom_field_required == "1" && $value == "") {
+                    $errors[] = [
+                        "field" => $model->custom_field_id,
+                        "label" => $model->custom_field_label,
+                        "error_msg" => "missing field required",
+                    ];
+                    continue;
                 }
 
                 $result = $this->validate_type($model->custom_field_type, $value, $key);
@@ -190,7 +192,7 @@ class Validator extends MY_Model
             }
         }
 
-        if (sizeof($errors) == 0) {
+        if (count($errors) == 0) {
             $this->_formdata = $db_array;
             $this->fixinput();
             return true;
@@ -224,11 +226,7 @@ class Validator extends MY_Model
 
                 switch ($ftype) {
                     case "DATE":
-                        if ($value == "") {
-                            $this->_formdata[$key] = null;
-                        } else {
-                            $this->_formdata[$key] = date_to_mysql($value);
-                        }
+                        $this->_formdata[$key] = $value == "" ? null : date_to_mysql($value);
 
                         break;
 

@@ -19,6 +19,11 @@ if (!defined('BASEPATH')) {
 
 class Payment_Information extends Base_Controller
 {
+    public $load;
+    public $mdl_invoices;
+    public $session;
+    public $config;
+    public $mdl_payment_methods;
     public function __construct()
     {
         parent::__construct();
@@ -60,7 +65,7 @@ class Payment_Information extends Base_Controller
                 $driver_payment_method = get_setting('gateway_' . $d . '_payment_method');
 
                 if ($invoice_payment_method == 0 || $driver_payment_method == 0 || $driver_payment_method == $invoice_payment_method) {
-                    array_push($available_drivers, $driver);
+                    $available_drivers[] = $driver;
                 }
             }
         }
@@ -71,7 +76,7 @@ class Payment_Information extends Base_Controller
             $payment_method = null;
         }
 
-        $is_overdue = ($invoice->invoice_balance > 0 && strtotime($invoice->invoice_date_due) < time() ? true : false);
+        $is_overdue = ($invoice->invoice_balance > 0 && strtotime($invoice->invoice_date_due) < time());
 
         // Return the view
         $view_data = ['disable_form' => $disable_form, 'invoice' => $invoice, 'gateways' => $available_drivers, 'payment_method' => $payment_method, 'is_overdue' => $is_overdue];

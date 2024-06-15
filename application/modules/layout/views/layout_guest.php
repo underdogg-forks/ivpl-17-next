@@ -43,7 +43,7 @@
     <script src="<?php echo base_url(); ?>assets/core/js/dependencies.min.js"></script>
 
 </head>
-<body class="<?php echo get_setting('disable_sidebar') ? 'hidden-sidebar' : ''; ?>">
+<body class="<?php echo get_setting('disable_sidebar') !== '' && get_setting('disable_sidebar') !== '0' ? 'hidden-sidebar' : ''; ?>">
 
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">

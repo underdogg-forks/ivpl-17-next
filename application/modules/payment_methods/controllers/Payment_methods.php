@@ -15,6 +15,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Payment_Methods extends Admin_Controller
 {
+    public $load;
+    public $mdl_payment_methods;
+    public $layout;
+    public $input;
+    public $db;
     /**
      * Payment_Methods constructor.
      */
@@ -60,7 +65,7 @@ class Payment_Methods extends Admin_Controller
             redirect('payment_methods');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
+        if ($id && !$this->input->post('btn_submit')) {
             if (!$this->mdl_payment_methods->prep_form($id)) {
                 show_404();
             }

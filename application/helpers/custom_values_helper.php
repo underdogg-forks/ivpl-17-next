@@ -89,7 +89,7 @@ function format_boolean($txt)
 
     if ($txt == '1') {
         return trans('true');
-    } else if ($txt == '0') {
+    } elseif ($txt == '0') {
         return trans('false');
     }
 

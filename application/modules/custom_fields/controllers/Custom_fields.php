@@ -15,6 +15,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Custom_Fields extends Admin_Controller
 {
+    public $load;
+    public $mdl_custom_fields;
+    public $layout;
+    public $mdl_custom_values;
+    public $input;
     /**
      * Custom_Fields constructor.
      */
@@ -55,10 +60,8 @@ class Custom_Fields extends Admin_Controller
             redirect('custom_fields');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_custom_fields->prep_form($id)) {
-                show_404();
-            }
+        if ($id && !$this->input->post('btn_submit') && !$this->mdl_custom_fields->prep_form($id)) {
+            show_404();
         }
 
         $this->load->model('mdl_client_custom');

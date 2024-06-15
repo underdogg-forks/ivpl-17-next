@@ -15,6 +15,20 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Settings extends Admin_Controller
 {
+    public $load;
+    public $config;
+    public $input;
+    public $db;
+    public $mdl_settings;
+    public $crypt;
+    public $upload;
+    public $session;
+    public $mdl_templates;
+    public $layout;
+    public $mdl_invoice_groups;
+    public $mdl_tax_rates;
+    public $mdl_payment_methods;
+    public $mdl_email_templates;
     /**
      * Settings constructor.
      */

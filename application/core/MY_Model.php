@@ -36,6 +36,13 @@ if (!defined('BASEPATH')) {
 class MY_Model extends CI_Model
 {
 
+    public $db;
+    public $load;
+    public $mdl_settings;
+    public $config;
+    public $pagination;
+    public $input;
+    public $form_validation;
     public $table;
 
     public $primary_key;

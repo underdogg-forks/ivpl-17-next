@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Payments extends Response_Model
 {
+    public $mdl_invoice_amounts;
     public $table = 'ip_payments';
     public $primary_key = 'ip_payments.payment_id';
     public $validation_rules = 'validation_rules';
@@ -75,7 +76,7 @@ class Mdl_Payments extends Response_Model
         if ($payment_id) {
             $payment = $this->db->where('payment_id', $payment_id)->get('ip_payments')->row();
 
-            $invoice_balance = $invoice_balance + (float)$payment->payment_amount;
+            $invoice_balance += (float)$payment->payment_amount;
         }
 
         if ($amount > $invoice_balance) {

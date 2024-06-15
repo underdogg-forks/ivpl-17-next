@@ -101,7 +101,7 @@ function invoice_recMod10($in)
     $chars = str_split($in);
 
     foreach ($chars as $char) {
-        $carry = $line[($carry + intval($char)) % 10];
+        $carry = $line[($carry + (int) $char) % 10];
     }
 
     return (10 - $carry) % 10;

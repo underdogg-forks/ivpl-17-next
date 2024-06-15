@@ -15,6 +15,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Invoice_Groups extends Response_Model
 {
+    public $db;
     public $table = 'ip_invoice_groups';
     public $primary_key = 'ip_invoice_groups.invoice_group_id';
 

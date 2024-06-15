@@ -53,7 +53,7 @@
             $d = strtolower($driver);
             ?>
             <div id="gateway-settings-<?php echo $d; ?>"
-                class="gateway-settings panel panel-default <?php echo get_setting('gateway_' . $d . '_enabled') ? 'active-gateway' : 'hidden'; ?>">
+                class="gateway-settings panel panel-default <?php echo get_setting('gateway_' . $d . '_enabled') !== '' && get_setting('gateway_' . $d . '_enabled') !== '0' ? 'active-gateway' : 'hidden'; ?>">
 
                 <div class="panel-heading">
                     <?php echo ucwords(str_replace('_', ' ', $driver)); ?>

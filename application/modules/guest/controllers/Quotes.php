@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Quotes extends Guest_Controller
 {
+    public $load;
+    public $mdl_quotes;
+    public $user_clients;
+    public $layout;
+    public $mdl_quote_items;
+    public $mdl_quote_tax_rates;
     /**
      * Quotes constructor.
      */

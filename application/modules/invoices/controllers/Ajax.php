@@ -18,6 +18,25 @@ if (!defined('BASEPATH')) {
 class Ajax extends Admin_Controller
 {
 
+    public $load;
+    public $security;
+    public $input;
+    public $mdl_invoices;
+    public $mdl_units;
+    public $mdl_tasks;
+    public $mdl_items;
+    public $form_validation;
+    public $config;
+    public $mdl_invoice_sumex;
+    public $mdl_invoice_amounts;
+    public $mdl_invoice_custom;
+    public $mdl_invoice_tax_rates;
+    public $mdl_invoices_recurring;
+    public $mdl_invoice_groups;
+    public $mdl_tax_rates;
+    public $mdl_clients;
+    public $layout;
+    public $db;
     public $ajax_controller = true;
 
     public function save()
@@ -37,8 +56,8 @@ class Ajax extends Admin_Controller
             foreach ($items as $item) {
                 // Check if an item has either a quantity + price or name or description
                 if (!empty($item->item_name)) {
-                    $item->item_quantity = ($item->item_quantity ? standardize_amount($item->item_quantity) : floatval(0));
-                    $item->item_price = ($item->item_price ? standardize_amount($item->item_price) : floatval(0));
+                    $item->item_quantity = ($item->item_quantity ? standardize_amount($item->item_quantity) : (float) 0);
+                    $item->item_price = ($item->item_price ? standardize_amount($item->item_price) : (float) 0);
                     $item->item_discount_amount = ($item->item_discount_amount) ? standardize_amount($item->item_discount_amount) : null;
                     $item->item_product_id = ($item->item_product_id ?: null);
                     if (property_exists($item, 'item_date')) {
@@ -78,13 +97,13 @@ class Ajax extends Admin_Controller
             $invoice_status = $this->input->post('invoice_status_id');
 
             if ($this->input->post('invoice_discount_amount') === '') {
-                $invoice_discount_amount = floatval(0);
+                $invoice_discount_amount = (float) 0;
             } else {
                 $invoice_discount_amount = $this->input->post('invoice_discount_amount');
             }
 
             if ($this->input->post('invoice_discount_percent') === '') {
-                $invoice_discount_percent = floatval(0);
+                $invoice_discount_percent = (float) 0;
             } else {
                 $invoice_discount_percent = $this->input->post('invoice_discount_percent');
             }
@@ -110,10 +129,8 @@ class Ajax extends Admin_Controller
             ];
 
             // check if status changed to sent, the feature is enabled and settings is set to sent
-            if ($this->config->item('disable_read_only') === false) {
-                if ($invoice_status == get_setting('read_only_toggle')) {
-                    $db_array['is_read_only'] = 1;
-                }
+            if ($this->config->item('disable_read_only') === false && $invoice_status == get_setting('read_only_toggle')) {
+                $db_array['is_read_only'] = 1;
             }
 
             $this->mdl_invoices->save($invoice_id, $db_array);
@@ -166,7 +183,7 @@ class Ajax extends Admin_Controller
 
             foreach ($values as $key => $value) {
                 preg_match("/^custom\[(.*?)\](?:\[\]|)$/", $key, $matches);
-                if ($matches) {
+                if ($matches !== []) {
                     $db_array[$matches[1]] = $value;
                 }
             }
@@ -475,7 +492,7 @@ class Ajax extends Admin_Controller
                 $success = 1;
 
                 // Mark task as complete from invoiced
-                if (isset($item->item_task_id) && $item->item_task_id) {
+                if (property_exists($item, 'item_task_id') && $item->item_task_id !== null && $item->item_task_id) {
                     $this->load->model('tasks/mdl_tasks');
                     $this->mdl_tasks->update_status(3, $item->item_task_id);
                 }

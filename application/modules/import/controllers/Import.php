@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Import extends Admin_Controller
 {
+    public $load;
+    public $mdl_import;
+    public $layout;
+    public $input;
     private array $allowed_files = [0 => 'clients.csv', 1 => 'invoices.csv', 2 => 'invoice_items.csv', 3 => 'payments.csv'];
 
     /**

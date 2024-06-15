@@ -16,6 +16,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Mdl_Quote_Items extends Response_Model
 {
 
+    public $mdl_quote_item_amounts;
+    public $mdl_quote_amounts;
     public $table = 'ip_quote_items';
 
     public $primary_key = 'ip_quote_items.item_id';
@@ -99,7 +101,7 @@ class Mdl_Quote_Items extends Response_Model
 
         $this->load->model('quotes/mdl_quote_amounts');
 
-        if (is_object($db_array) && isset($db_array->quote_id)) {
+        if (is_object($db_array) && (property_exists($db_array, 'quote_id') && $db_array->quote_id !== null)) {
             $this->mdl_quote_amounts->calculate($db_array->quote_id);
         } elseif (is_array($db_array) && isset($db_array['quote_id'])) {
             $this->mdl_quote_amounts->calculate($db_array['quote_id']);

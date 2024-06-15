@@ -15,6 +15,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Payments extends Guest_Controller
 {
+    public $load;
+    public $mdl_payments;
+    public $user_clients;
+    public $layout;
     /**
      * Payments constructor.
      */

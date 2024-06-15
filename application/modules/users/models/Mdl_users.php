@@ -15,6 +15,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Mdl_Users extends Response_Model
 {
+    public $db;
+    public $load;
+    public $crypt;
+    public $session;
+    public $mdl_user_clients;
     public $table = 'ip_users';
     public $primary_key = 'ip_users.user_id';
     public $date_created_field = 'user_date_created';

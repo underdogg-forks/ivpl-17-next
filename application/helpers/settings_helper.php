@@ -65,11 +65,11 @@ function check_select($value1, $value2 = null, $operator = '==', $checked = fals
     }
 
     $echo_selected = match ($operator) {
-        '==' => $value1 == $value2 ? true : false,
-        '!=' => $value1 != $value2 ? true : false,
-        'e' => empty($value1) ? true : false,
-        '!e' => empty($value1) ? true : false,
-        default => $value1 ? true : false,
+        '==' => $value1 == $value2,
+        '!=' => $value1 != $value2,
+        'e' => empty($value1),
+        '!e' => empty($value1),
+        default => (bool) $value1,
     };
 
     echo $echo_selected ? $select : '';

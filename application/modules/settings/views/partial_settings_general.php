@@ -377,7 +377,7 @@
                             <label for="login_logo">
                                 <?php _trans('login_logo'); ?>
                             </label>
-                            <?php if (get_setting('login_logo')) { ?>
+                            <?php if (get_setting('login_logo') !== '' && get_setting('login_logo') !== '0') { ?>
                                 <br/>
                                 <img class="personal_logo"
                                     src="<?php echo base_url(); ?>uploads/<?php echo get_setting('login_logo'); ?>"><br>

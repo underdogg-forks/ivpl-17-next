@@ -78,7 +78,7 @@
                         <?php endif; ?>
                     </select>
                     <span id="toggle_permissive_search_clients" class="input-group-addon" title="<?php _trans('enable_permissive_search_clients'); ?>" style="cursor:pointer;">
-                        <i class="fa fa-toggle-<?php echo get_setting('enable_permissive_search_clients') ? 'on' : 'off' ?> fa-fw" ></i>
+                        <i class="fa fa-toggle-<?php echo get_setting('enable_permissive_search_clients') !== '' && get_setting('enable_permissive_search_clients') !== '0' ? 'on' : 'off' ?> fa-fw" ></i>
                     </span>
                 </div>
             </div>
@@ -101,7 +101,7 @@
             <div class="form-group">
                 <label for="quote_password"><?php _trans('quote_password'); ?></label>
                 <input type="text" name="quote_password" id="quote_password" class="form-control"
-                       value="<?php echo get_setting('quote_pre_password') ? '' : get_setting('quote_pre_password') ?>"
+                       value="<?php echo get_setting('quote_pre_password') !== '' && get_setting('quote_pre_password') !== '0' ? '' : get_setting('quote_pre_password') ?>"
                        autocomplete="off">
             </div>
 

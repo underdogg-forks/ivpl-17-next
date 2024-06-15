@@ -67,7 +67,6 @@ function standardize_amount($amount)
     $decimal_point = $CI->mdl_settings->setting('decimal_point');
 
     $amount = str_replace($thousands_separator, '', $amount);
-    $amount = str_replace($decimal_point, '.', $amount);
 
-    return $amount;
+    return str_replace($decimal_point, '.', $amount);
 }
