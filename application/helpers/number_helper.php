@@ -1,19 +1,14 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Output the amount as a currency amount, e.g. 1.234,56 €
+ * Output the amount as a currency amount, e.g. 1.234,56 €.
  *
  * @param $amount
+ *
  * @return string
  */
 function format_currency($amount)
@@ -25,44 +20,48 @@ function format_currency($amount)
     $decimal_point = $CI->mdl_settings->setting('decimal_point');
 
     //prevent null format
-    if(is_null($amount)) $amount = 0;
+    if(null === $amount) {
+        $amount = 0;
+    }
 
     if ($currency_symbol_placement == 'before') {
         return $currency_symbol . number_format($amount, ($decimal_point) ? 2 : 0, $decimal_point, $thousands_separator);
-    } elseif ($currency_symbol_placement == 'afterspace') {
-        return number_format($amount, ($decimal_point) ? 2 : 0, $decimal_point, $thousands_separator) . '&nbsp;' . $currency_symbol;
-    } else {
-        return number_format($amount, ($decimal_point) ? 2 : 0, $decimal_point, $thousands_separator) . $currency_symbol;
     }
+    if ($currency_symbol_placement == 'afterspace') {
+        return number_format($amount, ($decimal_point) ? 2 : 0, $decimal_point, $thousands_separator) . '&nbsp;' . $currency_symbol;
+    }
+
+    return number_format($amount, ($decimal_point) ? 2 : 0, $decimal_point, $thousands_separator) . $currency_symbol;
 }
 
 /**
- * Output the amount as a currency amount, e.g. 1.234,56
+ * Output the amount as a currency amount, e.g. 1.234,56.
  *
  * @param null $amount
+ *
  * @return null|string
  */
 function format_amount($amount = null)
 {
     if ($amount) {
-        $CI =& get_instance();
+        $CI = & get_instance();
         $thousands_separator = $CI->mdl_settings->setting('thousands_separator');
         $decimal_point = $CI->mdl_settings->setting('decimal_point');
 
         return number_format($amount, ($decimal_point) ? 2 : 0, $decimal_point, $thousands_separator);
     }
-    return null;
 }
 
 /**
- * Standardize an amount based on the system settings
+ * Standardize an amount based on the system settings.
  *
  * @param $amount
+ *
  * @return mixed
  */
 function standardize_amount($amount)
 {
-    $CI =& get_instance();
+    $CI = & get_instance();
     $thousands_separator = $CI->mdl_settings->setting('thousands_separator');
     $decimal_point = $CI->mdl_settings->setting('decimal_point');
 

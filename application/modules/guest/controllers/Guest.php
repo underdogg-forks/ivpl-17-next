@@ -1,21 +1,15 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Guest
+ * Class Guest.
  */
 class Guest extends Guest_Controller
 {
-    public function index()
+    public function index(): void
     {
         $this->load->model('quotes/mdl_quotes');
         $this->load->model('invoices/mdl_invoices');
@@ -27,5 +21,4 @@ class Guest extends Guest_Controller
         $this->layout->buffer('content', 'guest/index');
         $this->layout->render('layout_guest');
     }
-
 }

@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Families
+ * Class Families.
  */
 class Families extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Families extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_families->paginate(site_url('families/index'), $page);
         $families = $this->mdl_families->result();
@@ -41,7 +35,7 @@ class Families extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('families');
@@ -50,7 +44,7 @@ class Families extends Admin_Controller
         if ($this->input->post('is_update') == 0 && $this->input->post('family_name') != '') {
             $check = $this->db->get_where('ip_families', ['family_name' => $this->input->post('family_name')])->result();
 
-            if (!empty($check)) {
+            if ( ! empty($check)) {
                 $this->session->set_flashdata('alert_error', trans('family_already_exists'));
                 redirect('families/form');
             }
@@ -61,8 +55,8 @@ class Families extends Admin_Controller
             redirect('families');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_families->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_families->prep_form($id)) {
                 show_404();
             }
 
@@ -76,10 +70,9 @@ class Families extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_families->delete($id);
         redirect('families');
     }
-
 }

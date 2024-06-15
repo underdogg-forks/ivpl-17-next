@@ -1,6 +1,8 @@
 <?php
-    $invoice_disabled = "";
-    if ($invoice->is_read_only == 1) $invoice_disabled = ' disabled="disabled"';
+$invoice_disabled = '';
+if ($invoice->is_read_only == 1) {
+    $invoice_disabled = ' disabled="disabled"';
+}
 ?>
 
 <div class="row">
@@ -30,7 +32,7 @@
                                 <label for="item_name" class="input-group-addon ig-addon-aligned"><?php _trans('item'); ?></label>
                                 <input type="text" name="item_name" id="item_name" class="input-sm form-control" value="">
                             </div>
-                            <?php if ($invoice->sumex_id == ""): ?>
+                            <?php if ($invoice->sumex_id == ''): ?>
                                 <div class="input-group">
                                     <label for="item_description" class="input-group-addon ig-addon-aligned"><?php _trans('description'); ?></label>
                                     <textarea name="item_description" id="item_description" class="input-sm form-control h135rem"></textarea>
@@ -59,7 +61,7 @@
                                     <option value="0"><?php _trans('none'); ?></option>
                                     <?php foreach ($units as $unit) { ?>
                                         <option value="<?php echo $unit->unit_id; ?>">
-                                            <?php echo $unit->unit_name . "/" . $unit->unit_name_plrl; ?>
+                                            <?php echo $unit->unit_name . '/' . $unit->unit_name_plrl; ?>
                                         </option>
                                     <?php } ?>
                                 </select>
@@ -149,14 +151,14 @@
                                     <i class="fa fa-chevron-down"></i>
                                 </button>
                                 <?php if ($invoice->invoice_is_recurring) :
-                                    if ($item->item_is_recurring == 1 || is_null($item->item_is_recurring)) {
+                                    if ($item->item_is_recurring == 1 || null === $item->item_is_recurring) {
                                         $item_recurrence_state = '1';
                                         $item_recurrence_class = 'fa-calendar-check-o text-success';
                                     } else {
                                         $item_recurrence_state = '0';
                                         $item_recurrence_class = 'fa-calendar-o text-muted';
                                     }
-                                    ?>
+            ?>
                                     <i title="<?php echo trans('recurring') ?>"
                                         class="js-item-recurrence-toggler cursor-pointer fa <?php echo $item_recurrence_class; ?>">
                                     </i>
@@ -172,14 +174,16 @@
                             <div class="col-xs-12 col-sm-11">
                                 <input type="hidden" name="invoice_id" value="<?php echo $invoice_id; ?>">
                                 <input type="hidden" name="item_id" value="<?php echo $item->item_id; ?>"<?php echo $invoice_disabled; ?>>
-                                <input type="hidden" name="item_task_id" class="item-task-id" value="<?php if ($item->item_task_id) echo $item->item_task_id; ?>">
+                                <input type="hidden" name="item_task_id" class="item-task-id" value="<?php if ($item->item_task_id) {
+                                    echo $item->item_task_id;
+                                } ?>">
                                 <input type="hidden" name="item_product_id" value="<?php echo $item->item_product_id; ?>">
 
                                 <div class="input-group">
                                     <label for="item_name_<?php echo $item->item_id; ?>" class="input-group-addon ig-addon-aligned"><?php _trans('item'); ?></label>
                                     <input type="text" name="item_name" id="item_name_<?php echo $item->item_id; ?>" class="input-sm form-control" value="<?php echo _htmlsc($item->item_name); ?>"<?php echo $invoice_disabled; ?>>
                                 </div>
-                                <?php if ($invoice->sumex_id == "") : ?>
+                                <?php if ($invoice->sumex_id == '') : ?>
                                     <div class="input-group">
                                         <label for="item_description_<?php echo $item->item_id; ?>" class="input-group-addon ig-addon-aligned"><?php _trans('description'); ?></label>
                                         <textarea name="item_description" id="item_description_<?php echo $item->item_id; ?>" class="input-sm form-control h135rem"<?php echo $invoice_disabled; ?>><?php echo htmlsc($item->item_description); ?></textarea>
@@ -208,7 +212,7 @@
                                         <?php foreach ($units as $unit) { ?>
                                             <option value="<?php echo $unit->unit_id; ?>"
                                                 <?php check_select($item->item_product_unit_id, $unit->unit_id); ?>>
-                                                <?php echo htmlsc($unit->unit_name) . "/" . htmlsc($unit->unit_name_plrl); ?>
+                                                <?php echo htmlsc($unit->unit_name) . '/' . htmlsc($unit->unit_name_plrl); ?>
                                             </option>
                                         <?php } ?>
                                     </select>

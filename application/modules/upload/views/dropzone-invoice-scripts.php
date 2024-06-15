@@ -91,7 +91,7 @@
     });
 
     myDropzone.on('success', function (file, response) {
-        <?php echo(IP_DEBUG ? 'console.log(response);' : ''); ?>
+        <?php echo IP_DEBUG ? 'console.log(response);' : ''; ?>
         if (typeof response !== 'undefined') {
             response = JSON.parse(response);
             if (response.success !== true) {
@@ -131,7 +131,7 @@
                 <?php echo $this->config->item('csrf_token_name'); ?>: Cookies.get('<?= $this->config->item('csrf_cookie_name'); ?>')
             }
         }, function (response) {
-            <?php echo(IP_DEBUG ? 'console.log(response);' : ''); ?>
+            <?php echo IP_DEBUG ? 'console.log(response);' : ''; ?>
         }
 
     );

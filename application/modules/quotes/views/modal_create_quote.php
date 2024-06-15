@@ -39,7 +39,7 @@
                     invoice_group_id: $('#invoice_group_id').val()
                 },
                 function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                    <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                     var response = JSON.parse(data);
                     if (response.success === 1) {
                         // The validation was successful and quote was created
@@ -73,7 +73,7 @@
                 <div class="input-group">
                     <select name="client_id" id="create_quote_client_id" class="client-id-select form-control"
                             autofocus="autofocus" required>
-                        <?php if (!empty($client)) : ?>
+                        <?php if ( ! empty($client)) : ?>
                             <option value="<?php echo $client->client_id; ?>"><?php _htmlsc(format_client($client)); ?></option>
                         <?php endif; ?>
                     </select>

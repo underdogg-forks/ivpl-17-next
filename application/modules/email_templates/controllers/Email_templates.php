@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Email_Templates
+ * Class Email_Templates.
  */
 class Email_Templates extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Email_Templates extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_email_templates->paginate(site_url('email_templates/index'), $page);
         $email_templates = $this->mdl_email_templates->result();
@@ -41,7 +35,7 @@ class Email_Templates extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         $custom_fields = [];
         if ($this->input->post('btn_cancel')) {
@@ -50,7 +44,7 @@ class Email_Templates extends Admin_Controller
 
         if ($this->input->post('is_update') == 0 && $this->input->post('email_template_title') != '') {
             $check = $this->db->get_where('ip_email_templates', ['email_template_title' => $this->input->post('email_template_title')])->result();
-            if (!empty($check)) {
+            if ( ! empty($check)) {
                 $this->session->set_flashdata('alert_error', trans('email_template_already_exists'));
                 redirect('email_templates/form');
             }
@@ -61,8 +55,8 @@ class Email_Templates extends Admin_Controller
             redirect('email_templates');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_email_templates->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_email_templates->prep_form($id)) {
                 show_404();
             }
             $this->mdl_email_templates->set_form_value('is_update', true);
@@ -86,10 +80,9 @@ class Email_Templates extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_email_templates->delete($id);
         redirect('email_templates');
     }
-
 }

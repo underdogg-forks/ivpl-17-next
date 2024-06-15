@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Custom_Fields
+ * Class Custom_Fields.
  */
 class Custom_Fields extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Custom_Fields extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_custom_fields->paginate(site_url('custom_fields/index'), $page);
         $custom_fields = $this->mdl_custom_fields->result();
@@ -44,7 +38,7 @@ class Custom_Fields extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('custom_fields');
@@ -55,8 +49,8 @@ class Custom_Fields extends Admin_Controller
             redirect('custom_fields');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_custom_fields->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_custom_fields->prep_form($id)) {
                 show_404();
             }
         }
@@ -76,10 +70,9 @@ class Custom_Fields extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_custom_fields->delete($id);
         redirect('custom_fields');
     }
-
 }

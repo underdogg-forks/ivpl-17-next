@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Products
+ * Class Products.
  */
 class Products extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Products extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_products->paginate(site_url('products/index'), $page);
         $products = $this->mdl_products->result();
@@ -41,7 +35,7 @@ class Products extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('products');
@@ -54,8 +48,8 @@ class Products extends Admin_Controller
             redirect('products');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_products->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_products->prep_form($id)) {
                 show_404();
             }
         }
@@ -75,10 +69,9 @@ class Products extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_products->delete($id);
         redirect('products');
     }
-
 }

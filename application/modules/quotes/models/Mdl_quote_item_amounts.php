@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Mdl_Quote_Item_Amounts
+ * Class Mdl_Quote_Item_Amounts.
  */
 class Mdl_Quote_Item_Amounts extends CI_Model
 {
@@ -20,11 +14,11 @@ class Mdl_Quote_Item_Amounts extends CI_Model
      * item_id
      * item_subtotal (item_quantity * item_price)
      * item_tax_total
-     * item_total ((item_quantity * item_price) + item_tax_total)
+     * item_total ((item_quantity * item_price) + item_tax_total).
      *
      * @param $item_id
      */
-    public function calculate($item_id)
+    public function calculate($item_id): void
     {
         $this->load->model('quotes/mdl_quote_items');
         $item = $this->mdl_quote_items->get_by_id($item_id);
@@ -45,5 +39,4 @@ class Mdl_Quote_Item_Amounts extends CI_Model
             $this->db->insert('ip_quote_item_amounts', $db_array);
         }
     }
-
 }

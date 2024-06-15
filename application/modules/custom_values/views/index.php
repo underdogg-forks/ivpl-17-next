@@ -30,7 +30,7 @@
 
         <tbody>
         <?php foreach ($custom_values as $custom_values) { ?>
-            <?php $alpha = str_replace("-", "_", strtolower($custom_values->custom_field_type)); ?>
+            <?php $alpha = str_replace('-', '_', mb_strtolower($custom_values->custom_field_type)); ?>
             <tr>
                 <td><?php echo $custom_values->custom_field_id; ?></td>
                 <td><?php _htmlsc($custom_values->custom_field_label); ?></td>

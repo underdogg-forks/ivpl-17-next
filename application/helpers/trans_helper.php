@@ -1,17 +1,8 @@
 <?php
 
-if (!defined('BASEPATH')) {
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
-
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
 
 /**
  * Output a language string, supports language fallback if a string wasn't found.
@@ -62,7 +53,7 @@ function trans($line, $id = '', $default = null)
  *
  * @param string $language
  */
-function set_language($language)
+function set_language($language): void
 {
     // Clear the current loaded language
     $CI = & get_instance();

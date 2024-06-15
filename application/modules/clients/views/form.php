@@ -45,7 +45,7 @@ $cv = $this->controller->view_data['custom_values'];
                                 <?php _trans('active_client'); ?>
                                 <input id="client_active" name="client_active" type="checkbox" value="1"
                                     <?php if ($this->mdl_clients->form_value('client_active') == 1
-                                        || !is_numeric($this->mdl_clients->form_value('client_active'))
+                                        || ! is_numeric($this->mdl_clients->form_value('client_active'))
                                     ) {
                                         echo 'checked="checked"';
                                     } ?>>
@@ -277,7 +277,7 @@ foreach ($genders as $key => $val) { ?>
                             <label for="client_birthdate"><?php _trans('birthdate'); ?></label>
                             <?php
                             $bdate = $this->mdl_clients->form_value('client_birthdate');
-if ($bdate && $bdate != "0000-00-00") {
+if ($bdate && $bdate != '0000-00-00') {
     $bdate = date_from_mysql($bdate);
 } else {
     $bdate = '';

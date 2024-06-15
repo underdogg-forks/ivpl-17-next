@@ -1,22 +1,17 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Generate the PDF for an invoice
+ * Generate the PDF for an invoice.
  *
- * @param $invoice_id
+ * @param      $invoice_id
  * @param bool $stream
  * @param null $invoice_template
  * @param null $is_guest
+ *
  * @return string
  */
 function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = null, $is_guest = null)
@@ -38,7 +33,7 @@ function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = n
     // Override system language with client language
     set_language($invoice->client_language);
 
-    if (!$invoice_template) {
+    if ( ! $invoice_template) {
         $CI->load->helper('template');
         $invoice_template = select_pdf_invoice_template($invoice);
     }
@@ -82,8 +77,17 @@ function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = n
     $html = $CI->load->view('invoice_templates/pdf/' . $invoice_template, $data, true);
 
     $CI->load->helper('mpdf');
-    return pdf_create($html, trans('invoice') . '_' . str_replace(['\\', '/'], '_', $invoice->invoice_number),
-        $stream, $invoice->invoice_password, true, $is_guest, $include_zugferd, $associatedFiles);
+
+    return pdf_create(
+        $html,
+        trans('invoice') . '_' . str_replace(['\\', '/'], '_', $invoice->invoice_number),
+        $stream,
+        $invoice->invoice_password,
+        true,
+        $is_guest,
+        $include_zugferd,
+        $associatedFiles
+    );
 }
 
 function generate_invoice_sumex($invoice_id, $stream = true, $client = false)
@@ -97,22 +101,22 @@ function generate_invoice_sumex($invoice_id, $stream = true, $client = false)
     // Append a copy at the end and change the title:
     // WARNING: The title depends on what invoice type is (TP, TG)
     // and is language-dependant. Fix accordingly if you really need this hack
-    $temp = tempnam("/tmp", "invsumex_");
-    $tempCopy = tempnam("/tmp", "invsumex_");
+    $temp = tempnam('/tmp', 'invsumex_');
+    $tempCopy = tempnam('/tmp', 'invsumex_');
     $pdf = new FPDI();
     $sumexPDF = $CI->sumex->pdf();
 
     $sha1sum = sha1($sumexPDF);
-    $shortsum = substr($sha1sum, 0, 8);
+    $shortsum = mb_substr($sha1sum, 0, 8);
     $filename = trans('invoice') . '_' . $invoice->invoice_number . '_' . $shortsum;
 
-    if (!$client) {
+    if ( ! $client) {
         file_put_contents($temp, $sumexPDF);
 
         // Hackish
         $sumexPDF = str_replace(
-            "Giustificativo per la richiesta di rimborso",
-            "Copia: Giustificativo per la richiesta di rimborso",
+            'Giustificativo per la richiesta di rimborso',
+            'Copia: Giustificativo per la richiesta di rimborso',
             $sumexPDF
         );
 
@@ -154,33 +158,36 @@ function generate_invoice_sumex($invoice_id, $stream = true, $client = false)
         unlink($tempCopy);
 
         if ($stream) {
-            header("Content-Type", "application/pdf");
+            header('Content-Type', 'application/pdf');
             $pdf->Output($filename . '.pdf', 'I');
+
             return;
         }
 
         $filePath = UPLOADS_TEMP_FOLDER . $filename . '.pdf';
         $pdf->Output($filePath, 'F');
-        return $filePath;
-    } else {
-        if ($stream) {
-            return $sumexPDF;
-        }
 
-        $filePath = UPLOADS_TEMP_FOLDER . $filename . '.pdf';
-        file_put_contents($filePath, $sumexPDF);
         return $filePath;
     }
+    if ($stream) {
+        return $sumexPDF;
+    }
+
+    $filePath = UPLOADS_TEMP_FOLDER . $filename . '.pdf';
+    file_put_contents($filePath, $sumexPDF);
+
+    return $filePath;
 }
 
 /**
- * Generate the PDF for a quote
+ * Generate the PDF for a quote.
  *
- * @param $quote_id
+ * @param      $quote_id
  * @param bool $stream
  * @param null $quote_template
  *
  * @return string
+ *
  * @throws \Mpdf\MpdfException
  */
 function generate_quote_pdf($quote_id, $stream = true, $quote_template = null)
@@ -199,7 +206,7 @@ function generate_quote_pdf($quote_id, $stream = true, $quote_template = null)
     // Override language with system language
     set_language($quote->client_language);
 
-    if (!$quote_template) {
+    if ( ! $quote_template) {
         $quote_template = $CI->mdl_settings->setting('pdf_quote_template');
     }
 

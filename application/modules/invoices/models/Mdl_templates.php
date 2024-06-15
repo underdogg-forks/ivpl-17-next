@@ -1,22 +1,17 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Mdl_Templates
+ * Class Mdl_Templates.
  */
 class Mdl_Templates extends CI_Model
 {
     /**
      * @param string $type
+     *
      * @return array
      */
     public function get_invoice_templates($type = 'pdf')
@@ -36,20 +31,8 @@ class Mdl_Templates extends CI_Model
     }
 
     /**
-     * @param $files
-     * @return mixed
-     */
-    private function remove_extension($files)
-    {
-        foreach ($files as $key => $file) {
-            $files[$key] = str_replace('.php', '', $file);
-        }
-
-        return $files;
-    }
-
-    /**
      * @param string $type
+     *
      * @return array|mixed
      */
     public function get_quote_templates($type = 'pdf')
@@ -68,4 +51,17 @@ class Mdl_Templates extends CI_Model
         return $templates;
     }
 
+    /**
+     * @param $files
+     *
+     * @return mixed
+     */
+    private function remove_extension($files)
+    {
+        foreach ($files as $key => $file) {
+            $files[$key] = str_replace('.php', '', $file);
+        }
+
+        return $files;
+    }
 }

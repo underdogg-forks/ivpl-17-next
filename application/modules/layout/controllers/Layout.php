@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Layout
+ * Class Layout.
  */
 class Layout extends MX_Controller
 {
@@ -61,18 +55,19 @@ class Layout extends MX_Controller
         return $this;
     }
 
-    public function render($view = 'layout')
+    public function render($view = 'layout'): void
     {
         $this->load->view('layout/' . $view, $this->view_data);
     }
 
     /**
      * Simple function to load a view directly using the assigned template
-     * Does not use buffering or rendering
+     * Does not use buffering or rendering.
+     *
      * @param string $view
-     * @param array $data
+     * @param array  $data
      */
-    public function load_view($view, $data = [])
+    public function load_view($view, $data = []): void
     {
         $view = explode('/', $view);
 
@@ -80,5 +75,4 @@ class Layout extends MX_Controller
 
         $this->load->view($view, $data);
     }
-
 }

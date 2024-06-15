@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Units
+ * Class Units.
  */
 class Units extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Units extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_units->paginate(site_url('units/index'), $page);
         $units = $this->mdl_units->result();
@@ -41,7 +35,7 @@ class Units extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('units');
@@ -53,7 +47,7 @@ class Units extends Admin_Controller
         ) {
             $check = $this->db->get_where('ip_units', ['unit_name' => $this->input->post('unit_name')])->result();
 
-            if (!empty($check)) {
+            if ( ! empty($check)) {
                 $this->session->set_flashdata('alert_error', trans('unit_already_exists'));
                 redirect('units/form');
             }
@@ -64,8 +58,8 @@ class Units extends Admin_Controller
             redirect('units');
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_units->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_units->prep_form($id)) {
                 show_404();
             }
 
@@ -79,10 +73,9 @@ class Units extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_units->delete($id);
         redirect('units');
     }
-
 }

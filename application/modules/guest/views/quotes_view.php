@@ -95,12 +95,12 @@
                 </thead>
                 <?php
                 $i = 1;
-                foreach ($items as $item) { ?>
+    foreach ($items as $item) { ?>
                     <tbody>
                     <tr>
                         <td rowspan="2" style="width:20px;" class="text-center">
                             <?php echo $i;
-                            $i++; ?>
+        $i++; ?>
                         </td>
                         <td><?php _htmlsc($item->item_name); ?></td>
                         <td>
@@ -158,17 +158,17 @@
                                 <?php echo $quote_tax_rate->quote_tax_rate_name . ' ' . $quote_tax_rate->quote_tax_rate_percent; ?>%:
                                 <?php echo format_currency($quote_tax_rate->quote_tax_rate_amount); ?><br/>
                             <?php }
-                        } else {
-                            echo format_currency('0');
-                        } ?>
+                            } else {
+                                echo format_currency('0');
+                            } ?>
                     </td>
                     <td class="amount"><?php
-                        if ($quote->quote_discount_percent == floatval(0)) {
-                            echo $quote->quote_discount_percent . '%';
-                        } else {
-                            echo format_currency($quote->quote_discount_amount);
-                        }
-                        ?>
+                            if ($quote->quote_discount_percent == (float) 0) {
+                                echo $quote->quote_discount_percent . '%';
+                            } else {
+                                echo format_currency($quote->quote_discount_amount);
+                            }
+    ?>
                     </td>
                     <td class="amount"><b><?php echo format_currency($quote->quote_total); ?></b></td>
                 </tr>

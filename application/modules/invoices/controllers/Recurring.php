@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Recurring
+ * Class Recurring.
  */
 class Recurring extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Recurring extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_invoices_recurring->paginate(site_url('invoices/recurring'), $page);
         $recurring_invoices = $this->mdl_invoices_recurring->result();
@@ -42,7 +36,7 @@ class Recurring extends Admin_Controller
     /**
      * @param $invoice_recurring_id
      */
-    public function stop($invoice_recurring_id)
+    public function stop($invoice_recurring_id): void
     {
         $this->mdl_invoices_recurring->stop($invoice_recurring_id);
         redirect('invoices/recurring/index');
@@ -51,10 +45,9 @@ class Recurring extends Admin_Controller
     /**
      * @param $invoice_recurring_id
      */
-    public function delete($invoice_recurring_id)
+    public function delete($invoice_recurring_id): void
     {
         $this->mdl_invoices_recurring->delete($invoice_recurring_id);
         redirect('invoices/recurring/index');
     }
-
 }

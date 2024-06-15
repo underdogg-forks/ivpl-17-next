@@ -1,12 +1,12 @@
 <?php
 
-if (!defined('BASEPATH')) {
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
 /*
  * InvoicePlane
- * 
+ *
  * A free and open source web based invoicing system
  *
  * @package		InvoicePlane
@@ -14,7 +14,7 @@ if (!defined('BASEPATH')) {
  * @copyright	Copyright (c) 2012 - 2015 InvoicePlane.com
  * @license		https://invoiceplane.com/license.txt
  * @link		https://invoiceplane.com
- * 
+ *
  */
 
 class Payment_Information extends Base_Controller
@@ -26,7 +26,7 @@ class Payment_Information extends Base_Controller
         $this->load->model('invoices/mdl_invoices');
     }
 
-    public function form($invoice_url_key)
+    public function form($invoice_url_key): void
     {
         $this->load->model('payment_methods/mdl_payment_methods');
         $disable_form = false;
@@ -35,7 +35,7 @@ class Payment_Information extends Base_Controller
         $invoice = $this->mdl_invoices->where('ip_invoices.invoice_url_key', $invoice_url_key)
             ->get()->row();
 
-        if (!$invoice) {
+        if ( ! $invoice) {
             show_404();
         }
 
@@ -52,8 +52,7 @@ class Payment_Information extends Base_Controller
 
         $available_drivers = [];
         foreach ($gateways as $driver => $fields) {
-
-            $d = strtolower($driver);
+            $d = mb_strtolower($driver);
 
             if (get_setting('gateway_' . $d . '_enabled') == 1) {
                 $invoice_payment_method = $invoice->payment_method;
@@ -77,17 +76,15 @@ class Payment_Information extends Base_Controller
         $view_data = ['disable_form' => $disable_form, 'invoice' => $invoice, 'gateways' => $available_drivers, 'payment_method' => $payment_method, 'is_overdue' => $is_overdue];
 
         //if stripe is active as payment gateway pass also the public api key
-        if(in_array('Stripe',$available_drivers))
-        {
+        if(in_array('Stripe', $available_drivers)) {
             $view_data['stripe_api_key'] = get_setting('gateway_stripe_apiKeyPublic');
         }
 
         $this->load->view('guest/payment_information', $view_data);
-
     }
 
     //endpoint to load the stripe.js card form
-    public function stripe()
+    public function stripe(): void
     {
         $this->load->view('guest/gateway/stripe');
     }

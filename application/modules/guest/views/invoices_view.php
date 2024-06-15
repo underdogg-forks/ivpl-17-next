@@ -107,12 +107,12 @@
                     </thead>
                     <?php
                     $i = 1;
-                    foreach ($items as $item) { ?>
+            foreach ($items as $item) { ?>
                         <tbody class="item">
                         <tr>
                             <td rowspan="2" style="max-width: 20px;" class="text-center">
                                 <?php echo $i;
-                                $i++; ?>
+                $i++; ?>
                             </td>
                             <td><?php _htmlsc($item->item_name); ?></td>
                             <td>
@@ -181,17 +181,17 @@
                                     <?php echo $invoice_tax_rate->invoice_tax_rate_name . ' ' . $invoice_tax_rate->invoice_tax_rate_percent; ?>%:
                                     <?php echo format_currency($invoice_tax_rate->invoice_tax_rate_amount); ?><br>
                                 <?php }
-                            } else {
-                                echo format_currency('0');
-                            } ?>
+                                } else {
+                                    echo format_currency('0');
+                                } ?>
                         </td>
                         <td class="amount"><?php
-                            if ($invoice->invoice_discount_amount == floatval(0)) {
-                                echo $invoice->invoice_discount_percent . '%';
-                            } else {
-                                echo format_currency($invoice->invoice_discount_amount);
-                            }
-                            ?>
+                                if ($invoice->invoice_discount_amount == (float) 0) {
+                                    echo $invoice->invoice_discount_percent . '%';
+                                } else {
+                                    echo format_currency($invoice->invoice_discount_amount);
+                                }
+            ?>
                         </td>
                         <td class="amount"><?php echo format_currency($invoice->invoice_total); ?></td>
                         <td class="amount"><?php echo format_currency($invoice->invoice_paid); ?></td>

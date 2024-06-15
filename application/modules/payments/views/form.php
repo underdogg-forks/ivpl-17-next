@@ -46,7 +46,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
                 <select name="invoice_id" id="invoice_id" class="form-control simple-select" required>
-                    <?php if (!$payment_id) { ?>
+                    <?php if ( ! $payment_id) { ?>
                         <?php foreach ($open_invoices as $invoice) { ?>
                             <option value="<?php echo $invoice->invoice_id; ?>"
                                 <?php check_select($this->mdl_payments->form_value('invoice_id'), $invoice->invoice_id); ?>>
@@ -105,7 +105,7 @@
 
                 <select id="payment_method_id" name="payment_method_id"
                 	class="form-control simple-select" data-minimum-results-for-search="Infinity"
-                    <?php echo($this->mdl_payments->form_value('payment_method_id') ? 'disabled="disabled"' : ''); ?>>
+                    <?php echo $this->mdl_payments->form_value('payment_method_id') ? 'disabled="disabled"' : ''; ?>>
 
                     <?php foreach ($payment_methods as $payment_method) { ?>
                         <option value="<?php echo $payment_method->payment_method_id; ?>"
@@ -129,9 +129,9 @@
         </div>
 
         <?php
-        $cv = $this->controller->view_data["custom_values"];
+        $cv = $this->controller->view_data['custom_values'];
         foreach ($custom_fields as $custom_field) {
-            print_field($this->mdl_payments, $custom_field, $cv, "col-xs-12 col-sm-2 text-right text-left-xs", "col-xs-12 col-sm-6");
+            print_field($this->mdl_payments, $custom_field, $cv, 'col-xs-12 col-sm-2 text-right text-left-xs', 'col-xs-12 col-sm-6');
         } ?>
 
     </div>

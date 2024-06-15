@@ -18,7 +18,7 @@
                     payment_note: $('#payment_note').val()
                 },
                 function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                    <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                     var response = JSON.parse(data);
                     if (response.success === 1) {
                         // The validation was successful and payment was added
@@ -65,7 +65,7 @@
 
                     <div class="controls">
                         <input type="text" name="payment_amount" id="payment_amount" class="form-control"
-                               value="<?php echo(isset($invoice_balance) ? format_amount($invoice_balance) : ''); ?>">
+                               value="<?php echo isset($invoice_balance) ? format_amount($invoice_balance) : ''; ?>">
                     </div>
                 </div>
 
@@ -97,12 +97,13 @@
                         <?php } ?>
 
                         <select name="payment_method_id" id="payment_method_id" class="form-control simple-select"
-                            <?php echo(!empty($invoice_payment_method) ? 'disabled="disabled"' : ''); ?>>
+                            <?php echo ! empty($invoice_payment_method) ? 'disabled="disabled"' : ''; ?>>
                             <option value=""><?php _trans('none'); ?></option>
                             <?php foreach ($payment_methods as $payment_method) { ?>
                                 <option value="<?php echo $payment_method->payment_method_id; ?>"
-                                    <?php check_select(isset($invoice_payment_method)
-                                        && $invoice_payment_method == $payment_method->payment_method_id
+                                    <?php check_select(
+                                        isset($invoice_payment_method)
+                                                    && $invoice_payment_method == $payment_method->payment_method_id
                                     ); ?>>
                                     <?php _htmlsc($payment_method->payment_method_name); ?>
                                 </option>

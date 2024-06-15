@@ -44,7 +44,7 @@
 
                         <div class="alert alert-info">
                             <label>
-                                <input type="checkbox" name="user_all_clients" id="user_all_clients" value="1" <?php echo ($user->user_all_clients)?'checked="checked"':''; ?>> <?php _trans('user_all_clients') ?>
+                                <input type="checkbox" name="user_all_clients" id="user_all_clients" value="1" <?php echo ($user->user_all_clients) ? 'checked="checked"' : ''; ?>> <?php _trans('user_all_clients') ?>
                             </label>
 
                             <div>

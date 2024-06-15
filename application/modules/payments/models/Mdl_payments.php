@@ -1,27 +1,23 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Mdl_Payments
+ * Class Mdl_Payments.
  */
 class Mdl_Payments extends Response_Model
 {
     public $table = 'ip_payments';
+
     public $primary_key = 'ip_payments.payment_id';
+
     public $validation_rules = 'validation_rules';
 
-    public function default_select()
+    public function default_select(): void
     {
-        $this->db->select("
+        $this->db->select('
             SQL_CALC_FOUND_ROWS
             ip_payment_methods.*,
             ip_invoice_amounts.*,
@@ -30,15 +26,15 @@ class Mdl_Payments extends Response_Model
         	  ip_clients.client_id,
             ip_invoices.invoice_number,
             ip_invoices.invoice_date_created,
-            ip_payments.*", false);
+            ip_payments.*', false);
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_payments.payment_date DESC');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_invoices', 'ip_invoices.invoice_id = ip_payments.invoice_id');
         $this->db->join('ip_clients', 'ip_clients.client_id = ip_invoices.client_id');
@@ -56,11 +52,12 @@ class Mdl_Payments extends Response_Model
 
     /**
      * @param $amount
+     *
      * @return bool
      */
     public function validate_payment_amount($amount)
     {
-        $amount = (float)standardize_amount($amount);
+        $amount = (float) standardize_amount($amount);
         $invoice_id = $this->input->post('invoice_id');
         $payment_id = $this->input->post('payment_id');
 
@@ -70,18 +67,19 @@ class Mdl_Payments extends Response_Model
             return false;
         }
 
-        $invoice_balance = (float)$invoice->invoice_balance;
+        $invoice_balance = (float) $invoice->invoice_balance;
 
         if ($payment_id) {
             $payment = $this->db->where('payment_id', $payment_id)->get('ip_payments')->row();
 
-            $invoice_balance = $invoice_balance + (float)$payment->payment_amount;
+            $invoice_balance = $invoice_balance + (float) $payment->payment_amount;
         }
 
-        $invoice_balance = (float)$invoice_balance;
+        $invoice_balance = (float) $invoice_balance;
 
         if ($amount > $invoice_balance) {
             $this->form_validation->set_message('validate_payment_amount', trans('payment_cannot_exceed_balance'));
+
             return false;
         }
 
@@ -91,6 +89,7 @@ class Mdl_Payments extends Response_Model
     /**
      * @param null $id
      * @param null $db_array
+     *
      * @return bool|int|null
      */
     public function save($id = null, $db_array = null)
@@ -112,8 +111,8 @@ class Mdl_Payments extends Response_Model
             return false;
         }
 
-        $paid = (float)$invoice->invoice_paid;
-        $total = (float)$invoice->invoice_total;
+        $paid = (float) $invoice->invoice_paid;
+        $total = (float) $invoice->invoice_total;
 
         if ($paid >= $total) {
             $this->db->where('invoice_id', $db_array['invoice_id']);
@@ -143,7 +142,7 @@ class Mdl_Payments extends Response_Model
     /**
      * @param null $id
      */
-    public function delete($id = null)
+    public function delete($id = null): void
     {
         // Get the invoice id before deleting payment
         $this->db->select('invoice_id');
@@ -174,15 +173,16 @@ class Mdl_Payments extends Response_Model
 
     /**
      * @param null $id
+     *
      * @return bool
      */
     public function prep_form($id = null)
     {
-        if (!parent::prep_form($id)) {
+        if ( ! parent::prep_form($id)) {
             return false;
         }
 
-        if (!$id) {
+        if ( ! $id) {
             parent::set_form_value('payment_date', date('Y-m-d'));
         }
 
@@ -191,12 +191,13 @@ class Mdl_Payments extends Response_Model
 
     /**
      * @param $client_id
+     *
      * @return $this
      */
     public function by_client($client_id)
     {
         $this->filter_where('ip_clients.client_id', $client_id);
+
         return $this;
     }
-
 }

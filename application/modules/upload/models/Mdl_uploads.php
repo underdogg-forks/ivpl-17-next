@@ -1,31 +1,28 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Mdl_Uploads
+ * Class Mdl_Uploads.
  */
 class Mdl_Uploads extends Response_Model
 {
     public $table = 'ip_uploads';
+
     public $primary_key = 'ip_uploads.upload_id';
+
     public $date_modified_field = 'uploaded_date';
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_uploads.upload_id ASC');
     }
 
     /**
      * @param null $db_array
+     *
      * @return int|null
      */
     public function create($db_array = null)
@@ -37,6 +34,7 @@ class Mdl_Uploads extends Response_Model
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function get_quote_uploads($id)
@@ -58,6 +56,7 @@ class Mdl_Uploads extends Response_Model
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function get_invoice_uploads($id)
@@ -81,7 +80,7 @@ class Mdl_Uploads extends Response_Model
      * @param $url_key
      * @param $filename
      */
-    public function delete_file($url_key, $filename)
+    public function delete_file($url_key, $filename): void
     {
         $this->db->where('url_key', $url_key);
         $this->db->where('file_name_original', $filename);
@@ -90,12 +89,13 @@ class Mdl_Uploads extends Response_Model
 
     /**
      * @param $client_id
+     *
      * @return $this
      */
     public function by_client($client_id)
     {
         $this->filter_where('ip_uploads.client_id', $client_id);
+
         return $this;
     }
-
 }

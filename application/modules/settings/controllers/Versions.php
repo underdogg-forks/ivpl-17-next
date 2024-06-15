@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Versions
+ * Class Versions.
  */
 class Versions extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Versions extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_versions->paginate(site_url('versions/index'), $page);
         $versions = $this->mdl_versions->result();
@@ -37,5 +31,4 @@ class Versions extends Admin_Controller
         $this->layout->buffer('content', 'settings/versions');
         $this->layout->render();
     }
-
 }

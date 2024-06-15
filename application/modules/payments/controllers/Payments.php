@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Payments
+ * Class Payments.
  */
 class Payments extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Payments extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_payments->paginate(site_url('payments/index'), $page);
         $payments = $this->mdl_payments->result();
@@ -44,7 +38,7 @@ class Payments extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('payments');
@@ -60,10 +54,10 @@ class Payments extends Admin_Controller
             redirect('payments');
         }
 
-        if (!$this->input->post('btn_submit')) {
+        if ( ! $this->input->post('btn_submit')) {
             $prep_form = $this->mdl_payments->prep_form($id);
 
-            if ($id and !$prep_form) {
+            if ($id && ! $prep_form) {
                 show_404();
             }
 
@@ -144,7 +138,7 @@ class Payments extends Admin_Controller
     /**
      * @param int $page
      */
-    public function online_logs($page = 0)
+    public function online_logs($page = 0): void
     {
         $this->load->model('mdl_payment_logs');
 
@@ -162,10 +156,9 @@ class Payments extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_payments->delete($id);
         redirect('payments');
     }
-
 }

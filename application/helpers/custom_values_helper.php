@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
-
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
  * @param $txt
+ *
  * @return bool|DateTime|string
  */
 function format_date($txt)
@@ -25,6 +19,7 @@ function format_date($txt)
 
 /**
  * @param $txt
+ *
  * @return string
  */
 function format_text($txt)
@@ -38,6 +33,7 @@ function format_text($txt)
 
 /**
  * @param $txt
+ *
  * @return string
  */
 function format_singlechoice($txt)
@@ -55,6 +51,7 @@ function format_singlechoice($txt)
 
 /**
  * @param $txt
+ *
  * @return string
  */
 function format_multiplechoice($txt)
@@ -79,6 +76,7 @@ function format_multiplechoice($txt)
 
 /**
  * @param $txt
+ *
  * @return string
  */
 function format_boolean($txt)
@@ -89,7 +87,8 @@ function format_boolean($txt)
 
     if ($txt == '1') {
         return trans('true');
-    } else if ($txt == '0') {
+    }
+    if ($txt == '0') {
         return trans('false');
     }
 
@@ -98,19 +97,21 @@ function format_boolean($txt)
 
 /**
  * @param $txt
+ *
  * @return string
  */
 function format_avs($txt)
 {
-    if (!preg_match('/(\d{3})(\d{4})(\d{4})(\d{2})/', $txt, $matches)) {
+    if ( ! preg_match('/(\d{3})(\d{4})(\d{4})(\d{2})/', $txt, $matches)) {
         return $txt;
     }
-    return $matches[1] . "." . $matches[2] . "." . $matches[3] . "." . $matches[4];
 
+    return $matches[1] . '.' . $matches[2] . '.' . $matches[3] . '.' . $matches[4];
 }
 
 /**
  * @param $txt
+ *
  * @return string
  */
 function format_fallback($txt)
@@ -119,20 +120,21 @@ function format_fallback($txt)
 }
 
 /**
- * Print a custom form field based on the type
- * @param $module
- * @param $custom_field
- * @param $cv
+ * Print a custom form field based on the type.
+ *
+ * @param        $module
+ * @param        $custom_field
+ * @param        $cv
  * @param string $class_top
  * @param string $class_bottom
  * @param string $label_class
  */
-function print_field($module, $custom_field, $cv, $class_top = '', $class_bottom = 'controls', $label_class = '')
+function print_field($module, $custom_field, $cv, $class_top = '', $class_bottom = 'controls', $label_class = ''): void
 {
     ?>
     <div class="form-group">
         <div class="<?php echo $class_top; ?>">
-            <label<?php echo($label_class != '' ? " class='" . $label_class . "'" : ''); ?>
+            <label<?php echo $label_class != '' ? " class='" . $label_class . "'" : ''; ?>
                     for="custom[<?php echo $custom_field->custom_field_id; ?>]">
                 <?php _htmlsc($custom_field->custom_field_label); ?>
             </label>
@@ -141,18 +143,18 @@ function print_field($module, $custom_field, $cv, $class_top = '', $class_bottom
         <div class="<?php echo $class_bottom; ?>">
             <?php
             switch ($custom_field->custom_field_type) {
-            case 'DATE':
-                $dateValue = ($fieldValue == "" ? "" : date_from_mysql($fieldValue));
-                ?>
+                case 'DATE':
+                    $dateValue = ($fieldValue == '' ? '' : date_from_mysql($fieldValue));
+                    ?>
             <input type="text" class="form-control input-sm datepicker"
                    name="custom[<?php echo $custom_field->custom_field_id; ?>]"
                    id="<?php echo $custom_field->custom_field_id; ?>"
                    value="<?php echo $dateValue; ?>">
             <?php
             break;
-            case 'SINGLE-CHOICE':
-            $choices = $cv[$custom_field->custom_field_id];
-            ?>
+                case 'SINGLE-CHOICE':
+                    $choices = $cv[$custom_field->custom_field_id];
+                    ?>
                 <select class="form-control simple-select" name="custom[<?php echo $custom_field->custom_field_id; ?>]"
                         id="<?php echo $custom_field->custom_field_id; ?>">
                     <option value=""><?php echo trans('none'); ?></option>
@@ -164,10 +166,10 @@ function print_field($module, $custom_field, $cv, $class_top = '', $class_bottom
                     <?php endforeach; ?>
                 </select>
             <?php
-            break;
-            case 'MULTIPLE-CHOICE':
-            $choices = $cv[$custom_field->custom_field_id];
-            $selChoices = explode(',', $fieldValue); ?>
+                    break;
+                case 'MULTIPLE-CHOICE':
+                    $choices = $cv[$custom_field->custom_field_id];
+                    $selChoices = explode(',', $fieldValue); ?>
                 <select id="<?php echo $custom_field->custom_field_id; ?>"
                         name="custom[<?php echo $custom_field->custom_field_id; ?>][]"
                         multiple="multiple"
@@ -183,9 +185,9 @@ function print_field($module, $custom_field, $cv, $class_top = '', $class_bottom
                     $('#<?php echo $custom_field->custom_field_id; ?>').select2();
                 </script>
             <?php
-            break;
-            case 'BOOLEAN':
-            ?>
+                    break;
+                case 'BOOLEAN':
+                    ?>
                 <select id="<?php echo $custom_field->custom_field_id; ?>"
                         name="custom[<?php echo $custom_field->custom_field_id; ?>]"
                         class="form-control">
@@ -193,9 +195,9 @@ function print_field($module, $custom_field, $cv, $class_top = '', $class_bottom
                     <option value="1" <?php check_select($fieldValue, '1'); ?>><?php echo trans('true'); ?></option>
                 </select>
             <?php
-            break;
-            default:
-            ?>
+                    break;
+                default:
+                    ?>
             <input type="text" class="form-control"
                    name="custom[<?php echo $custom_field->custom_field_id; ?>]"
                    id="<?php echo $custom_field->custom_field_id; ?>"

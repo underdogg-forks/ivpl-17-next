@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Tasks
+ * Class Tasks.
  */
 class Tasks extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Tasks extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_tasks->paginate(site_url('tasks/index'), $page);
         $tasks = $this->mdl_tasks->result();
@@ -42,7 +36,7 @@ class Tasks extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('tasks');
@@ -53,9 +47,9 @@ class Tasks extends Admin_Controller
             redirect('tasks');
         }
 
-        if (!$this->input->post('btn_submit')) {
+        if ( ! $this->input->post('btn_submit')) {
             $prep_form = $this->mdl_tasks->prep_form($id);
-            if ($id and !$prep_form) {
+            if ($id && ! $prep_form) {
                 show_404();
             }
         }
@@ -73,7 +67,7 @@ class Tasks extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_tasks->delete($id);
         redirect('tasks');

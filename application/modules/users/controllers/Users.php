@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Users
+ * Class Users.
  */
 class Users extends Admin_Controller
 {
@@ -28,7 +22,7 @@ class Users extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_users->paginate(site_url('users/index'), $page);
         $users = $this->mdl_users->result();
@@ -42,7 +36,7 @@ class Users extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('users');
@@ -68,8 +62,8 @@ class Users extends Admin_Controller
             redirect('users');
         }
 
-        if ($id && !$this->input->post('btn_submit')) {
-            if (!$this->mdl_users->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_users->prep_form($id)) {
                 show_404();
             }
 
@@ -137,7 +131,7 @@ class Users extends Admin_Controller
     /**
      * @param $user_id
      */
-    public function change_password($user_id)
+    public function change_password($user_id): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('users');
@@ -155,9 +149,9 @@ class Users extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
-        if ($id <> 1) {
+        if ($id != 1) {
             $this->mdl_users->delete($id);
         }
         redirect('users');
@@ -167,7 +161,7 @@ class Users extends Admin_Controller
      * @param $user_id
      * @param $user_client_id
      */
-    public function delete_user_client($user_id, $user_client_id)
+    public function delete_user_client($user_id, $user_client_id): void
     {
         $this->load->model('mdl_user_clients');
 
@@ -175,5 +169,4 @@ class Users extends Admin_Controller
 
         redirect('users/form/' . $user_id);
     }
-
 }

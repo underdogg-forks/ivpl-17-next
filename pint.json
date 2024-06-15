@@ -5,6 +5,7 @@
         "storage",
         "uploads",
         "application/cache",
+        "application/core",
         "application/helpers/country-list",
         "application/hooks",
         "application/libraries",

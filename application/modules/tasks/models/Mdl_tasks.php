@@ -1,36 +1,31 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Mdl_Tasks
+ * Class Mdl_Tasks.
  */
 class Mdl_Tasks extends Response_Model
 {
     public $table = 'ip_tasks';
+
     public $primary_key = 'ip_tasks.task_id';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('SQL_CALC_FOUND_ROWS *,
           (CASE WHEN DATEDIFF(NOW(), task_finish_date) > 0 THEN 1 ELSE 0 END) is_overdue
         ', false);
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_projects.project_name, ip_tasks.task_name');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_projects', 'ip_projects.project_id = ip_tasks.project_id', 'left');
     }
@@ -38,13 +33,14 @@ class Mdl_Tasks extends Response_Model
     public function get_latest()
     {
         $this->db->order_by('ip_tasks.task_id', 'DESC');
+
         return $this;
     }
 
     /**
      * @param string $match
      */
-    public function by_task($match)
+    public function by_task($match): void
     {
         $this->db->like('task_name', $match);
         $this->db->or_like('task_description', $match);
@@ -72,16 +68,17 @@ class Mdl_Tasks extends Response_Model
     }
 
     /**
-     * @param null|integer $id
+     * @param null|int $id
+     *
      * @return bool
      */
     public function prep_form($id = null)
     {
-        if (!parent::prep_form($id)) {
+        if ( ! parent::prep_form($id)) {
             return false;
         }
 
-        if (!$id) {
+        if ( ! $id) {
             parent::set_form_value('task_finish_date', date('Y-m-d'));
             parent::set_form_value('task_price', get_setting('default_hourly_rate'));
         }
@@ -90,13 +87,14 @@ class Mdl_Tasks extends Response_Model
     }
 
     /**
-     * @param integer $task_id
+     * @param int $task_id
+     *
      * @return array
      */
     public function get_invoice_for_task($task_id)
     {
-        if (!$task_id) {
-            return null;
+        if ( ! $task_id) {
+            return;
         }
 
         $invoice_item = $this->db->select('ip_invoice_items.invoice_id')
@@ -104,8 +102,8 @@ class Mdl_Tasks extends Response_Model
             ->where('ip_invoice_items.item_task_id', $task_id)
             ->get()->result();
 
-        if (empty($invoice_item) || !isset($invoice_item->invoice_id)) {
-            return null;
+        if (empty($invoice_item) || ! isset($invoice_item->invoice_id)) {
+            return;
         }
 
         $this->load->model('invoices/mdl_invoices');
@@ -114,14 +112,15 @@ class Mdl_Tasks extends Response_Model
     }
 
     /**
-     * @param integer $invoice_id
+     * @param int $invoice_id
+     *
      * @return array
      */
     public function get_tasks_to_invoice($invoice_id)
     {
         $result = [];
 
-        if (!$invoice_id) {
+        if ( ! $invoice_id) {
             return $result;
         }
 
@@ -158,11 +157,11 @@ class Mdl_Tasks extends Response_Model
     }
 
     /**
-     * @param integer $invoice_id
+     * @param int $invoice_id
      */
-    public function update_on_invoice_delete($invoice_id)
+    public function update_on_invoice_delete($invoice_id): void
     {
-        if (!$invoice_id) {
+        if ( ! $invoice_id) {
             return;
         }
         $query = $this->db->select($this->table . '.*')
@@ -177,10 +176,10 @@ class Mdl_Tasks extends Response_Model
     }
 
     /**
-     * @param integer $new_status
-     * @param integer $task_id
+     * @param int $new_status
+     * @param int $task_id
      */
-    public function update_status($new_status, $task_id)
+    public function update_status($new_status, $task_id): void
     {
         $statuses_ok = $this->statuses();
         if (isset($statuses_ok[$new_status])) {
@@ -197,11 +196,11 @@ class Mdl_Tasks extends Response_Model
     }
 
     /**
-     * @param integer $project_id
+     * @param int $project_id
      */
-    public function update_on_project_delete($project_id)
+    public function update_on_project_delete($project_id): void
     {
-        if (!$project_id) {
+        if ( ! $project_id) {
             return;
         }
 

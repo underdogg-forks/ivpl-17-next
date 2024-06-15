@@ -1,4 +1,4 @@
-<title><?php echo get_setting('custom_title', null, true) ?: 'InvoicePlane';?></title>
+<title><?php echo get_setting('custom_title', null, true) ?: 'InvoicePlane'; ?></title>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

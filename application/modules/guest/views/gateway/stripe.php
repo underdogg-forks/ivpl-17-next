@@ -8,6 +8,6 @@
 
 <script>
 <?php
-include "stripe.js"
+include 'stripe.js'
 ?>
 </script>

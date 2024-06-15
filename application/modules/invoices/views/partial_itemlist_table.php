@@ -78,7 +78,7 @@
             </td>
         </tr>
         <tr>
-            <?php if ($invoice->sumex_id == ""): ?>
+            <?php if ($invoice->sumex_id == ''): ?>
                 <td class="td-textarea">
                     <div class="input-group">
                         <span class="input-group-addon"><?php _trans('description'); ?></span>
@@ -104,7 +104,7 @@
                         <option value="0"><?php _trans('none'); ?></option>
                         <?php foreach ($units as $unit) { ?>
                             <option value="<?php echo $unit->unit_id; ?>">
-                                <?php echo $unit->unit_name . "/" . $unit->unit_name_plrl; ?>
+                                <?php echo $unit->unit_name . '/' . $unit->unit_name_plrl; ?>
                             </option>
                         <?php } ?>
                     </select>
@@ -136,14 +136,14 @@
                     <i class="fa fa-arrows cursor-move"></i>
                     <?php
                     if ($invoice->invoice_is_recurring) :
-                        if ($item->item_is_recurring == 1 || is_null($item->item_is_recurring)) {
+                        if ($item->item_is_recurring == 1 || null === $item->item_is_recurring) {
                             $item_recurrence_state = '1';
                             $item_recurrence_class = 'fa-calendar-check-o text-success';
                         } else {
                             $item_recurrence_state = '0';
                             $item_recurrence_class = 'fa-calendar-o text-muted';
                         }
-                        ?>
+            ?>
                         <br/>
                         <i title="<?php echo trans('recurring') ?>"
                            class="js-item-recurrence-toggler cursor-pointer fa <?php echo $item_recurrence_class ?>"></i>
@@ -232,7 +232,7 @@
             </tr>
 
             <tr>
-                <?php if ($invoice->sumex_id == ""): ?>
+                <?php if ($invoice->sumex_id == ''): ?>
                     <td class="td-textarea">
                         <div class="input-group">
                             <span class="input-group-addon"><?php _trans('description'); ?></span>
@@ -264,7 +264,7 @@
                             <?php foreach ($units as $unit) { ?>
                                 <option value="<?php echo $unit->unit_id; ?>"
                                     <?php check_select($item->item_product_unit_id, $unit->unit_id); ?>>
-                                    <?php echo htmlsc($unit->unit_name) . "/" . htmlsc($unit->unit_name_plrl); ?>
+                                    <?php echo htmlsc($unit->unit_name) . '/' . htmlsc($unit->unit_name_plrl); ?>
                                 </option>
                             <?php } ?>
                         </select>
@@ -354,9 +354,9 @@
                                 </span>
                             </form>
                         <?php }
-                    } else {
-                        echo format_currency('0');
-                    } ?>
+                        } else {
+                            echo format_currency('0');
+                        } ?>
                 </td>
             </tr>
             <tr>

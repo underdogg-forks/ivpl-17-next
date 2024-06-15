@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Quotes
+ * Class Quotes.
  */
 class Quotes extends Guest_Controller
 {
@@ -25,7 +19,7 @@ class Quotes extends Guest_Controller
         $this->load->model('quotes/mdl_quotes');
     }
 
-    public function index()
+    public function index(): void
     {
         // Display open quotes by default
         redirect('guest/quotes/status/open');
@@ -33,9 +27,9 @@ class Quotes extends Guest_Controller
 
     /**
      * @param string $status
-     * @param int $page
+     * @param int    $page
      */
-    public function status($status = 'open', $page = 0)
+    public function status($status = 'open', $page = 0): void
     {
         redirect_to_set();
 
@@ -71,7 +65,7 @@ class Quotes extends Guest_Controller
     /**
      * @param $quote_id
      */
-    public function view($quote_id)
+    public function view($quote_id): void
     {
         redirect_to_set();
 
@@ -83,7 +77,7 @@ class Quotes extends Guest_Controller
             ->where_in('ip_quotes.client_id', $this->user_clients)
             ->get()->row();
 
-        if (!$quote) {
+        if ( ! $quote) {
             show_404();
         }
 
@@ -102,11 +96,11 @@ class Quotes extends Guest_Controller
     }
 
     /**
-     * @param $quote_id
+     * @param      $quote_id
      * @param bool $stream
      * @param null $quote_template
      */
-    public function generate_pdf($quote_id, $stream = true, $quote_template = null)
+    public function generate_pdf($quote_id, $stream = true, $quote_template = null): void
     {
         $this->load->helper('pdf');
 
@@ -117,7 +111,7 @@ class Quotes extends Guest_Controller
             ->where_in('ip_quotes.client_id', $this->user_clients)
             ->get()->row();
 
-        if (!$quote) {
+        if ( ! $quote) {
             show_404();
         } else {
             generate_quote_pdf($quote_id, $stream, $quote_template);
@@ -127,13 +121,13 @@ class Quotes extends Guest_Controller
     /**
      * @param $quote_id
      */
-    public function approve($quote_id)
+    public function approve($quote_id): void
     {
         $this->load->model('quotes/mdl_quotes');
         $this->load->helper('mailer');
 
         $this->mdl_quotes->approve_quote_by_id($quote_id);
-        email_quote_status($quote_id, "approved");
+        email_quote_status($quote_id, 'approved');
 
         redirect_to('guest/quotes');
     }
@@ -141,15 +135,14 @@ class Quotes extends Guest_Controller
     /**
      * @param $quote_id
      */
-    public function reject($quote_id)
+    public function reject($quote_id): void
     {
         $this->load->model('quotes/mdl_quotes');
         $this->load->helper('mailer');
 
         $this->mdl_quotes->reject_quote_by_id($quote_id);
-        email_quote_status($quote_id, "rejected");
+        email_quote_status($quote_id, 'rejected');
 
         redirect_to('guest/quotes');
     }
-
 }

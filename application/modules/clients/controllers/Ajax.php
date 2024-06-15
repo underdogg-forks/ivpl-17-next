@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,14 +14,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Ajax
+ * Class Ajax.
  */
 class Ajax extends Admin_Controller
 {
-
     public $ajax_controller = true;
 
-    public function name_query()
+    public function name_query(): void
     {
         // Load the model & helper
         $this->load->model('clients/mdl_clients');
@@ -39,7 +41,7 @@ class Ajax extends Admin_Controller
 
         // Search for clients
         $escapedQuery = $this->db->escape_str($query);
-        $escapedQuery = str_replace("%", "", $escapedQuery);
+        $escapedQuery = str_replace('%', '', $escapedQuery);
         $clients = $this->mdl_clients
             ->where('client_active', 1)
             ->having('client_name LIKE \'' . $moreClientsQuery . $escapedQuery . '%\'')
@@ -51,7 +53,7 @@ class Ajax extends Admin_Controller
 
         foreach ($clients as $client) {
             $response[] = [
-                'id' => $client->client_id,
+                'id'   => $client->client_id,
                 'text' => (format_client($client)),
             ];
         }
@@ -61,9 +63,9 @@ class Ajax extends Admin_Controller
     }
 
     /**
-     * Get the latest clients
+     * Get the latest clients.
      */
-    public function get_latest()
+    public function get_latest(): void
     {
         // Load the model & helper
         $this->load->model('clients/mdl_clients');
@@ -79,7 +81,7 @@ class Ajax extends Admin_Controller
 
         foreach ($clients as $client) {
             $response[] = [
-                'id' => $client->client_id,
+                'id'   => $client->client_id,
                 'text' => htmlsc(format_client($client)),
             ];
         }
@@ -88,19 +90,19 @@ class Ajax extends Admin_Controller
         echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
-    public function save_preference_permissive_search_clients()
+    public function save_preference_permissive_search_clients(): void
     {
         $this->load->model('mdl_settings');
         $permissiveSearchClients = $this->input->get('permissive_search_clients');
 
-        if (!preg_match('!^[0-1]{1}$!', $permissiveSearchClients)) {
+        if ( ! preg_match('!^[0-1]{1}$!', $permissiveSearchClients)) {
             exit;
         }
 
         $this->mdl_settings->save('enable_permissive_search_clients', $permissiveSearchClients);
     }
 
-    public function save_client_note()
+    public function save_client_note(): void
     {
         $this->load->model('clients/mdl_client_notes');
 
@@ -108,14 +110,14 @@ class Ajax extends Admin_Controller
             $this->mdl_client_notes->save();
 
             $response = [
-                'success' => 1,
+                'success'   => 1,
                 'new_token' => $this->security->get_csrf_hash(),
             ];
         } else {
             $this->load->helper('json_error');
             $response = [
-                'success' => 0,
-                'new_token' => $this->security->get_csrf_hash(),
+                'success'           => 0,
+                'new_token'         => $this->security->get_csrf_hash(),
                 'validation_errors' => json_errors(),
             ];
         }
@@ -123,15 +125,16 @@ class Ajax extends Admin_Controller
         echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
-    public function load_client_notes()
+    public function load_client_notes(): void
     {
         $this->load->model('clients/mdl_client_notes');
         $data = [
-            'client_notes' => $this->mdl_client_notes->where('client_id',
-                $this->input->post('client_id'))->get()->result(),
+            'client_notes' => $this->mdl_client_notes->where(
+                'client_id',
+                $this->input->post('client_id')
+            )->get()->result(),
         ];
 
         $this->layout->load_view('clients/partial_notes', $data);
     }
-
 }

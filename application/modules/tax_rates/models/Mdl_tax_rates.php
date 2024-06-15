@@ -1,29 +1,24 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Mdl_Tax_Rates
+ * Class Mdl_Tax_Rates.
  */
 class Mdl_Tax_Rates extends Response_Model
 {
     public $table = 'ip_tax_rates';
+
     public $primary_key = 'ip_tax_rates.tax_rate_id';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('SQL_CALC_FOUND_ROWS *', false);
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_tax_rates.tax_rate_percent');
     }
@@ -35,5 +30,4 @@ class Mdl_Tax_Rates extends Response_Model
     {
         return ['tax_rate_name' => ['field' => 'tax_rate_name', 'label' => trans('tax_rate_name'), 'rules' => 'required'], 'tax_rate_percent' => ['field' => 'tax_rate_percent', 'label' => trans('tax_rate_percent'), 'rules' => 'required']];
     }
-
 }

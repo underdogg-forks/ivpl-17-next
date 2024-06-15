@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,30 +14,29 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Items
+ * Class Mdl_Items.
  */
 class Mdl_Items extends Response_Model
 {
-
     public $table = 'ip_invoice_items';
 
     public $primary_key = 'ip_invoice_items.item_id';
 
     public $date_created_field = 'item_date_added';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('ip_invoice_item_amounts.*, ip_products.*, ip_invoice_items.*,
             item_tax_rates.tax_rate_percent AS item_tax_rate_percent,
             item_tax_rates.tax_rate_name AS item_tax_rate_name');
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_invoice_items.item_order');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_invoice_item_amounts', 'ip_invoice_item_amounts.item_id = ip_invoice_items.item_id', 'left');
         $this->db->join('ip_tax_rates AS item_tax_rates', 'item_tax_rates.tax_rate_id = ip_invoice_items.item_tax_rate_id', 'left');

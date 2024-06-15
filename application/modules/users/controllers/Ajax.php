@@ -1,23 +1,17 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Ajax
+ * Class Ajax.
  */
 class Ajax extends Admin_Controller
 {
     public $ajax_controller = true;
 
-    public function save_user_client()
+    public function save_user_client(): void
     {
         $user_id = $this->input->post('user_id');
         $client_id = $this->input->post('client_id');
@@ -30,12 +24,12 @@ class Ajax extends Admin_Controller
             $client_id = $client->client_id;
 
             // Is this a new user or an existing user?
-            if (!empty($user_id)) {
+            if ( ! empty($user_id)) {
                 // Existing user - go ahead and save the entries
                 $user_client = $this->mdl_user_clients->where('ip_user_clients.user_id', $user_id)
                     ->where('ip_user_clients.client_id', $client_id)->get();
 
-                if (!$user_client->num_rows()) {
+                if ( ! $user_client->num_rows()) {
                     $this->mdl_user_clients->save(null, ['user_id' => $user_id, 'client_id' => $client_id]);
                 }
             } else {
@@ -49,7 +43,7 @@ class Ajax extends Admin_Controller
         }
     }
 
-    public function load_user_client_table()
+    public function load_user_client_table(): void
     {
         $session_user_clients = $this->session->userdata('user_clients');
 
@@ -66,7 +60,7 @@ class Ajax extends Admin_Controller
         $this->layout->load_view('users/partial_user_client_table', $data);
     }
 
-    public function modal_add_user_client($user_id = null)
+    public function modal_add_user_client($user_id = null): void
     {
         $this->load->model('clients/mdl_clients');
 
@@ -79,7 +73,7 @@ class Ajax extends Admin_Controller
             $assigned_clients = [];
 
             foreach ($assigned_clients_query as $assigned_client) {
-                $assigned_clients[] = (int)$assigned_client->client_id;
+                $assigned_clients[] = (int) $assigned_client->client_id;
             }
 
             if (empty($assigned_clients)) {
@@ -93,5 +87,4 @@ class Ajax extends Admin_Controller
 
         $this->layout->load_view('users/modal_user_client', $data);
     }
-
 }

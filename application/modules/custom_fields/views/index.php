@@ -31,7 +31,7 @@
 
         <tbody>
         <?php foreach ($custom_fields as $custom_field) { ?>
-            <?php $alpha = str_replace("-", "_", strtolower($custom_field->custom_field_type)); ?>
+            <?php $alpha = str_replace('-', '_', mb_strtolower($custom_field->custom_field_type)); ?>
             <tr>
                 <td><?php echo lang($custom_tables[$custom_field->custom_field_table]); ?></td>
                 <td><?php _htmlsc($custom_field->custom_field_label); ?></td>

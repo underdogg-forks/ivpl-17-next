@@ -1,24 +1,19 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Mdl_Client_Notes
+ * Class Mdl_Client_Notes.
  */
 class Mdl_Client_Notes extends Response_Model
 {
     public $table = 'ip_client_notes';
+
     public $primary_key = 'ip_client_notes.client_note_id';
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_client_notes.client_note_date DESC');
     }
@@ -36,5 +31,4 @@ class Mdl_Client_Notes extends Response_Model
 
         return $db_array;
     }
-
 }

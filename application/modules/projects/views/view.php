@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-4">
 
-            <?php if (!empty($project->client_name)) : ?>
+            <?php if ( ! empty($project->client_name)) : ?>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -70,8 +70,8 @@
                                         <?php echo anchor('tasks/form/' . $task->task_id, htmlsc($task->task_name)) ?>
                                     </td>
                                     <td>
-                                <span class="label <?php echo $task_statuses["$task->task_status"]['class']; ?>">
-                                    <?php echo $task_statuses["$task->task_status"]['label']; ?>
+                                <span class="label <?php echo $task_statuses["{$task->task_status}"]['class']; ?>">
+                                    <?php echo $task_statuses["{$task->task_status}"]['label']; ?>
                                 </span>
                                     </td>
                                     <td>

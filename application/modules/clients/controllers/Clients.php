@@ -1,17 +1,11 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
- * Class Clients
+ * Class Clients.
  */
 class Clients extends Admin_Controller
 {
@@ -25,7 +19,7 @@ class Clients extends Admin_Controller
         $this->load->model('mdl_clients');
     }
 
-    public function index()
+    public function index(): void
     {
         // Display active clients by default
         redirect('clients/status/active');
@@ -33,13 +27,13 @@ class Clients extends Admin_Controller
 
     /**
      * @param string $status
-     * @param int $page
+     * @param int    $page
      */
-    public function status($status = 'active', $page = 0)
+    public function status($status = 'active', $page = 0): void
     {
         if (is_numeric(array_search($status, ['active', 'inactive']))) {
             $function = 'is_' . $status;
-            $this->mdl_clients->$function();
+            $this->mdl_clients->{$function}();
         }
 
         $this->mdl_clients->with_total_balance()->paginate(site_url('clients/status/' . $status), $page);
@@ -56,34 +50,34 @@ class Clients extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('clients');
         }
-        
+
         $new_client = false;
-        
+
         // Set validation rule based on is_update
         if ($this->input->post('is_update') == 0 && $this->input->post('client_name') != '') {
             $check = $this->db->get_where('ip_clients', ['client_name' => $this->input->post('client_name'), 'client_surname' => $this->input->post('client_surname')])->result();
 
-            if (!empty($check)) {
+            if ( ! empty($check)) {
                 $this->session->set_flashdata('alert_error', trans('client_already_exists'));
                 redirect('clients/form');
             } else {
                 $new_client = true;
             }
         }
-        
+
         if ($this->mdl_clients->run_validation()) {
             $id = $this->mdl_clients->save($id);
-            
+
             if ($new_client) {
                 $this->load->model('user_clients/mdl_user_clients');
                 $this->mdl_user_clients->get_users_all_clients();
             }
-            
+
             $this->load->model('custom_fields/mdl_client_custom');
             $result = $this->mdl_client_custom->save_custom($id, $this->input->post('custom'));
 
@@ -91,14 +85,14 @@ class Clients extends Admin_Controller
                 $this->session->set_flashdata('alert_error', $result);
                 $this->session->set_flashdata('alert_success', null);
                 redirect('clients/form/' . $id);
+
                 return;
-            } else {
-                redirect('clients/view/' . $id);
             }
+            redirect('clients/view/' . $id);
         }
 
-        if ($id and !$this->input->post('btn_submit')) {
-            if (!$this->mdl_clients->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_clients->prep_form($id)) {
                 show_404();
             }
 
@@ -166,7 +160,7 @@ class Clients extends Admin_Controller
     /**
      * @param int $client_id
      */
-    public function view($client_id)
+    public function view($client_id): void
     {
         $this->load->model('clients/mdl_client_notes');
         $this->load->model('invoices/mdl_invoices');
@@ -186,7 +180,7 @@ class Clients extends Admin_Controller
 
         $this->mdl_client_custom->prep_form($client_id);
 
-        if (!$client) {
+        if ( ! $client) {
             show_404();
         }
 
@@ -204,10 +198,9 @@ class Clients extends Admin_Controller
     /**
      * @param int $client_id
      */
-    public function delete($client_id)
+    public function delete($client_id): void
     {
         $this->mdl_clients->delete($client_id);
         redirect('clients');
     }
-
 }
