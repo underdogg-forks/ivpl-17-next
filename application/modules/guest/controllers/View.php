@@ -70,7 +70,7 @@ class View extends Base_Controller
 
         if ($files !== false) {
             foreach ($files as $file) {
-                if ('.' != $file && '..' != $file && strpos($file, $key) !== false) {
+                if ('.' != $file && '..' != $file && strpos($file, (string) $key) !== false) {
                     $obj['name'] = substr($file, strpos($file, '_', 1) + 1);
                     $obj['fullname'] = $file;
                     $obj['size'] = filesize($path . '/' . $file);

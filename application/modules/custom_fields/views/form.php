@@ -65,7 +65,7 @@
     }
     ?>
                 <script>
-                    var jsonPositions = '<?php echo json_encode($positions); ?>';
+                    var jsonPositions = '<?php echo json_encode($positions, JSON_THROW_ON_ERROR); ?>';
                     jsonPositions = JSON.parse(jsonPositions);
                 </script>
                 <?php $valueSelected = $this->mdl_custom_fields->form_value('custom_field_location'); ?>

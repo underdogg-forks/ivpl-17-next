@@ -57,7 +57,7 @@ class Ajax extends Admin_Controller
         }
 
         // Return the results
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -85,7 +85,7 @@ class Ajax extends Admin_Controller
         }
 
         // Return the results
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function save_preference_permissive_search_clients()
@@ -120,7 +120,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function load_client_notes()

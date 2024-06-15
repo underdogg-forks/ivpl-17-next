@@ -162,7 +162,7 @@ class Modules
     public static function autoload($class)
     {
         /* don't autoload CI_ prefixed classes or those using the config subclass_prefix */
-        if (strstr($class, 'CI_') OR strstr($class, config_item('subclass_prefix'))) {
+        if (strstr($class, 'CI_') OR strstr($class, (string) config_item('subclass_prefix'))) {
             return;
         }
 

@@ -32,7 +32,7 @@ class Ajax extends Admin_Controller
         $this->mdl_invoices->set_id($invoice_id);
 
         if ($this->mdl_invoices->run_validation('validation_rules_save_invoice')) {
-            $items = json_decode($this->input->post('items'));
+            $items = json_decode($this->input->post('items'), null, 512, JSON_THROW_ON_ERROR);
 
             foreach ($items as $item) {
                 // Check if an item has either a quantity + price or name or description
@@ -180,12 +180,12 @@ class Ajax extends Admin_Controller
                     'validation_errors' => $result,
                 ];
 
-                echo json_encode($response);
+                echo json_encode($response, JSON_THROW_ON_ERROR);
                 exit;
             }
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function save_invoice_tax_rate()
@@ -205,7 +205,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function create()
@@ -227,7 +227,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function create_recurring()
@@ -248,7 +248,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function get_item()
@@ -257,7 +257,7 @@ class Ajax extends Admin_Controller
 
         $item = $this->mdl_items->get_by_id($this->security->xss_clean($this->input->post('item_id', true)));
 
-        echo json_encode($item);
+        echo json_encode($item, JSON_THROW_ON_ERROR);
     }
 
     public function modal_create_invoice()
@@ -343,7 +343,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function modal_copy_invoice()
@@ -390,7 +390,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function modal_create_credit()
@@ -450,7 +450,7 @@ class Ajax extends Admin_Controller
             ];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -486,7 +486,7 @@ class Ajax extends Admin_Controller
         // Return the response
         echo json_encode([
             'success' => $success
-        ]);
+        ], JSON_THROW_ON_ERROR);
     }
 
 }

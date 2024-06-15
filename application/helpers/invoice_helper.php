@@ -66,9 +66,9 @@ function invoice_genCodeline($slipType, $amount, $rnumb, $subNumb)
         $amount = .5 * round((float)$amount / .5, 1);
     }
 
-    if (!$isEur && $amount > 99999999.95) {
+    if (!$isEur && $amount > 99_999_999.95) {
         throw new Error("Invalid amount");
-    } elseif ($isEur && $amount > 99999999.99) {
+    } elseif ($isEur && $amount > 99_999_999.99) {
         throw new Error("Invalid amount");
     }
 

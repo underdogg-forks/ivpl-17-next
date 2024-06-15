@@ -30,7 +30,7 @@ class Ajax extends Admin_Controller
             $response = ['success' => 0, 'validation_errors' => json_errors()];
         }
 
-        echo json_encode($response);
+        echo json_encode($response, JSON_THROW_ON_ERROR);
     }
 
     public function modal_add_payment()
