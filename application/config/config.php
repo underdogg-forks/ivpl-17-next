@@ -266,7 +266,7 @@ $config['log_threshold'] = IP_DEBUG ? 2 : 1;
 | application/logs/ directory. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = '';
+$config['log_path'] = env('LOG_PATH');
 
 /*
 |--------------------------------------------------------------------------
@@ -280,7 +280,7 @@ $config['log_path'] = '';
 | Note: Leaving it blank will default to 'php'.
 |
 */
-$config['log_file_extension'] = '';
+$config['log_file_extension'] = env('LOG_EXT', '.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -325,7 +325,7 @@ $config['error_views_path'] = '';
 | application/cache/ directory.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = '';
+$config['cache_path'] = env('CACHE_PATH');
 
 /*
 |--------------------------------------------------------------------------
