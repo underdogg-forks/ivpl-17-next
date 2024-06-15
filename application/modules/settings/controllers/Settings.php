@@ -52,7 +52,7 @@ class Settings extends Admin_Controller
 
             // Save the submitted settings
             foreach ($settings as $key => $value) {
-                if (strpos($key, 'field_is_password') !== false || strpos($key, 'field_is_amount') !== false) {
+                if (str_contains($key, 'field_is_password') || str_contains($key, 'field_is_amount')) {
                     // Skip all meta fields
                     continue;
                 }

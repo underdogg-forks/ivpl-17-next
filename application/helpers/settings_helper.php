@@ -64,23 +64,13 @@ function check_select($value1, $value2 = null, $operator = '==', $checked = fals
         return;
     }
 
-    switch ($operator) {
-        case '==':
-            $echo_selected = $value1 == $value2 ? true : false;
-            break;
-        case '!=':
-            $echo_selected = $value1 != $value2 ? true : false;
-            break;
-        case 'e':
-            $echo_selected = empty($value1) ? true : false;
-            break;
-        case '!e':
-            $echo_selected = empty($value1) ? true : false;
-            break;
-        default:
-            $echo_selected = $value1 ? true : false;
-            break;
-    }
+    $echo_selected = match ($operator) {
+        '==' => $value1 == $value2 ? true : false,
+        '!=' => $value1 != $value2 ? true : false,
+        'e' => empty($value1) ? true : false,
+        '!e' => empty($value1) ? true : false,
+        default => $value1 ? true : false,
+    };
 
     echo $echo_selected ? $select : '';
 }
