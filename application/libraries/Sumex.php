@@ -4,9 +4,9 @@
 
 class Sumex
 {
-    const ROLES = ['physician', 'physiotherapist', 'chiropractor', 'ergotherapist', 'nutritionist', 'midwife', 'logotherapist', 'hospital', 'pharmacist', 'dentist', 'labtechnician', 'dentaltechnician', 'othertechnician', 'psychologist', 'wholesaler', 'nursingstaff', 'transport', 'druggist', 'naturopathicdoctor', 'naturopathictherapist', 'other'];
-    const PLACES = ['practice', 'hospital', 'lab', 'association', 'company'];
-    const CANTONS = ["AG", "AI", "AR", "BE", "BL", "BS", "FR", "GE", "GL", "GR", "JU", "LU", "NE", "NW", "OW", "SG", "SH", "SO", "SZ", "TI", "TG", "UR", "VD", "VS", "ZG", "ZH", "LI", "A", "D", "F", "I"];
+    public const ROLES = ['physician', 'physiotherapist', 'chiropractor', 'ergotherapist', 'nutritionist', 'midwife', 'logotherapist', 'hospital', 'pharmacist', 'dentist', 'labtechnician', 'dentaltechnician', 'othertechnician', 'psychologist', 'wholesaler', 'nursingstaff', 'transport', 'druggist', 'naturopathicdoctor', 'naturopathictherapist', 'other'];
+    public const PLACES = ['practice', 'hospital', 'lab', 'association', 'company'];
+    public const CANTONS = ["AG", "AI", "AR", "BE", "BL", "BS", "FR", "GE", "GL", "GR", "JU", "LU", "NE", "NW", "OW", "SG", "SH", "SO", "SZ", "TI", "TG", "UR", "VD", "VS", "ZG", "ZH", "LI", "A", "D", "F", "I"];
     public $invoice;
     public $doc;
     public $root;
