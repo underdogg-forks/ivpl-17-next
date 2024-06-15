@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,17 +14,24 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Products
+ * Class Products.
  */
-class Products extends Admin_Controller
+final class Products extends Admin_Controller
 {
     public $load;
+
     public $mdl_products;
+
     public $layout;
+
     public $input;
+
     public $mdl_families;
+
     public $mdl_units;
+
     public $mdl_tax_rates;
+
     /**
      * Products constructor.
      */
@@ -35,7 +45,7 @@ class Products extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_products->paginate(site_url('products/index'), $page);
         $products = $this->mdl_products->result();
@@ -48,7 +58,7 @@ class Products extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('products');
@@ -61,7 +71,7 @@ class Products extends Admin_Controller
             redirect('products');
         }
 
-        if ($id && !$this->input->post('btn_submit') && !$this->mdl_products->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit') && ! $this->mdl_products->prep_form($id)) {
             show_404();
         }
 
@@ -80,10 +90,9 @@ class Products extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_products->delete($id);
         redirect('products');
     }
-
 }

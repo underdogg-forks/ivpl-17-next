@@ -1,5 +1,6 @@
 <?php
-if (!defined('BASEPATH')) {
+
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -13,30 +14,48 @@ if (!defined('BASEPATH')) {
  */
 
 /**
- * Class Invoices
+ * Class Invoices.
  */
-class Invoices extends Admin_Controller
+final class Invoices extends Admin_Controller
 {
-
     public $load;
+
     public $mdl_invoices;
+
     public $layout;
+
     public $db;
+
     public $mdl_invoice_custom;
+
     public $mdl_custom_fields;
+
     public $mdl_custom_values;
+
     public $mdl_items;
+
     public $mdl_tax_rates;
+
     public $mdl_invoice_tax_rates;
+
     public $mdl_units;
+
     public $mdl_payment_methods;
+
     public $config;
+
     public $mdl_tasks;
+
     public $session;
+
     public $output;
+
     public $zugferdxml;
+
     public $sumex;
+
     public $mdl_invoice_amounts;
+
     /**
      * Invoices constructor.
      */
@@ -47,7 +66,7 @@ class Invoices extends Admin_Controller
         $this->load->model('mdl_invoices');
     }
 
-    public function index()
+    public function index(): void
     {
         // Display all invoices by default
         redirect('invoices/status/all');
@@ -55,9 +74,9 @@ class Invoices extends Admin_Controller
 
     /**
      * @param string $status
-     * @param int $page
+     * @param int    $page
      */
-    public function status($status = 'all', $page = 0)
+    public function status($status = 'all', $page = 0): void
     {
         // Determine which group of invoices to load
         switch ($status) {
@@ -83,12 +102,12 @@ class Invoices extends Admin_Controller
 
         $this->layout->set(
             [
-                'invoices' => $invoices,
-                'status' => $status,
-                'filter_display' => true,
+                'invoices'           => $invoices,
+                'status'             => $status,
+                'filter_display'     => true,
                 'filter_placeholder' => trans('filter_invoices'),
-                'filter_method' => 'filter_invoices',
-                'invoice_statuses' => $this->mdl_invoices->statuses(),
+                'filter_method'      => 'filter_invoices',
+                'invoice_statuses'   => $this->mdl_invoices->statuses(),
             ]
         );
 
@@ -96,7 +115,7 @@ class Invoices extends Admin_Controller
         $this->layout->render();
     }
 
-    public function archive()
+    public function archive(): void
     {
         $invoice_array = [];
 
@@ -106,10 +125,10 @@ class Invoices extends Admin_Controller
             $this->layout->set(
                 [
                     'invoices_archive' => $invoice_array,
-                ]);
+                ]
+            );
             $this->layout->buffer('content', 'invoices/archive');
             $this->layout->render();
-
         } else {
             foreach (glob(UPLOADS_ARCHIVE_FOLDER . '*.pdf') as $file) {
                 $invoice_array[] = $file;
@@ -119,7 +138,8 @@ class Invoices extends Admin_Controller
             $this->layout->set(
                 [
                     'invoices_archive' => $invoice_array,
-                ]);
+                ]
+            );
             $this->layout->buffer('content', 'invoices/archive');
             $this->layout->render();
         }
@@ -128,7 +148,7 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice
      */
-    public function download($invoice)
+    public function download($invoice): void
     {
         header('Content-type: application/pdf');
         header('Content-Disposition: attachment; filename="' . urldecode($invoice) . '"');
@@ -138,7 +158,7 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice_id
      */
-    public function view($invoice_id)
+    public function view($invoice_id): void
     {
         $this->load->model(
             [
@@ -150,8 +170,8 @@ class Invoices extends Admin_Controller
             ]
         );
 
-        $this->load->helper("custom_values");
-        $this->load->helper("client");
+        $this->load->helper('custom_values');
+        $this->load->helper('client');
         $this->load->model('units/mdl_units');
         $this->load->module('payments');
 
@@ -175,7 +195,7 @@ class Invoices extends Admin_Controller
         $fields = $this->mdl_invoice_custom->by_id($invoice_id)->get()->result();
         $invoice = $this->mdl_invoices->get_by_id($invoice_id);
 
-        if (!$invoice) {
+        if ( ! $invoice) {
             show_404();
         }
 
@@ -203,23 +223,23 @@ class Invoices extends Admin_Controller
 
         // Check whether there are payment custom fields
         $payment_cf = $this->mdl_custom_fields->by_table('ip_payment_custom')->get();
-        $payment_cf_exist = ($payment_cf->num_rows() > 0) ? "yes" : "no";
+        $payment_cf_exist = ($payment_cf->num_rows() > 0) ? 'yes' : 'no';
 
         $this->layout->set(
             [
-                'invoice' => $invoice,
-                'items' => $this->mdl_items->where('invoice_id', $invoice_id)->get()->result(),
-                'invoice_id' => $invoice_id,
-                'tax_rates' => $this->mdl_tax_rates->get()->result(),
+                'invoice'           => $invoice,
+                'items'             => $this->mdl_items->where('invoice_id', $invoice_id)->get()->result(),
+                'invoice_id'        => $invoice_id,
+                'tax_rates'         => $this->mdl_tax_rates->get()->result(),
                 'invoice_tax_rates' => $this->mdl_invoice_tax_rates->where('invoice_id', $invoice_id)->get()->result(),
-                'units' => $this->mdl_units->get()->result(),
-                'payment_methods' => $this->mdl_payment_methods->get()->result(),
-                'custom_fields' => $custom_fields,
-                'custom_values' => $custom_values,
-                'custom_js_vars' => [
-                    'currency_symbol' => get_setting('currency_symbol'),
+                'units'             => $this->mdl_units->get()->result(),
+                'payment_methods'   => $this->mdl_payment_methods->get()->result(),
+                'custom_fields'     => $custom_fields,
+                'custom_values'     => $custom_values,
+                'custom_js_vars'    => [
+                    'currency_symbol'           => get_setting('currency_symbol'),
                     'currency_symbol_placement' => get_setting('currency_symbol_placement'),
-                    'decimal_point' => get_setting('decimal_point'),
+                    'decimal_point'             => get_setting('decimal_point'),
                 ],
                 'invoice_statuses' => $this->mdl_invoices->statuses(),
                 'payment_cf_exist' => $payment_cf_exist,
@@ -252,7 +272,7 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice_id
      */
-    public function delete($invoice_id)
+    public function delete($invoice_id): void
     {
         // Get the status of the invoice
         $invoice = $this->mdl_invoices->get_by_id($invoice_id);
@@ -275,11 +295,11 @@ class Invoices extends Admin_Controller
     }
 
     /**
-     * @param $invoice_id
+     * @param      $invoice_id
      * @param bool $stream
      * @param null $invoice_template
      */
-    public function generate_pdf($invoice_id, $stream = true, $invoice_template = null)
+    public function generate_pdf($invoice_id, $stream = true, $invoice_template = null): void
     {
         $this->load->helper('pdf');
 
@@ -294,36 +314,34 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice_id
      */
-    public function generate_zugferd_xml($invoice_id)
+    public function generate_zugferd_xml($invoice_id): void
     {
         $this->load->model('invoices/mdl_items');
         $this->load->library('ZugferdXml', [
             'invoice' => $this->mdl_invoices->get_by_id($invoice_id),
-            'items' => $this->mdl_items->where('invoice_id', $invoice_id)->get()->result(),
+            'items'   => $this->mdl_items->where('invoice_id', $invoice_id)->get()->result(),
         ]);
 
         $this->output->set_content_type('text/xml');
         $this->output->set_output($this->zugferdxml->xml());
     }
 
-    public function generate_sumex_pdf($invoice_id)
+    public function generate_sumex_pdf($invoice_id): void
     {
         $this->load->helper('pdf');
 
         generate_invoice_sumex($invoice_id);
     }
 
-    public function generate_sumex_copy($invoice_id)
+    public function generate_sumex_copy($invoice_id): void
     {
-
-
         $this->load->model('invoices/mdl_items');
         $this->load->library('Sumex', [
             'invoice' => $this->mdl_invoices->get_by_id($invoice_id),
-            'items' => $this->mdl_items->where('invoice_id', $invoice_id)->get()->result(),
+            'items'   => $this->mdl_items->where('invoice_id', $invoice_id)->get()->result(),
             'options' => [
-                'copy' => "1",
-                'storno' => "0",
+                'copy'   => '1',
+                'storno' => '0',
             ],
         ]);
 
@@ -335,7 +353,7 @@ class Invoices extends Admin_Controller
      * @param $invoice_id
      * @param $invoice_tax_rate_id
      */
-    public function delete_invoice_tax($invoice_id, $invoice_tax_rate_id)
+    public function delete_invoice_tax($invoice_id, $invoice_tax_rate_id): void
     {
         $this->load->model('mdl_invoice_tax_rates');
         $this->mdl_invoice_tax_rates->delete($invoice_tax_rate_id);
@@ -346,7 +364,7 @@ class Invoices extends Admin_Controller
         redirect('invoices/view/' . $invoice_id);
     }
 
-    public function recalculate_all_invoices()
+    public function recalculate_all_invoices(): void
     {
         $this->db->select('invoice_id');
         $invoice_ids = $this->db->get('ip_invoices')->result();

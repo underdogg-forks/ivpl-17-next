@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,16 +14,22 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Invoices
+ * Class Invoices.
  */
-class Invoices extends Guest_Controller
+final class Invoices extends Guest_Controller
 {
     public $load;
+
     public $mdl_invoices;
+
     public $user_clients;
+
     public $layout;
+
     public $mdl_items;
+
     public $mdl_invoice_tax_rates;
+
     /**
      * Invoices constructor.
      */
@@ -31,7 +40,7 @@ class Invoices extends Guest_Controller
         $this->load->model('invoices/mdl_invoices');
     }
 
-    public function index()
+    public function index(): void
     {
         // Display open invoices by default
         redirect('guest/invoices/status/open');
@@ -39,12 +48,12 @@ class Invoices extends Guest_Controller
 
     /**
      * @param string $status
-     * @param int $page
+     * @param int    $page
      */
-    public function status($status = 'open', $page = 0)
+    public function status($status = 'open', $page = 0): void
     {
         match ($status) {
-            'paid' => $this->mdl_invoices->is_paid()->where_in('ip_invoices.client_id', $this->user_clients),
+            'paid'  => $this->mdl_invoices->is_paid()->where_in('ip_invoices.client_id', $this->user_clients),
             default => $this->mdl_invoices->is_open()->where_in('ip_invoices.client_id', $this->user_clients),
         };
 
@@ -62,14 +71,14 @@ class Invoices extends Guest_Controller
     /**
      * @param $invoice_id
      */
-    public function view($invoice_id)
+    public function view($invoice_id): void
     {
         $this->load->model('invoices/mdl_items');
         $this->load->model('invoices/mdl_invoice_tax_rates');
 
         $invoice = $this->mdl_invoices->where('ip_invoices.invoice_id', $invoice_id)->where_in('ip_invoices.client_id', $this->user_clients)->get()->row();
 
-        if (!$invoice) {
+        if ( ! $invoice) {
             show_404();
         }
 
@@ -87,11 +96,11 @@ class Invoices extends Guest_Controller
     }
 
     /**
-     * @param $invoice_id
+     * @param      $invoice_id
      * @param bool $stream
      * @param null $invoice_template
      */
-    public function generate_pdf($invoice_id, $stream = true, $invoice_template = null)
+    public function generate_pdf($invoice_id, $stream = true, $invoice_template = null): void
     {
         $this->load->helper('pdf');
 
@@ -99,7 +108,7 @@ class Invoices extends Guest_Controller
             ->where_in('ip_invoices.client_id', $this->user_clients)
             ->get()->row();
 
-        if (!$invoice) {
+        if ( ! $invoice) {
             show_404();
         }
 
@@ -109,11 +118,11 @@ class Invoices extends Guest_Controller
     }
 
     /**
-     * @param $invoice_id
+     * @param      $invoice_id
      * @param bool $stream
      * @param null $invoice_template
      */
-    public function generate_sumex_pdf($invoice_id, $stream = true, $invoice_template = null)
+    public function generate_sumex_pdf($invoice_id, $stream = true, $invoice_template = null): void
     {
         $this->load->helper('pdf');
 
@@ -121,7 +130,7 @@ class Invoices extends Guest_Controller
             ->where_in('ip_invoices.client_id', $this->user_clients)
             ->get()->row();
 
-        if (!$invoice) {
+        if ( ! $invoice) {
             show_404();
         }
 
@@ -129,5 +138,4 @@ class Invoices extends Guest_Controller
 
         generate_invoice_sumex($invoice_id);
     }
-
 }

@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,14 +14,18 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Invoice_Groups
+ * Class Invoice_Groups.
  */
-class Invoice_Groups extends Admin_Controller
+final class Invoice_Groups extends Admin_Controller
 {
     public $load;
+
     public $mdl_invoice_groups;
+
     public $layout;
+
     public $input;
+
     /**
      * Invoice_Groups constructor.
      */
@@ -32,7 +39,7 @@ class Invoice_Groups extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_invoice_groups->paginate(site_url('invoice_groups/index'), $page);
         $invoice_groups = $this->mdl_invoice_groups->result();
@@ -45,7 +52,7 @@ class Invoice_Groups extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('invoice_groups');
@@ -56,11 +63,11 @@ class Invoice_Groups extends Admin_Controller
             redirect('invoice_groups');
         }
 
-        if ($id && !$this->input->post('btn_submit')) {
-            if (!$this->mdl_invoice_groups->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit')) {
+            if ( ! $this->mdl_invoice_groups->prep_form($id)) {
                 show_404();
             }
-        } elseif (!$id) {
+        } elseif ( ! $id) {
             $this->mdl_invoice_groups->set_form_value('invoice_group_left_pad', 0);
             $this->mdl_invoice_groups->set_form_value('invoice_group_next_id', 1);
         }
@@ -72,10 +79,9 @@ class Invoice_Groups extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_invoice_groups->delete($id);
         redirect('invoice_groups');
     }
-
 }

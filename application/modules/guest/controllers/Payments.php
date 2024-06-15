@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,14 +14,18 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Payments
+ * Class Payments.
  */
-class Payments extends Guest_Controller
+final class Payments extends Guest_Controller
 {
     public $load;
+
     public $mdl_payments;
+
     public $user_clients;
+
     public $layout;
+
     /**
      * Payments constructor.
      */
@@ -32,7 +39,7 @@ class Payments extends Guest_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_payments->where('(ip_payments.invoice_id IN (SELECT invoice_id FROM ip_invoices WHERE client_id IN (' . implode(',', $this->user_clients) . ')))');
         $this->mdl_payments->paginate(site_url('guest/payments/index'), $page);
@@ -45,5 +52,4 @@ class Payments extends Guest_Controller
         $this->layout->buffer('content', 'guest/payments_index');
         $this->layout->render('layout_guest');
     }
-
 }

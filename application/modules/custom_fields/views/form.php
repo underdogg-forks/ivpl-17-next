@@ -36,7 +36,7 @@
                 <label for="custom_field_type"><?php _trans('type'); ?></label>
                 <select name="custom_field_type" id="custom_field_type" class="form-control simple-select" required>
                     <?php foreach ($custom_field_types as $type) { ?>
-                        <?php $alpha = str_replace("-", "_", strtolower($type)); ?>
+                        <?php $alpha = str_replace('-', '_', mb_strtolower($type)); ?>
                         <option value="<?php echo $type; ?>"
                             <?php check_select($this->mdl_custom_fields->form_value('custom_field_type'), $type); ?>>
                             <?php _trans($alpha); ?>

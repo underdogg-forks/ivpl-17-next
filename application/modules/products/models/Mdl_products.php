@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,31 +14,32 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Products
+ * Class Mdl_Products.
  */
-class Mdl_Products extends Response_Model
+final class Mdl_Products extends Response_Model
 {
     public $table = 'ip_products';
+
     public $primary_key = 'ip_products.product_id';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('SQL_CALC_FOUND_ROWS *', false);
     }
 
-    public function default_order_by()
+    public function default_order_by(): void
     {
         $this->db->order_by('ip_families.family_name, ip_products.product_name');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_families', 'ip_families.family_id = ip_products.family_id', 'left');
         $this->db->join('ip_units', 'ip_units.unit_id = ip_products.unit_id', 'left');
         $this->db->join('ip_tax_rates', 'ip_tax_rates.tax_rate_id = ip_products.tax_rate_id', 'left');
     }
 
-    public function by_product($match)
+    public function by_product($match): void
     {
         $this->db->group_start();
         $this->db->like('ip_products.product_sku', $match);
@@ -44,7 +48,7 @@ class Mdl_Products extends Response_Model
         $this->db->group_end();
     }
 
-    public function by_family($match)
+    public function by_family($match): void
     {
         $this->db->where('ip_products.family_id', $match);
     }
@@ -55,15 +59,15 @@ class Mdl_Products extends Response_Model
     public function validation_rules()
     {
         return [
-            'product_sku' => ['field' => 'product_sku', 'label' => trans('product_sku'), 'rules' => ''],
-            'product_name' => ['field' => 'product_name', 'label' => trans('product_name'), 'rules' => 'required'],
+            'product_sku'         => ['field' => 'product_sku', 'label' => trans('product_sku'), 'rules' => ''],
+            'product_name'        => ['field' => 'product_name', 'label' => trans('product_name'), 'rules' => 'required'],
             'product_description' => ['field' => 'product_description', 'label' => trans('product_description'), 'rules' => ''],
-            'product_price' => ['field' => 'product_price', 'label' => trans('product_price'), 'rules' => 'required'],
-            'purchase_price' => ['field' => 'purchase_price', 'label' => trans('purchase_price'), 'rules' => ''],
-            'provider_name' => ['field' => 'provider_name', 'label' => trans('provider_name'), 'rules' => ''],
-            'family_id' => ['field' => 'family_id', 'label' => trans('family'), 'rules' => 'numeric'],
-            'unit_id' => ['field' => 'unit_id', 'label' => trans('unit'), 'rules' => 'numeric'],
-            'tax_rate_id' => ['field' => 'tax_rate_id', 'label' => trans('tax_rate'), 'rules' => 'numeric'],
+            'product_price'       => ['field' => 'product_price', 'label' => trans('product_price'), 'rules' => 'required'],
+            'purchase_price'      => ['field' => 'purchase_price', 'label' => trans('purchase_price'), 'rules' => ''],
+            'provider_name'       => ['field' => 'provider_name', 'label' => trans('provider_name'), 'rules' => ''],
+            'family_id'           => ['field' => 'family_id', 'label' => trans('family'), 'rules' => 'numeric'],
+            'unit_id'             => ['field' => 'unit_id', 'label' => trans('unit'), 'rules' => 'numeric'],
+            'tax_rate_id'         => ['field' => 'tax_rate_id', 'label' => trans('tax_rate'), 'rules' => 'numeric'],
             // Sumex
             'product_tariff' => ['field' => 'product_tariff', 'label' => trans('product_tariff'), 'rules' => ''],
         ];
@@ -84,5 +88,4 @@ class Mdl_Products extends Response_Model
 
         return $db_array;
     }
-
 }

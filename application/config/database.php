@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') || exit('No direct script access allowed');
 
 /*
@@ -71,6 +72,6 @@ defined('BASEPATH') || exit('No direct script access allowed');
 | the query builder class.
 */
 $active_group = 'default';
-$query_builder = TRUE;
+$query_builder = true;
 
-$db['default'] = ['dsn' => '', 'hostname' => env('DB_HOSTNAME'), 'port' => env('DB_PORT'), 'username' => env('DB_USERNAME'), 'password' => env('DB_PASSWORD'), 'database' => env('DB_DATABASE'), 'dbdriver' => 'mysqli', 'dbprefix' => '', 'pconnect' => FALSE, 'db_debug' => (ENVIRONMENT !== 'production'), 'cache_on' => FALSE, 'cachedir' => '', 'char_set' => 'utf8', 'dbcollat' => 'utf8_general_ci', 'swap_pre' => '', 'encrypt' => FALSE, 'compress' => FALSE, 'stricton' => FALSE, 'failover' => [], 'save_queries' => TRUE];
+$db['default'] = ['dsn' => '', 'hostname' => env('DB_HOSTNAME'), 'port' => env('DB_PORT'), 'username' => env('DB_USERNAME'), 'password' => env('DB_PASSWORD'), 'database' => env('DB_DATABASE'), 'dbdriver' => 'mysqli', 'dbprefix' => '', 'pconnect' => false, 'db_debug' => (ENVIRONMENT !== 'production'), 'cache_on' => false, 'cachedir' => '', 'char_set' => 'utf8', 'dbcollat' => 'utf8_general_ci', 'swap_pre' => '', 'encrypt' => false, 'compress' => false, 'stricton' => false, 'failover' => [], 'save_queries' => true];

@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('BASEPATH')) {
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
@@ -63,7 +63,7 @@ function trans($line, $id = '', $default = null)
  *
  * @param string $language
  */
-function set_language($language)
+function set_language($language): void
 {
     // Clear the current loaded language
     $CI = & get_instance();

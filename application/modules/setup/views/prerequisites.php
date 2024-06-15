@@ -21,7 +21,7 @@
                     ?>
                     <p><i class="fa fa-close text-danger fa-margin"></i> <?php echo $basic['message']; ?></p>
                 <?php }
-            } ?>
+                } ?>
 
             <br>
 
@@ -31,7 +31,7 @@
                 <?php } else { ?>
                     <p><i class="fa fa-close text-danger fa-margin"></i> <?php echo $writable['message']; ?></p>
                 <?php }
-            } ?>
+                } ?>
 
             <?php if ($errors) { ?>
                 <a href="javascript:history.go(0)" class="btn btn-danger">

@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,22 +14,24 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Quote_Tax_Rates
+ * Class Mdl_Quote_Tax_Rates.
  */
-class Mdl_Quote_Tax_Rates extends Response_Model
+final class Mdl_Quote_Tax_Rates extends Response_Model
 {
     public $mdl_quote_amounts;
+
     public $table = 'ip_quote_tax_rates';
+
     public $primary_key = 'ip_quote_tax_rates.quote_tax_rate_id';
 
-    public function default_select()
+    public function default_select(): void
     {
         $this->db->select('ip_tax_rates.tax_rate_name AS quote_tax_rate_name');
         $this->db->select('ip_tax_rates.tax_rate_percent AS quote_tax_rate_percent');
         $this->db->select('ip_quote_tax_rates.*');
     }
 
-    public function default_join()
+    public function default_join(): void
     {
         $this->db->join('ip_tax_rates', 'ip_tax_rates.tax_rate_id = ip_quote_tax_rates.tax_rate_id');
     }
@@ -34,9 +39,10 @@ class Mdl_Quote_Tax_Rates extends Response_Model
     /**
      * @param null $id
      * @param null $db_array
+     *
      * @return void
      */
-    public function save($id = null, $db_array = null)
+    public function save($id = null, $db_array = null): void
     {
         parent::save($id, $db_array);
 
@@ -57,5 +63,4 @@ class Mdl_Quote_Tax_Rates extends Response_Model
     {
         return ['quote_id' => ['field' => 'quote_id', 'label' => trans('quote'), 'rules' => 'required'], 'tax_rate_id' => ['field' => 'tax_rate_id', 'label' => trans('tax_rate'), 'rules' => 'required'], 'include_item_tax' => ['field' => 'include_item_tax', 'label' => trans('tax_rate_placement'), 'rules' => 'required']];
     }
-
 }

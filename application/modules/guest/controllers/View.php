@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,26 +14,36 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class View
+ * Class View.
  */
-class View extends Base_Controller
+final class View extends Base_Controller
 {
     public $load;
+
     public $mdl_invoices;
+
     public $session;
+
     public $mdl_payment_methods;
+
     public $mdl_custom_fields;
+
     public $mdl_items;
+
     public $mdl_invoice_tax_rates;
+
     public $mdl_quotes;
+
     public $mdl_quote_items;
+
     public $mdl_quote_tax_rates;
+
     /**
      * @param $invoice_url_key
      */
-    public function invoice($invoice_url_key = '')
+    public function invoice($invoice_url_key = ''): void
     {
-        if (!$invoice_url_key) {
+        if ( ! $invoice_url_key) {
             show_404();
         }
 
@@ -72,32 +85,12 @@ class View extends Base_Controller
         $this->load->view('invoice_templates/public/' . get_setting('public_invoice_template') . '.php', $data);
     }
 
-    private function get_attachments($key)
-    {
-        $path = UPLOADS_FOLDER . '/customer_files';
-        $files = scandir($path);
-        $attachments = [];
-
-        if ($files !== false) {
-            foreach ($files as $file) {
-                if ('.' != $file && '..' != $file && str_contains($file, (string) $key)) {
-                    $obj['name'] = substr($file, strpos($file, '_', 1) + 1);
-                    $obj['fullname'] = $file;
-                    $obj['size'] = filesize($path . '/' . $file);
-                    $attachments[] = $obj;
-                }
-            }
-        }
-
-        return $attachments;
-    }
-
     /**
-     * @param $invoice_url_key
+     * @param      $invoice_url_key
      * @param bool $stream
      * @param null $invoice_template
      */
-    public function generate_invoice_pdf($invoice_url_key, $stream = true, $invoice_template = null)
+    public function generate_invoice_pdf($invoice_url_key, $stream = true, $invoice_template = null): void
     {
         $this->load->model('invoices/mdl_invoices');
 
@@ -115,11 +108,11 @@ class View extends Base_Controller
     }
 
     /**
-     * @param $invoice_url_key
+     * @param      $invoice_url_key
      * @param bool $stream
      * @param null $invoice_template
      */
-    public function generate_sumex_pdf($invoice_url_key, $stream = true, $invoice_template = null)
+    public function generate_sumex_pdf($invoice_url_key, $stream = true, $invoice_template = null): void
     {
         $this->load->model('invoices/mdl_invoices');
 
@@ -128,8 +121,9 @@ class View extends Base_Controller
         if ($invoice->num_rows() == 1) {
             $invoice = $invoice->row();
 
-            if ($invoice->sumex_id == NULL) {
+            if ($invoice->sumex_id == null) {
                 show_404();
+
                 return;
             }
 
@@ -144,9 +138,9 @@ class View extends Base_Controller
     /**
      * @param $quote_url_key
      */
-    public function quote($quote_url_key = '')
+    public function quote($quote_url_key = ''): void
     {
-        if (!$quote_url_key) {
+        if ( ! $quote_url_key) {
             show_404();
         }
 
@@ -182,11 +176,11 @@ class View extends Base_Controller
     }
 
     /**
-     * @param $quote_url_key
+     * @param      $quote_url_key
      * @param bool $stream
      * @param null $quote_template
      */
-    public function generate_quote_pdf($quote_url_key, $stream = true, $quote_template = null)
+    public function generate_quote_pdf($quote_url_key, $stream = true, $quote_template = null): void
     {
         $this->load->model('quotes/mdl_quotes');
 
@@ -206,13 +200,13 @@ class View extends Base_Controller
     /**
      * @param $quote_url_key
      */
-    public function approve_quote($quote_url_key)
+    public function approve_quote($quote_url_key): void
     {
         $this->load->model('quotes/mdl_quotes');
         $this->load->helper('mailer');
 
         $this->mdl_quotes->approve_quote_by_key($quote_url_key);
-        email_quote_status($this->mdl_quotes->where('ip_quotes.quote_url_key', $quote_url_key)->get()->row()->quote_id, "approved");
+        email_quote_status($this->mdl_quotes->where('ip_quotes.quote_url_key', $quote_url_key)->get()->row()->quote_id, 'approved');
 
         redirect('guest/view/quote/' . $quote_url_key);
     }
@@ -220,14 +214,34 @@ class View extends Base_Controller
     /**
      * @param $quote_url_key
      */
-    public function reject_quote($quote_url_key)
+    public function reject_quote($quote_url_key): void
     {
         $this->load->model('quotes/mdl_quotes');
         $this->load->helper('mailer');
 
         $this->mdl_quotes->reject_quote_by_key($quote_url_key);
-        email_quote_status($this->mdl_quotes->where('ip_quotes.quote_url_key', $quote_url_key)->get()->row()->quote_id, "rejected");
+        email_quote_status($this->mdl_quotes->where('ip_quotes.quote_url_key', $quote_url_key)->get()->row()->quote_id, 'rejected');
 
         redirect('guest/view/quote/' . $quote_url_key);
+    }
+
+    private function get_attachments($key)
+    {
+        $path = UPLOADS_FOLDER . '/customer_files';
+        $files = scandir($path);
+        $attachments = [];
+
+        if ($files !== false) {
+            foreach ($files as $file) {
+                if ('.' != $file && '..' != $file && str_contains($file, (string) $key)) {
+                    $obj['name'] = mb_substr($file, mb_strpos($file, '_', 1) + 1);
+                    $obj['fullname'] = $file;
+                    $obj['size'] = filesize($path . '/' . $file);
+                    $attachments[] = $obj;
+                }
+            }
+        }
+
+        return $attachments;
     }
 }

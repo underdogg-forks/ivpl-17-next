@@ -1,7 +1,9 @@
 <div id="content">
     <?php echo $this->layout->load_view('layout/alerts'); ?>
 
-    <div class="row <?php if (get_setting('disable_quickactions') == 1) echo 'hidden'; ?>">
+    <div class="row <?php if (get_setting('disable_quickactions') == 1) {
+        echo 'hidden';
+    } ?>">
         <div class="col-xs-12">
 
             <div id="panel-quick-actions" class="panel panel-default quick-actions">
@@ -201,7 +203,7 @@
                                 <td>
                                     <span class="label <?php echo $invoice_statuses[$invoice->invoice_status_id]['class']; ?>">
                                         <?php echo $invoice_statuses[$invoice->invoice_status_id]['label'];
-                                        if ($invoice->invoice_sign == '-1') { ?>
+                            if ($invoice->invoice_sign == '-1') { ?>
                                             &nbsp;<i class="fa fa-credit-invoice" title="<?php _trans('credit_invoice') ?>"></i>
                                         <?php } ?>
                                         <?php if ($invoice->is_read_only) { ?>
@@ -324,8 +326,12 @@
                             <?php foreach ($tasks as $task) { ?>
                                 <tr>
                                     <td>
-                                    <span class="label <?php if (isset($task_statuses["$task->task_status"]['class'])) echo $task_statuses["$task->task_status"]['class']; ?>">
-                                        <?php if (isset($task_statuses["$task->task_status"]['label'])) echo $task_statuses["$task->task_status"]['label']; ?>
+                                    <span class="label <?php if (isset($task_statuses["{$task->task_status}"]['class'])) {
+                                        echo $task_statuses["{$task->task_status}"]['class'];
+                                    } ?>">
+                                        <?php if (isset($task_statuses["{$task->task_status}"]['label'])) {
+                                            echo $task_statuses["{$task->task_status}"]['label'];
+                                        } ?>
                                     </span>
                                     </td>
                                     <td>

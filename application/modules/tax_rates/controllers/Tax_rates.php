@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,14 +14,18 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Tax_Rates
+ * Class Tax_Rates.
  */
-class Tax_Rates extends Admin_Controller
+final class Tax_Rates extends Admin_Controller
 {
     public $load;
+
     public $mdl_tax_rates;
+
     public $layout;
+
     public $input;
+
     /**
      * Tax_Rates constructor.
      */
@@ -32,7 +39,7 @@ class Tax_Rates extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_tax_rates->paginate(site_url('tax_rates/index'), $page);
         $tax_rates = $this->mdl_tax_rates->result();
@@ -45,7 +52,7 @@ class Tax_Rates extends Admin_Controller
     /**
      * @param null $id
      */
-    public function form($id = null)
+    public function form($id = null): void
     {
         if ($this->input->post('btn_cancel')) {
             redirect('tax_rates');
@@ -63,7 +70,7 @@ class Tax_Rates extends Admin_Controller
             redirect('tax_rates');
         }
 
-        if ($id && !$this->input->post('btn_submit') && !$this->mdl_tax_rates->prep_form($id)) {
+        if ($id && ! $this->input->post('btn_submit') && ! $this->mdl_tax_rates->prep_form($id)) {
             show_404();
         }
 
@@ -74,10 +81,9 @@ class Tax_Rates extends Admin_Controller
     /**
      * @param $id
      */
-    public function delete($id)
+    public function delete($id): void
     {
         $this->mdl_tax_rates->delete($id);
         redirect('tax_rates');
     }
-
 }

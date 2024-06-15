@@ -1,4 +1,5 @@
 <?php
+
 $alert_class = 'alert';
 $alert_class .= isset($without_margin) ? ' no-margin' : '';
 $content = null;

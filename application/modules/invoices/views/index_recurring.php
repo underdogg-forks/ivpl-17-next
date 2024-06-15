@@ -31,10 +31,10 @@
                         <td>
                         <span class="label
                             <?php if ($invoice->recur_status == 'active') {
-                            echo 'label-success';
-                        } else {
-                            echo 'label-default';
-                        } ?>">
+                                echo 'label-success';
+                            } else {
+                                echo 'label-default';
+                            } ?>">
                             <?php _trans($invoice->recur_status); ?>
                         </span>
                         </td>

@@ -1,5 +1,5 @@
 <?php
-$cv = $this->controller->view_data["custom_values"];
+$cv = $this->controller->view_data['custom_values'];
 ?>
 <script>
 
@@ -22,7 +22,7 @@ $cv = $this->controller->view_data["custom_values"];
             });
         });
 
-        <?php if (!$items) { ?>
+        <?php if ( ! $items) { ?>
         $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
         <?php } ?>
 
@@ -56,7 +56,7 @@ $cv = $this->controller->view_data["custom_values"];
                     custom: $('input[name^=custom],select[name^=custom]').serializeArray(),
                 },
                 function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                    <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                     var response = JSON.parse(data);
                     if (response.success === 1) {
                         window.location = "<?php echo site_url('quotes/view'); ?>/" + <?php echo $quote_id; ?>;
@@ -94,7 +94,7 @@ $cv = $this->controller->view_data["custom_values"];
                     'item_id': item_id,
                 },
                 function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
+                    <?php echo IP_DEBUG ? 'console.log(data);' : ''; ?>
                     var response = JSON.parse(data);
 
                     if (response.success === 1) {
@@ -174,8 +174,8 @@ $cv = $this->controller->view_data["custom_values"];
     <h1 class="headerbar-title">
         <?php
         echo trans('quote') . ' ';
-        echo($quote->quote_number ? '#' . $quote->quote_number : $quote->quote_id);
-        ?>
+echo $quote->quote_number ? '#' . $quote->quote_number : $quote->quote_id;
+?>
     </h1>
 
     <div class="headerbar-item pull-right">
@@ -376,11 +376,11 @@ $cv = $this->controller->view_data["custom_values"];
         </div>
 
         <?php if (get_setting('show_responsive_itemlist') == 1) {
-             $this->layout->load_view('quotes/partial_itemlist_responsive');
-           } else {
-             $this->layout->load_view('quotes/partial_itemlist_table');
-           }
-         ?>
+            $this->layout->load_view('quotes/partial_itemlist_responsive');
+        } else {
+            $this->layout->load_view('quotes/partial_itemlist_table');
+        }
+?>
 
         <hr/>
 
@@ -405,7 +405,7 @@ $cv = $this->controller->view_data["custom_values"];
                 <?php $this->layout->load_view('upload/dropzone-quote-html'); ?>
 
                 <?php if ($custom_fields): ?>
-                    <?php $cv = $this->controller->view_data["custom_values"]; ?>
+                    <?php $cv = $this->controller->view_data['custom_values']; ?>
                     <div class="row">
                         <div class="col-xs-12">
 

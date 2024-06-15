@@ -62,17 +62,17 @@
             if (($logo = invoice_logo()) !== '' && ($logo = invoice_logo()) !== '0') {
                 echo $logo . '<br><br>';
             }
-            ?>
+?>
 
             <div class="row">
                 <div class="col-xs-12 col-md-6 col-lg-5">
 
                     <h4><?php _htmlsc($quote->user_name); ?></h4>
                     <p><?php if ($quote->user_vat_id) {
-                            echo lang("vat_id_short") . ": " . $quote->user_vat_id . '<br>';
-                        } ?>
+                        echo lang('vat_id_short') . ': ' . $quote->user_vat_id . '<br>';
+                    } ?>
                         <?php if ($quote->user_tax_code) {
-                            echo lang("tax_code_short") . ": " . $quote->user_tax_code . '<br>';
+                            echo lang('tax_code_short') . ': ' . $quote->user_tax_code . '<br>';
                         } ?>
                         <?php if ($quote->user_address_1) {
                             echo htmlsc($quote->user_address_1) . '<br>';
@@ -100,10 +100,10 @@
 
                     <h4><?php _htmlsc($quote->client_name); ?></h4>
                     <p><?php if ($quote->client_vat_id) {
-                            echo lang("vat_id_short") . ": " . $quote->client_vat_id . '<br>';
-                        } ?>
+                        echo lang('vat_id_short') . ': ' . $quote->client_vat_id . '<br>';
+                    } ?>
                         <?php if ($quote->client_tax_code) {
-                            echo lang("tax_code_short") . ": " . $quote->client_tax_code . '<br>';
+                            echo lang('tax_code_short') . ': ' . $quote->client_tax_code . '<br>';
                         } ?>
                         <?php if ($quote->client_address_1) {
                             echo htmlsc($quote->client_address_1) . '<br>';
@@ -134,7 +134,7 @@
                             <td><?php echo trans('quote_date'); ?></td>
                             <td style="text-align:right;"><?php echo date_from_mysql($quote->quote_date_created); ?></td>
                         </tr>
-                        <tr class="<?php echo($is_expired ? 'overdue' : '') ?>">
+                        <tr class="<?php echo $is_expired ? 'overdue' : '' ?>">
                             <td><?php echo trans('expires'); ?></td>
                             <td class="text-right">
                                 <?php echo date_from_mysql($quote->quote_date_expires); ?>
@@ -217,7 +217,7 @@
                                 } else {
                                     echo format_amount($quote->quote_discount_amount);
                                 }
-                                ?>
+?>
                             </td>
                         </tr>
 

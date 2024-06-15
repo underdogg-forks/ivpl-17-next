@@ -32,42 +32,38 @@
 
     <?php
     $initial_year = 0;
-    $final_year = 0;
-    $numYears = 1;
-    $numRows = 1;
-    $contRows = 0;
-    $contYears = 0;
-    $pattern = '/^payment_*/i';
+$final_year = 0;
+$numYears = 1;
+$numRows = 1;
+$contRows = 0;
+$contYears = 0;
+$pattern = '/^payment_*/i';
 
-    foreach ($results as $result) {
+foreach ($results as $result) {
+    if ($final_year == 0) {
+        foreach ($result as $index => $value) {
+            if ($initial_year == 0) {
+                $initial_year = (int) mb_substr($index, 11, 4);
+            }
 
-        if ($final_year == 0) {
+            $aux = (int) mb_substr($index, 11, 4);
 
-            foreach ($result as $index => $value) {
-
-                if ($initial_year == 0) {
-                    $initial_year = (int) substr($index, 11, 4);
-                };
-
-                $aux = (int) substr($index, 11, 4);
-
-                if ($aux > $final_year) {
-                    $final_year = $aux;
-                }
-
+            if ($aux > $final_year) {
+                $final_year = $aux;
             }
         }
+    }
 
-        if ($contYears == 0 && ($final_year - $initial_year) > 0) {
-            $numYears = $final_year - $initial_year + 1;
-            $contYears = 1;
-        }
+    if ($contYears == 0 && ($final_year - $initial_year) > 0) {
+        $numYears = $final_year - $initial_year + 1;
+        $contYears = 1;
+    }
 
-        if ($contRows == 0) {
-            $numRows += $numYears * 4;
-            $contRows = 1;
-        }
-        ?>
+    if ($contRows == 0) {
+        $numRows += $numYears * 4;
+        $contRows = 1;
+    }
+    ?>
 
         <tr>
             <td style="border-bottom: none;text-align:center;"><?php echo $result->VAT_ID; ?></td>
@@ -79,30 +75,29 @@
 
         <?php
 
-        foreach ($result as $index => $value) {
+    foreach ($result as $index => $value) {
+        $quarter = mb_substr($index, 8, 2);
+        $year = mb_substr($index, 11, 4);
 
-            $quarter = substr($index, 8, 2);
-            $year = substr($index, 11, 4);
-
-            if (preg_match($pattern, $index)) {
-                ?>
+        if (preg_match($pattern, $index)) {
+            ?>
 
                 <tr>
                     <td style="border-bottom: none;">&nbsp;</td>
                     <td style="border-bottom: none;text-align:center;"><?php
-                        if ($quarter == "t1") {
-                    echo trans('Q1') . "/" . $year;
-                } elseif ($quarter == "t2") {
-                    echo trans('Q2') . "/" . $year;
-                } elseif ($quarter == "t3") {
-                    echo trans('Q3') . "/" . $year;
-                } elseif ($quarter == "t4") {
-                    echo trans('Q4') . "/" . $year;
-                }
-                        ?></td>
+                    if ($quarter == 't1') {
+                        echo trans('Q1') . '/' . $year;
+                    } elseif ($quarter == 't2') {
+                        echo trans('Q2') . '/' . $year;
+                    } elseif ($quarter == 't3') {
+                        echo trans('Q3') . '/' . $year;
+                    } elseif ($quarter == 't4') {
+                        echo trans('Q4') . '/' . $year;
+                    }
+            ?></td>
                     <td style="border-bottom: none;text-align:center;"><?php if ($value > 0) {
-                            echo format_currency($value);
-                        } ?></td>
+                        echo format_currency($value);
+                    } ?></td>
                 </tr>
 
             <?php }

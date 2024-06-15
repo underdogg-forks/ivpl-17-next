@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,12 +14,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Welcome
+ * Class Welcome.
  */
-class Welcome extends CI_Controller
+final class Welcome extends CI_Controller
 {
     public $load;
-    public function index()
+
+    public function index(): void
     {
         $this->load->helper('url');
 

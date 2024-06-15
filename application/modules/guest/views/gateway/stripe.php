@@ -8,6 +8,6 @@
 
 <script>
 <?php
-include __DIR__ . "/stripe.js"
+include __DIR__ . '/stripe.js'
 ?>
 </script>

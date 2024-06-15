@@ -35,8 +35,12 @@
             <?php foreach ($tasks as $task) { ?>
                 <tr>
                     <td>
-                        <span class="label <?php if (isset($task_statuses["$task->task_status"]['class'])) echo $task_statuses["$task->task_status"]['class']; ?>">
-                            <?php if (isset($task_statuses["$task->task_status"]['label'])) echo $task_statuses["$task->task_status"]['label']; ?>
+                        <span class="label <?php if (isset($task_statuses["{$task->task_status}"]['class'])) {
+                            echo $task_statuses["{$task->task_status}"]['class'];
+                        } ?>">
+                            <?php if (isset($task_statuses["{$task->task_status}"]['label'])) {
+                                echo $task_statuses["{$task->task_status}"]['label'];
+                            } ?>
                         </span>
                     </td>
                     <td>
@@ -66,7 +70,7 @@
                                         <i class="fa fa-edit fa-margin"></i> <?php _trans('edit'); ?>
                                     </a>
                                 </li>
-                                <?php if (!($task->task_status == 4 && $this->config->item('enable_invoice_deletion') !== true)) : ?>
+                                <?php if ( ! ($task->task_status == 4 && $this->config->item('enable_invoice_deletion') !== true)) : ?>
                                     <li>
                                         <form action="<?php echo site_url('tasks/delete/' . $task->task_id); ?>"
                                               method="POST">

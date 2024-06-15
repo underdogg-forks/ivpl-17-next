@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,15 +14,19 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Guest
+ * Class Guest.
  */
-class Guest extends Guest_Controller
+final class Guest extends Guest_Controller
 {
     public $load;
+
     public $layout;
+
     public $mdl_invoices;
+
     public $mdl_quotes;
-    public function index()
+
+    public function index(): void
     {
         $this->load->model('quotes/mdl_quotes');
         $this->load->model('invoices/mdl_invoices');
@@ -31,5 +38,4 @@ class Guest extends Guest_Controller
         $this->layout->buffer('content', 'guest/index');
         $this->layout->render('layout_guest');
     }
-
 }

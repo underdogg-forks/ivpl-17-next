@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,17 +14,17 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Guest
+ * Class Guest.
  */
-class Get extends Base_Controller
+final class Get extends Base_Controller
 {
-    public function attachment($filename)
+    public function attachment($filename): void
     {
         $path = UPLOADS_CFILES_FOLDER;
         $filePath = $path . $filename;
 
-        if (!str_starts_with(realpath($filePath), $path)) {
-            header("Status: 403 Forbidden");
+        if ( ! str_starts_with(realpath($filePath), $path)) {
+            header('Status: 403 Forbidden');
             echo '<h1>Forbidden</h1>';
             exit;
         }
@@ -32,11 +35,11 @@ class Get extends Base_Controller
             $pathParts = pathinfo($filePath);
             $fileSize = filesize($filePath);
 
-            header("Expires: -1");
-            header("Cache-Control: public, must-revalidate, post-check=0, pre-check=0");
-            header("Content-Disposition: attachment; filename=\"$filename\"");
-            header("Content-Type: application/octet-stream");
-            header("Content-Length: " . $fileSize);
+            header('Expires: -1');
+            header('Cache-Control: public, must-revalidate, post-check=0, pre-check=0');
+            header("Content-Disposition: attachment; filename=\"{$filename}\"");
+            header('Content-Type: application/octet-stream');
+            header('Content-Length: ' . $fileSize);
 
             echo file_get_contents($filePath);
             exit;

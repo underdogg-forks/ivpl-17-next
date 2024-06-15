@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,20 +14,23 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Settings
+ * Class Mdl_Settings.
  */
-class Mdl_Settings extends CI_Model
+final class Mdl_Settings extends CI_Model
 {
     public $db;
+
     public $load;
+
     public $mdl_versions;
+
     public $settings = [];
 
     /**
      * @param $key
      * @param $value
      */
-    public function save($key, $value)
+    public function save($key, $value): void
     {
         $db_array = ['setting_key' => $key, 'setting_value' => $value];
 
@@ -38,6 +44,7 @@ class Mdl_Settings extends CI_Model
 
     /**
      * @param $key
+     *
      * @return null
      */
     public function get($key)
@@ -48,15 +55,13 @@ class Mdl_Settings extends CI_Model
 
         if ($query->row()) {
             return $query->row()->setting_value;
-        } else {
-            return null;
         }
     }
 
     /**
      * @param $key
      */
-    public function delete($key)
+    public function delete($key): void
     {
         $this->db->where('setting_key', $key);
         $this->db->delete('ip_settings');
@@ -64,9 +69,9 @@ class Mdl_Settings extends CI_Model
 
     /**
      * Loads all settings from the database so they are available
-     * without additional queries
+     * without additional queries.
      */
-    public function load_settings()
+    public function load_settings(): void
     {
         // Load all settings from the database
         $ip_settings = $this->db->get('ip_settings')->result();
@@ -81,8 +86,9 @@ class Mdl_Settings extends CI_Model
     }
 
     /**
-     * @param $key
+     * @param        $key
      * @param string $default
+     *
      * @return mixed|string
      */
     public function setting($key, $default = '')
@@ -92,24 +98,26 @@ class Mdl_Settings extends CI_Model
 
     /**
      * @param string $key
+     *
      * @return mixed|string
      */
     public function gateway_settings($key)
     {
-        return $this->db->like('setting_key', 'gateway_' . strtolower($key), 'after')->get('ip_settings')->result();
+        return $this->db->like('setting_key', 'gateway_' . mb_strtolower($key), 'after')->get('ip_settings')->result();
     }
 
     /**
      * @param $key
      * @param $value
      */
-    public function set_setting($key, $value)
+    public function set_setting($key, $value): void
     {
         $this->settings[$key] = $value;
     }
 
     /**
-     * Returns all available themes
+     * Returns all available themes.
+     *
      * @return array
      */
     public function get_themes()
@@ -139,5 +147,4 @@ class Mdl_Settings extends CI_Model
 
         return $themes;
     }
-
 }

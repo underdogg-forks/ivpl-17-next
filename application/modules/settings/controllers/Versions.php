@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,13 +14,16 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Versions
+ * Class Versions.
  */
-class Versions extends Admin_Controller
+final class Versions extends Admin_Controller
 {
     public $load;
+
     public $mdl_versions;
+
     public $layout;
+
     /**
      * Versions constructor.
      */
@@ -31,7 +37,7 @@ class Versions extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index($page = 0)
+    public function index($page = 0): void
     {
         $this->mdl_versions->paginate(site_url('versions/index'), $page);
         $versions = $this->mdl_versions->result();
@@ -40,5 +46,4 @@ class Versions extends Admin_Controller
         $this->layout->buffer('content', 'settings/versions');
         $this->layout->render();
     }
-
 }

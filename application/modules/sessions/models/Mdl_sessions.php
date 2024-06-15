@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,17 +14,22 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Mdl_Sessions
+ * Class Mdl_Sessions.
  */
-class Mdl_Sessions extends CI_Model
+final class Mdl_Sessions extends CI_Model
 {
     public $db;
+
     public $load;
+
     public $crypt;
+
     public $session;
+
     /**
      * @param $email
      * @param $password
+     *
      * @return bool
      */
     public function auth($email, $password)
@@ -35,19 +43,19 @@ class Mdl_Sessions extends CI_Model
 
             $this->load->library('crypt');
 
-            /**
+            /*
              * Password hashing changed after 1.2.0
              * Check to see if user has logged in since the password change
              */
-            if (!$user->user_psalt) {
-                /**
+            if ( ! $user->user_psalt) {
+                /*
                  * The user has not logged in, so we're going to attempt to
                  * update their record with the updated hash
                  */
                 if (md5($password) == $user->user_password) {
                     /**
                      * The md5 login validated - let's update this user
-                     * to the new hash
+                     * to the new hash.
                      */
                     $salt = $this->crypt->salt();
                     $hash = $this->crypt->generate_password($password, $salt);
@@ -59,11 +67,8 @@ class Mdl_Sessions extends CI_Model
 
                     $this->db->where('user_email', $email);
                     $user = $this->db->get('ip_users')->row();
-
                 } else {
-                    /**
-                     * The password didn't verify against original md5
-                     */
+                    // The password didn't verify against original md5
                     return false;
                 }
             }
@@ -79,5 +84,4 @@ class Mdl_Sessions extends CI_Model
 
         return false;
     }
-
 }

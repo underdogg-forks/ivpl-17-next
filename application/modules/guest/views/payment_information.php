@@ -76,10 +76,10 @@
             <br>
             <?php
             $logo = invoice_logo();
-            if ($logo !== '' && $logo !== '0') {
-                echo $logo . '<br><br>';
-            }
-            ?>
+if ($logo !== '' && $logo !== '0') {
+    echo $logo . '<br><br>';
+}
+?>
 
             <div class="form-group">
                 <?php echo $this->layout->load_view('layout/alerts', ['without_margin' => true]); ?>
@@ -108,17 +108,17 @@
                                         <td><?php echo trans('invoice_date'); ?></td>
                                         <td class="text-right"><?php echo date_from_mysql($invoice->invoice_date_created); ?></td>
                                     </tr>
-                                    <tr class="<?php echo($is_overdue ? 'overdue' : '') ?>">
+                                    <tr class="<?php echo $is_overdue ? 'overdue' : '' ?>">
                                         <td><?php echo trans('due_date'); ?></td>
                                         <td class="text-right">
                                             <?php echo date_from_mysql($invoice->invoice_date_due); ?>
                                         </td>
                                     </tr>
-                                    <tr class="<?php echo($is_overdue ? 'overdue' : '') ?>">
+                                    <tr class="<?php echo $is_overdue ? 'overdue' : '' ?>">
                                         <td><?php echo trans('total'); ?></td>
                                         <td class="text-right"><?php echo format_currency($invoice->invoice_total); ?></td>
                                     </tr>
-                                    <tr class="<?php echo($is_overdue ? 'overdue' : '') ?>">
+                                    <tr class="<?php echo $is_overdue ? 'overdue' : '' ?>">
                                         <td><?php echo trans('balance'); ?></td>
                                         <td class="text-right"><?php echo format_currency($invoice->invoice_balance); ?></td>
                                     </tr>
@@ -132,7 +132,7 @@
                                 </table>
                             </div>
                         </div>
-                        <?php if (!empty($invoice->invoice_terms)) : ?>
+                        <?php if ( ! empty($invoice->invoice_terms)) : ?>
                             <div class="col-xs-12 text-muted">
                                 <br>
                                 <h4><?php echo trans('terms'); ?></h4>
@@ -160,8 +160,8 @@
                         <select name="gateway" id="gateway-select" class="form-control simple-select">
                             <option value="none"><?php _trans('- Select -'); ?></option>
                             <?php
-                            // Display all available gateways
-                            foreach ($gateways as $gateway) { ?>
+                // Display all available gateways
+                foreach ($gateways as $gateway) { ?>
                                 <option value="<?php echo $gateway; ?>">
                                     <?php echo ucwords(str_replace('_', ' ', $gateway)); ?>
                                 </option>
@@ -253,9 +253,8 @@
     <script src="<?php echo base_url(); ?>assets/core/js/locales/bootstrap-datepicker.<?php _trans('cldr'); ?>.js"></script>
 <?php } ?>
 <script type="text/javascript">
-    <?php if(isset($stripe_api_key))
-    {?>
-    var stripe = Stripe("<?php print $stripe_api_key; ?>");
+    <?php if(isset($stripe_api_key)) {?>
+    var stripe = Stripe("<?php echo $stripe_api_key; ?>");
 
     <?php
     }?>
@@ -266,7 +265,7 @@
             $("#fullpage-loader").fadeIn(200);
             $('#standard-card-form').hide();
             $('#ajax-card-form').show();
-            $('#ajax-card-form').load('<?php echo site_url('guest/payment_information/stripe');?>');
+            $('#ajax-card-form').load('<?php echo site_url('guest/payment_information/stripe'); ?>');
         }
         else if($('#gateway-select').select2('data')[0].id === "none")
         {

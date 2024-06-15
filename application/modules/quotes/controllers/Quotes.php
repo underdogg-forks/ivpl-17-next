@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,22 +14,34 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Class Quotes
+ * Class Quotes.
  */
-class Quotes extends Admin_Controller
+final class Quotes extends Admin_Controller
 {
     public $load;
+
     public $mdl_quotes;
+
     public $layout;
+
     public $mdl_quote_custom;
+
     public $db;
+
     public $mdl_custom_fields;
+
     public $mdl_custom_values;
+
     public $mdl_quote_items;
+
     public $mdl_tax_rates;
+
     public $mdl_units;
+
     public $mdl_quote_tax_rates;
+
     public $mdl_quote_amounts;
+
     /**
      * Quotes constructor.
      */
@@ -37,7 +52,7 @@ class Quotes extends Admin_Controller
         $this->load->model('mdl_quotes');
     }
 
-    public function index()
+    public function index(): void
     {
         // Display all quotes by default
         redirect('quotes/status/all');
@@ -45,9 +60,9 @@ class Quotes extends Admin_Controller
 
     /**
      * @param string $status
-     * @param int $page
+     * @param int    $page
      */
-    public function status($status = 'all', $page = 0)
+    public function status($status = 'all', $page = 0): void
     {
         // Determine which group of quotes to load
         switch ($status) {
@@ -85,7 +100,7 @@ class Quotes extends Admin_Controller
     /**
      * @param $quote_id
      */
-    public function view($quote_id)
+    public function view($quote_id): void
     {
         $this->load->helper('custom_values');
         $this->load->model('mdl_quote_items');
@@ -113,8 +128,7 @@ class Quotes extends Admin_Controller
 
         $quote = $this->mdl_quotes->get_by_id($quote_id);
 
-
-        if (!$quote) {
+        if ( ! $quote) {
             show_404();
         }
 
@@ -154,7 +168,7 @@ class Quotes extends Admin_Controller
     /**
      * @param $quote_id
      */
-    public function delete($quote_id)
+    public function delete($quote_id): void
     {
         // Delete the quote
         $this->mdl_quotes->delete($quote_id);
@@ -164,11 +178,11 @@ class Quotes extends Admin_Controller
     }
 
     /**
-     * @param $quote_id
+     * @param      $quote_id
      * @param bool $stream
      * @param null $quote_template
      */
-    public function generate_pdf($quote_id, $stream = true, $quote_template = null)
+    public function generate_pdf($quote_id, $stream = true, $quote_template = null): void
     {
         $this->load->helper('pdf');
 
@@ -184,7 +198,7 @@ class Quotes extends Admin_Controller
      * @param $quote_id
      * @param $quote_tax_rate_id
      */
-    public function delete_quote_tax($quote_id, $quote_tax_rate_id)
+    public function delete_quote_tax($quote_id, $quote_tax_rate_id): void
     {
         $this->load->model('mdl_quote_tax_rates');
         $this->mdl_quote_tax_rates->delete($quote_tax_rate_id);
@@ -195,7 +209,7 @@ class Quotes extends Admin_Controller
         redirect('quotes/view/' . $quote_id);
     }
 
-    public function recalculate_all_quotes()
+    public function recalculate_all_quotes(): void
     {
         $this->db->select('quote_id');
         $quote_ids = $this->db->get('ip_quotes')->result();
@@ -206,5 +220,4 @@ class Quotes extends Admin_Controller
             $this->mdl_quote_amounts->calculate($quote_id->quote_id);
         }
     }
-
 }

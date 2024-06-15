@@ -1,5 +1,8 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if ( ! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /*
  * InvoicePlane
@@ -11,10 +14,11 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 /**
- * Redirect the user to a given URL
+ * Redirect the user to a given URL.
  *
  * @param string $fallback_url_string
- * @param bool $redirect
+ * @param bool   $redirect
+ *
  * @return mixed
  */
 function redirect_to($fallback_url_string, $redirect = true)
@@ -26,13 +30,14 @@ function redirect_to($fallback_url_string, $redirect = true)
     if ($redirect) {
         redirect($redirect_url);
     }
+
     return $redirect_url;
 }
 
 /**
- * Sets the current URL in the session
+ * Sets the current URL in the session.
  */
-function redirect_to_set()
+function redirect_to_set(): void
 {
     $CI = &get_instance();
     $CI->session->set_userdata('redirect_to', $CI->uri->uri_string());
