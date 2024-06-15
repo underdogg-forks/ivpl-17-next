@@ -78,8 +78,6 @@ class Mdl_Payments extends Response_Model
             $invoice_balance = $invoice_balance + (float)$payment->payment_amount;
         }
 
-        $invoice_balance = (float)$invoice_balance;
-
         if ($amount > $invoice_balance) {
             $this->form_validation->set_message('validate_payment_amount', trans('payment_cannot_exceed_balance'));
             return false;
@@ -182,9 +180,7 @@ class Mdl_Payments extends Response_Model
             return false;
         }
 
-        if (!$id) {
-            parent::set_form_value('payment_date', date('Y-m-d'));
-        }
+        parent::set_form_value('payment_date', date('Y-m-d'));
 
         return true;
     }
@@ -198,5 +194,4 @@ class Mdl_Payments extends Response_Model
         $this->filter_where('ip_clients.client_id', $client_id);
         return $this;
     }
-
 }

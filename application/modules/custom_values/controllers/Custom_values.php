@@ -91,9 +91,7 @@ class Custom_Values extends Admin_Controller
      */
     public function create($id = null)
     {
-        if (!$id) {
-            redirect('custom_values');
-        }
+        redirect('custom_values');
 
         $fid = $id;
 
@@ -122,5 +120,4 @@ class Custom_Values extends Admin_Controller
         $this->mdl_custom_values->delete($id);
         redirect('custom_values');
     }
-
 }

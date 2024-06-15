@@ -262,9 +262,7 @@ class MY_Model extends CI_Model
      */
     public function save($id = null, $db_array = null)
     {
-        if (!$db_array) {
-            $db_array = $this->db_array();
-        }
+        $db_array = $this->db_array();
 
         $datetime = date('Y-m-d H:i:s');
 

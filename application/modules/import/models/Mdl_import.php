@@ -84,7 +84,7 @@ class Mdl_Import extends Response_Model
                 // Init the array
                 $db_array = [];
                 // Loop through each of the values in the row
-                foreach ($headers as $key => $header) {
+                foreach ($headers as $header) {
                     $db_array[$header] = ($data[array_keys($fileheaders, $header)[0]] <> 'null') ? $data[array_keys($fileheaders, $header)[0]] : '';
                 }
 
@@ -359,5 +359,4 @@ class Mdl_Import extends Response_Model
         $this->load->helper('orphan');
         delete_orphans();
     }
-
 }

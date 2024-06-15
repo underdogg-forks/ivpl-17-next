@@ -105,7 +105,7 @@ class Mdl_Custom_Fields extends MY_Model
     {
         if ($id) {
             // Get the original record before saving
-            $original_record = $this->get_by_id($id);
+            $this->get_by_id($id);
         }
 
         // Create the record
@@ -135,7 +135,7 @@ class Mdl_Custom_Fields extends MY_Model
         $db_array = parent::db_array();
 
         // Get the array of custom tables
-        $custom_tables = $this->custom_tables();
+        $this->custom_tables();
 
         // Check if the user wants to add 'id' as custom field
         if (strtolower($db_array['custom_field_label']) == 'id') {
@@ -154,7 +154,7 @@ class Mdl_Custom_Fields extends MY_Model
         // Create the name for the custom field column
         $this->load->helper('diacritics');
 
-        $clean_name = preg_replace('/[^a-z0-9_\s]/', '', strtolower(diacritics_remove_diacritics($custom_field_label)));
+        preg_replace('/[^a-z0-9_\s]/', '', strtolower(diacritics_remove_diacritics($custom_field_label)));
 
         $db_array['custom_field_type'] = $type;
 
@@ -181,7 +181,7 @@ class Mdl_Custom_Fields extends MY_Model
      */
     public function delete($id)
     {
-        $custom_field = $this->get_by_id($id);
+        $this->get_by_id($id);
         parent::delete($id);
     }
 
@@ -316,5 +316,4 @@ class Mdl_Custom_Fields extends MY_Model
 
         $this->dbforge->add_column($table_name, $column);
     }
-
 }

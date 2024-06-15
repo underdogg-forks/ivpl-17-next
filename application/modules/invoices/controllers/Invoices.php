@@ -242,7 +242,7 @@ class Invoices extends Admin_Controller
         if ($invoice_status == 1 || $this->config->item('enable_invoice_deletion') === true) {
             // If invoice refers to tasks, mark those tasks back to 'Complete'
             $this->load->model('tasks/mdl_tasks');
-            $tasks = $this->mdl_tasks->update_on_invoice_delete($invoice_id);
+            $this->mdl_tasks->update_on_invoice_delete($invoice_id);
 
             // Delete the invoice
             $this->mdl_invoices->delete($invoice_id);
@@ -338,5 +338,4 @@ class Invoices extends Admin_Controller
             $this->mdl_invoice_amounts->calculate($invoice_id->invoice_id);
         }
     }
-
 }

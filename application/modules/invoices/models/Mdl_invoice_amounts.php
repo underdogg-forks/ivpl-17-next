@@ -136,9 +136,8 @@ class Mdl_Invoice_Amounts extends CI_Model
         $discount_percent = (float)number_format($invoice_data->invoice_discount_percent, 2, '.', '');
 
         $total = $total - $discount_amount;
-        $total = $total - round(($total / 100 * $discount_percent), 2);
 
-        return $total;
+        return $total - round(($total / 100 * $discount_percent), 2);
     }
 
     /**
@@ -211,28 +210,28 @@ class Mdl_Invoice_Amounts extends CI_Model
     {
         return match ($period) {
             'month' => $this->db->query("
-					SELECT SUM(invoice_total) AS total_invoiced 
+					SELECT SUM(invoice_total) AS total_invoiced
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices
-					WHERE MONTH(invoice_date_created) = MONTH(NOW()) 
+					WHERE MONTH(invoice_date_created) = MONTH(NOW())
 					AND YEAR(invoice_date_created) = YEAR(NOW()))")->row()->total_invoiced,
             'last_month' => $this->db->query("
-					SELECT SUM(invoice_total) AS total_invoiced 
+					SELECT SUM(invoice_total) AS total_invoiced
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices
 					WHERE MONTH(invoice_date_created) = MONTH(NOW() - INTERVAL 1 MONTH)
 					AND YEAR(invoice_date_created) = YEAR(NOW() - INTERVAL 1 MONTH))")->row()->total_invoiced,
             'year' => $this->db->query("
-					SELECT SUM(invoice_total) AS total_invoiced 
+					SELECT SUM(invoice_total) AS total_invoiced
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices WHERE YEAR(invoice_date_created) = YEAR(NOW()))")->row()->total_invoiced,
             'last_year' => $this->db->query("
-					SELECT SUM(invoice_total) AS total_invoiced 
+					SELECT SUM(invoice_total) AS total_invoiced
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices WHERE YEAR(invoice_date_created) = YEAR(NOW() - INTERVAL 1 YEAR))")->row()->total_invoiced,
             default => $this->db->query("SELECT SUM(invoice_total) AS total_invoiced FROM ip_invoice_amounts")->row()->total_invoiced,
         };
@@ -246,25 +245,25 @@ class Mdl_Invoice_Amounts extends CI_Model
     {
         return match ($period) {
             'month' => $this->db->query("
-					SELECT SUM(invoice_paid) AS total_paid 
+					SELECT SUM(invoice_paid) AS total_paid
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices
 					WHERE MONTH(invoice_date_created) = MONTH(NOW())
 					AND YEAR(invoice_date_created) = YEAR(NOW()))")->row()->total_paid,
-            'last_month' => $this->db->query("SELECT SUM(invoice_paid) AS total_paid 
+            'last_month' => $this->db->query("SELECT SUM(invoice_paid) AS total_paid
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices
 					WHERE MONTH(invoice_date_created) = MONTH(NOW() - INTERVAL 1 MONTH)
 					AND YEAR(invoice_date_created) = YEAR(NOW() - INTERVAL 1 MONTH))")->row()->total_paid,
-            'year' => $this->db->query("SELECT SUM(invoice_paid) AS total_paid 
+            'year' => $this->db->query("SELECT SUM(invoice_paid) AS total_paid
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices WHERE YEAR(invoice_date_created) = YEAR(NOW()))")->row()->total_paid,
-            'last_year' => $this->db->query("SELECT SUM(invoice_paid) AS total_paid 
+            'last_year' => $this->db->query("SELECT SUM(invoice_paid) AS total_paid
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices WHERE YEAR(invoice_date_created) = YEAR(NOW() - INTERVAL 1 YEAR))")->row()->total_paid,
             default => $this->db->query("SELECT SUM(invoice_paid) AS total_paid FROM ip_invoice_amounts")->row()->total_paid,
         };
@@ -277,25 +276,25 @@ class Mdl_Invoice_Amounts extends CI_Model
     public function get_total_balance($period = null)
     {
         return match ($period) {
-            'month' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance 
+            'month' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices
 					WHERE MONTH(invoice_date_created) = MONTH(NOW())
 					AND YEAR(invoice_date_created) = YEAR(NOW()))")->row()->total_balance,
-            'last_month' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance 
+            'last_month' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices
 					WHERE MONTH(invoice_date_created) = MONTH(NOW() - INTERVAL 1 MONTH)
 					AND YEAR(invoice_date_created) = YEAR(NOW() - INTERVAL 1 MONTH))")->row()->total_balance,
-            'year' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance 
+            'year' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices WHERE YEAR(invoice_date_created) = YEAR(NOW()))")->row()->total_balance,
-            'last_year' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance 
+            'last_year' => $this->db->query("SELECT SUM(invoice_balance) AS total_balance
 					FROM ip_invoice_amounts
-					WHERE invoice_id IN 
+					WHERE invoice_id IN
 					(SELECT invoice_id FROM ip_invoices WHERE YEAR(invoice_date_created) = (YEAR(NOW() - INTERVAL 1 YEAR)))")->row()->total_balance,
             default => $this->db->query("SELECT SUM(invoice_balance) AS total_balance FROM ip_invoice_amounts")->row()->total_balance,
         };
@@ -375,5 +374,4 @@ class Mdl_Invoice_Amounts extends CI_Model
 
         return $return;
     }
-
 }

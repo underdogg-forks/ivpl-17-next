@@ -47,8 +47,6 @@ class Mdl_Custom_Values extends MY_Model
      */
     public function save_custom($fid)
     {
-        $field_id = null;
-
         $this->load->module('custom_fields');
         $field_custom = $this->mdl_custom_fields->get_by_id($fid);
 

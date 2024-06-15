@@ -265,36 +265,11 @@ class Setup extends MX_Controller
         $db = $db['default'];
         $db['autoinit'] = false;
         $db['db_debug'] = false;
-
         // Check if there is some configuration set
-        if (empty($db['hostname'])) {
-            $this->errors += 1;
-
-            return [
-                'message' => trans('cannot_connect_database_server'),
-                'success' => false,
-            ];
-        }
-
-        // Initialize the database connection, turn off automatic error reporting to display connection issues manually
-        error_reporting(0);
-        $db_object = $this->load->database($db, true);
-
-        // Try to initialize the database connection
-        $can_connect = $db_object->conn_id ? true : false;
-
-        if (!$can_connect) {
-            $this->errors += 1;
-
-            return [
-                'message' => trans('setup_db_cannot_connect'),
-                'success' => false,
-            ];
-        }
-
+        $this->errors += 1;
         return [
-            'message' => trans('database_properly_configured'),
-            'success' => true,
+            'message' => trans('cannot_connect_database_server'),
+            'success' => false,
         ];
     }
 
@@ -458,5 +433,4 @@ class Setup extends MX_Controller
         $config = preg_replace("/SETUP_COMPLETED=(.*)?/", "SETUP_COMPLETED=true", $config);
         write_file(IPCONFIG_FILE, $config);
     }
-
 }
