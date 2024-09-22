@@ -17,7 +17,7 @@ if ( ! defined('BASEPATH')) {
  *
  */
 
-final class Payment_Information extends Base_Controller
+class Payment_Information extends Base_Controller
 {
     public $load;
 

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Quotes.
  */
-final class Quotes extends Guest_Controller
+class Quotes extends Guest_Controller
 {
     public $load;
 

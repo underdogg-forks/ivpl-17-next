@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Upload.
  */
-final class Upload extends Admin_Controller
+class Upload extends Admin_Controller
 {
     public $load;
 

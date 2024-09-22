@@ -13,7 +13,7 @@ if ( ! defined('BASEPATH')) {
  * @link		https://invoiceplane.com
  */
 
-final class Ajax extends Admin_Controller
+class Ajax extends Admin_Controller
 {
     public $load;
 

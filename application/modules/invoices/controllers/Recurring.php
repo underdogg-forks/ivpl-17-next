@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Recurring.
  */
-final class Recurring extends Admin_Controller
+class Recurring extends Admin_Controller
 {
     public $load;
 

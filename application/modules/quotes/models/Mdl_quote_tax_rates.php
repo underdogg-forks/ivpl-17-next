@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Quote_Tax_Rates.
  */
-final class Mdl_Quote_Tax_Rates extends Response_Model
+class Mdl_Quote_Tax_Rates extends Response_Model
 {
     public $mdl_quote_amounts;
 

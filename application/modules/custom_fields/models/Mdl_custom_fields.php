@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Custom_Fields.
  */
-final class Mdl_Custom_Fields extends MY_Model
+class Mdl_Custom_Fields extends MY_Model
 {
     public $mdl_custom_values;
 

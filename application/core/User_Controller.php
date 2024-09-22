@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class User_Controller.
  */
-final class User_Controller extends Base_Controller
+class User_Controller extends Base_Controller
 {
     public $session;
 

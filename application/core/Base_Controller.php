@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Base_Controller.
  */
-final class Base_Controller extends MX_Controller
+class Base_Controller extends MX_Controller
 {
     public $config;
 

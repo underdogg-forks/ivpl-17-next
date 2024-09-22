@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Dashboard.
  */
-final class Dashboard extends Admin_Controller
+class Dashboard extends Admin_Controller
 {
     public $load;
 

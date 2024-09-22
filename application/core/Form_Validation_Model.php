@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Form_Validation_Model.
  */
-final class Form_Validation_Model extends MY_Model
+class Form_Validation_Model extends MY_Model
 {
     public $load;
 

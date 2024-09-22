@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Versions.
  */
-final class Versions extends Admin_Controller
+class Versions extends Admin_Controller
 {
     public $load;
 

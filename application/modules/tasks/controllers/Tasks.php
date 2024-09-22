@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Tasks.
  */
-final class Tasks extends Admin_Controller
+class Tasks extends Admin_Controller
 {
     public $load;
 

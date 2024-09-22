@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Layout.
  */
-final class Layout extends MX_Controller
+class Layout extends MX_Controller
 {
     public $load;
 

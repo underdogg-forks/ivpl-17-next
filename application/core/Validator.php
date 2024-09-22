@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Validator.
  */
-final class Validator extends MY_Model
+class Validator extends MY_Model
 {
     public $form_validation;
 

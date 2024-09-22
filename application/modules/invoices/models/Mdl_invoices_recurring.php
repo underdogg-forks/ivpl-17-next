@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Invoices_Recurring.
  */
-final class Mdl_Invoices_Recurring extends Response_Model
+class Mdl_Invoices_Recurring extends Response_Model
 {
     public $db;
 

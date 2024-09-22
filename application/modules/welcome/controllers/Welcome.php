@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Welcome.
  */
-final class Welcome extends CI_Controller
+class Welcome extends CI_Controller
 {
     public $load;
 

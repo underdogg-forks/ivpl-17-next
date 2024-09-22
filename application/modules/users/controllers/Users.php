@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Users.
  */
-final class Users extends Admin_Controller
+class Users extends Admin_Controller
 {
     public $load;
 

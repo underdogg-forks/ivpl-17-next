@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Payment_Logs.
  */
-final class Mdl_Payment_Logs extends Response_Model
+class Mdl_Payment_Logs extends Response_Model
 {
     public $table = 'ip_merchant_responses';
 

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Invoice_Tax_Rates.
  */
-final class Mdl_invoice_sumex extends Response_Model
+class Mdl_invoice_sumex extends Response_Model
 {
     public $db;
 

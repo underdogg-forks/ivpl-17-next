@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Products.
  */
-final class Mdl_Products extends Response_Model
+class Mdl_Products extends Response_Model
 {
     public $table = 'ip_products';
 

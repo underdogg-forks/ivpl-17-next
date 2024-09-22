@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Cron.
  */
-final class Cron extends Base_Controller
+class Cron extends Base_Controller
 {
     public $load;
 

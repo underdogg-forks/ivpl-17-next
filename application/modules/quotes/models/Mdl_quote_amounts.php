@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Quote_Amounts.
  */
-final class Mdl_Quote_Amounts extends CI_Model
+class Mdl_Quote_Amounts extends CI_Model
 {
     public $db;
 

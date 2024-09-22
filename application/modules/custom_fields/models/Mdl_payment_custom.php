@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Payment_Custom.
  */
-final class Mdl_Payment_Custom extends Validator
+class Mdl_Payment_Custom extends Validator
 {
     public static $positions = ['custom_fields'];
 

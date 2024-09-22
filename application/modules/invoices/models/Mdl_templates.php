@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Templates.
  */
-final class Mdl_Templates extends CI_Model
+class Mdl_Templates extends CI_Model
 {
     public $load;
 

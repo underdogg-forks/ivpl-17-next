@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Tax_Rates.
  */
-final class Tax_Rates extends Admin_Controller
+class Tax_Rates extends Admin_Controller
 {
     public $load;
 

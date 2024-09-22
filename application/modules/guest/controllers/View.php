@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class View.
  */
-final class View extends Base_Controller
+class View extends Base_Controller
 {
     public $load;
 

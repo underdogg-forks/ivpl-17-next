@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Import.
  */
-final class Import extends Admin_Controller
+class Import extends Admin_Controller
 {
     public $load;
 

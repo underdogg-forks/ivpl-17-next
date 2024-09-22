@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_User_Clients.
  */
-final class Mdl_User_Clients extends MY_Model
+class Mdl_User_Clients extends MY_Model
 {
     public $db;
 

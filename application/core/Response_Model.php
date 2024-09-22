@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Response_Model.
  */
-final class Response_Model extends Form_Validation_Model
+class Response_Model extends Form_Validation_Model
 {
     public $session;
 

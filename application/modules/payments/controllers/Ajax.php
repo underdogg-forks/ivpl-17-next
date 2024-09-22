@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Ajax.
  */
-final class Ajax extends Admin_Controller
+class Ajax extends Admin_Controller
 {
     public $load;
 

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Custom_Values.
  */
-final class Custom_Values extends Admin_Controller
+class Custom_Values extends Admin_Controller
 {
     public $load;
 

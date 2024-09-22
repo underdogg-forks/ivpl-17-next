@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Quotes.
  */
-final class Mdl_Quotes extends Response_Model
+class Mdl_Quotes extends Response_Model
 {
     public $mdl_quote_items;
 

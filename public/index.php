@@ -83,7 +83,6 @@ define('ENVIRONMENT', $_SERVER['CI_ENV'] ?? 'development');
  * Different environments will require different levels of error reporting.
  * By default development will show errors but testing and live will hide them.
  */
-
 switch (ENVIRONMENT) {
     case 'development':
         error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
@@ -116,7 +115,7 @@ switch (ENVIRONMENT) {
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-$system_path = '../vendor/codeigniter/framework/system';
+$system_path = '../vendor/pocketarc/codeigniter/system';
 
 /*
  *---------------------------------------------------------------
@@ -214,7 +213,7 @@ if (($_temp = realpath($system_path)) !== false) {
     $system_path = $_temp . DIRECTORY_SEPARATOR;
 } else {
     // Ensure there's a trailing slash
-    $system_path = INDEX . phpstrtr(
+    $system_path = strtr(
         rtrim($system_path, '/\\'),
         '/\\',
         DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR

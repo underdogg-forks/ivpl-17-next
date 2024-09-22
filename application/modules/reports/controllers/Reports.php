@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Reports.
  */
-final class Reports extends Admin_Controller
+class Reports extends Admin_Controller
 {
     public $mdl_reports;
 

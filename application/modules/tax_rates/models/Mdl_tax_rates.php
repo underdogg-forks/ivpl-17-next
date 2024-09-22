@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Tax_Rates.
  */
-final class Mdl_Tax_Rates extends Response_Model
+class Mdl_Tax_Rates extends Response_Model
 {
     public $table = 'ip_tax_rates';
 

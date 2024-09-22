@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Import.
  */
-final class Mdl_Import extends Response_Model
+class Mdl_Import extends Response_Model
 {
     public $mdl_invoices;
 

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Custom_Fields.
  */
-final class Custom_Fields extends Admin_Controller
+class Custom_Fields extends Admin_Controller
 {
     public $load;
 

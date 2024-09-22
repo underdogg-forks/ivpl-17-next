@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Payments.
  */
-final class Payments extends Admin_Controller
+class Payments extends Admin_Controller
 {
     public $load;
 

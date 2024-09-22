@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Products.
  */
-final class Products extends Admin_Controller
+class Products extends Admin_Controller
 {
     public $load;
 

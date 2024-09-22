@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mailer.
  */
-final class Mailer extends Admin_Controller
+class Mailer extends Admin_Controller
 {
     public $load;
 

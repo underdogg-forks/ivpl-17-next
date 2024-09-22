@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Clients.
  */
-final class Mdl_Clients extends Response_Model
+class Mdl_Clients extends Response_Model
 {
     public $mdl_clients;
 

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Client_Notes.
  */
-final class Mdl_Client_Notes extends Response_Model
+class Mdl_Client_Notes extends Response_Model
 {
     public $table = 'ip_client_notes';
 

@@ -33,7 +33,7 @@ if ( ! defined('BASEPATH')) {
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-final class MY_Model extends CI_Model
+class MY_Model extends CI_Model
 {
     public $db;
 

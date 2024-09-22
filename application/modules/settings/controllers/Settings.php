@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Settings.
  */
-final class Settings extends Admin_Controller
+class Settings extends Admin_Controller
 {
     public $load;
 

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Payments.
  */
-final class Mdl_Payments extends Response_Model
+class Mdl_Payments extends Response_Model
 {
     public $mdl_invoice_amounts;
 

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') || exit('No direct script access allowed');
 
-final class Welcome extends CI_Controller
+class Welcome extends CI_Controller
 {
     public $load;
 

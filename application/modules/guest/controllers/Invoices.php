@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Invoices.
  */
-final class Invoices extends Guest_Controller
+class Invoices extends Guest_Controller
 {
     public $load;
 

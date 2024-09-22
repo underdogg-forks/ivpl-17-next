@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Client_Custom.
  */
-final class Mdl_Client_Custom extends Validator
+class Mdl_Client_Custom extends Validator
 {
     public static $positions = ['custom_fields', 'address', 'contact_information', 'personal_information', 'tax_information'];
 

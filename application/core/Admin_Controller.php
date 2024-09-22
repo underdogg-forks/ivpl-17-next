@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Admin_Controller.
  */
-final class Admin_Controller extends User_Controller
+class Admin_Controller extends User_Controller
 {
     /**
      * Admin_Controller constructor.

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Invoice_Groups.
  */
-final class Mdl_Invoice_Groups extends Response_Model
+class Mdl_Invoice_Groups extends Response_Model
 {
     public $db;
 

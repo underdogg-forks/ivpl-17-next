@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Email_Templates.
  */
-final class Email_Templates extends Admin_Controller
+class Email_Templates extends Admin_Controller
 {
     public $load;
 

@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Guest.
  */
-final class Get extends Base_Controller
+class Get extends Base_Controller
 {
     public function attachment($filename): void
     {

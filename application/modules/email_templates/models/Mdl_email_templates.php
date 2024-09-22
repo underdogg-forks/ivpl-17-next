@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Mdl_Email_Templates.
  */
-final class Mdl_Email_Templates extends Response_Model
+class Mdl_Email_Templates extends Response_Model
 {
     public $table = 'ip_email_templates';
 

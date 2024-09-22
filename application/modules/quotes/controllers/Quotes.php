@@ -16,7 +16,7 @@ if ( ! defined('BASEPATH')) {
 /**
  * Class Quotes.
  */
-final class Quotes extends Admin_Controller
+class Quotes extends Admin_Controller
 {
     public $load;
 
